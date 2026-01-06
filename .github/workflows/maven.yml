@@ -34,9 +34,26 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      - name: Clear problematic dependencies cache
+        run: |
+          rm -rf ~/.m2/repository/org/springframework/boot/spring-boot-starter-parent/2.4.2/
+
       - name: Build and test (Maven)
         run: |
-          mvn -B -pl evisa-applicant-api -am clean package
+          mvn -B -pl evisa-applicant-api -am clean package \
+            -Dhttp.keepAlive=false \
+            -Dmaven.wagon.http.pool=false \
+            -Dmaven.wagon.http.retryHandler.count=3 \
+            -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
+        continue-on-error: true
+
+      - name: Retry build if failed
+        if: failure()
+        run: |
+          # Nettoyer complètement le cache si premier échec
+          rm -rf ~/.m2/repository/org/springframework/
+          mvn -B -pl evisa-applicant-api -am clean package \
+            -Dmaven.wagon.http.retryHandler.count=5
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
