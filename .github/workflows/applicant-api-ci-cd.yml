@@ -1,0 +1,35 @@
+name: CI - evisa-applicant-api
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-applicant-api:
+    name: Build & Test evisa-applicant-api (Java 8)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build and test (Maven)
+        working-directory: ./evisa-applicant-api
+        run: |
+          mvn -B clean package
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: evisa-applicant-api-jar
+          path: evisa-applicant-api/target/*.jar
