@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="6c3578c3-e261-4e03-9fae-94e8956329c6" name="djibevisa" url="jdbc:postgresql://localhost/djibevisa" driverClass="org.postgresql.Driver" />
+    </data-sources>
+    <data-source-infos>
+      <data-source-info id="6c3578c3-e261-4e03-9fae-94e8956329c6" persistence-unit-name="Default" />
+    </data-source-infos>
+  </component>
+</project>

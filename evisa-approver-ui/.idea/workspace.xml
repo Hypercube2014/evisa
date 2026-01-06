@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/../evisa-applicant-ui/src/index.html" description="&#9;&lt;base href=&quot;/applicant-api/&quot;&gt;" line="5" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="030f8c36-5bf9-4fcb-9c16-7f3adb08accf" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="dashboard-imo.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="39" column="29" lean-forward="false" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#71#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fr.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/assets/i18n/fr.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="13050">
+              <caret line="522" column="14" lean-forward="false" selection-start-line="522" selection-start-column="14" selection-end-line="522" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".env" pinned="false" current-in-tab="true">
+        <entry file="file://C:/xampp/htdocs/hrmgo/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/common/common.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1775">
+              <caret line="75" column="35" lean-forward="false" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#101#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboard-imo.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3450">
+              <caret line="138" column="71" lean-forward="false" selection-start-line="138" selection-start-column="61" selection-end-line="138" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>datePickerConfig</find>
+      <find>DOI</find>
+      <find>bsValueChange</find>
+      <find>isValid</find>
+      <find>onValueChange</find>
+      <find>new_date</find>
+      <find>moment</find>
+      <find>depConfig</find>
+      <find>profile</find>
+      <find>employeeDetails</find>
+      <find>roles</find>
+      <find>getRoles</find>
+      <find>rolesList</find>
+      <find>bloodGroupDetails</find>
+      <find>table-scrollable</find>
+      <find>OverstayDetailsComponent</find>
+      <find>diplayPenalitedEstimate</find>
+      <find>this.rout</find>
+      <find>submitExit</find>
+      <find>paymentCompleted</find>
+      <find>books</find>
+      <find>boo</find>
+      <find>nombr</find>
+      <find>DMM</find>
+      <find>data</find>
+      <find>pendingapplication</find>
+      <find>alert</find>
+      <find>dataa</find>
+      <find>getPendingApplication</find>
+      <find>pendingaplication</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\e-visa-front-end-code-master\evisa-applicant-ui\src\app\main\manage-applications</dir>
+      <dir>C:\e-visa-front-end-code-master\evisa-applicant-ui\src</dir>
+      <dir>C:\e-visa-front-end-code-master\evisa-applicant-ui\src\app\main\dashboard\dashboard-view</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="D:/SIGED/siged-adf/yes/invoi.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/manage-applications/visa-details/visa-details.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment/payment.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/application-preview/application-preview.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/success-page/success-page.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment/payment.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/login/login.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/evisa-border-processing/evisa-border-processing.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/evisa-search/evisa-search.component.html" />
+        <option value="D:/SIGED/siged-adf/yes/ggg.html" />
+        <option value="D:/SIGED/siged-adf/yes/emailverified.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/applicant-api.log`" />
+        <option value="$PROJECT_DIR$/src/app/main/search-extension-visa/gg.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/apply-visa-extension/apply-visa-list/apply-visa-list.component.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/environments/environment.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/environments/environment.prod.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/visa-overstay/visaoverstay-view/visaoverstay-view.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/app-routing.module.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/manage-applications/visa-details/visa-details.component.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/visa-overstay/visa-overstay.component.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/common/common.service.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/index.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/sidebar/sidebar.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/visa-overstay/visa-overstay.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/visaoverstay-view/visaoverstay-view.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/employee-management/employee-detail/employee-detail.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/employee-management/employee-detail/employee-detail.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/overstay-list/overstay-list.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/overstay-list/overstay-list.component.html" />
+        <option value="$PROJECT_DIR$/src/app/app-routing.module.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/overstay-list/overstay-details/overstay-details.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/exit-bco/exit-bco.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/overstay-list/overstay-details/overstay-details.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/extension-evisa-border-process/extension-evisa-border-process.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/search-extension-visa/search-extension-visa.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/visaoverstay-view/visaoverstay-view.component.ts" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/pending-payment/pending-payment-list/pending-payment-list.component.html" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/assets/i18n/fr.json" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/assets/i18n/en.json" />
+        <option value="$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment-completed/payment-completed-list/payment-completed-list.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/sidebar/sidebar.component.html" />
+        <option value="$PROJECT_DIR$/src/app/main/dashboard/dashboard.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/dashboard/dashboard.component.html" />
+        <option value="$PROJECT_DIR$/src/assets/i18n/en.json" />
+        <option value="$PROJECT_DIR$/src/app/main/evisa-search/evisa-search.component.ts" />
+        <option value="$PROJECT_DIR$/src/index.html" />
+        <option value="$PROJECT_DIR$/src/app/common/common.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.ts" />
+        <option value="$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.html" />
+        <option value="$PROJECT_DIR$/src/assets/i18n/fr.json" />
+        <option value="C:/xampp/htdocs/hrmgo/.env" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/../evisa-applicant-ui/node_modules" />
+    <handled-path value="$PROJECT_DIR$/node/node_modules" />
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-11" />
+    <option name="y" value="-11" />
+    <option name="width" value="1942" />
+    <option name="height" value="1030" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="common" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="main" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="main" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="dashboard-imo" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="i18n" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="evisa-approver-ui" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evisa-approver-ui" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="target" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="last_opened_file_path" value="C:/xampp/htdocs/hrmgo" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\e-visa-front-end-code-master\evisa-applicant-ui\src\app" />
+      <recent name="C:\Users\Hypercube\PhpstormProjects\untitled12" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\evisa\Dashbord\e-visa-front-end-code-master\evisa-approver-ui\src\assets\img" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.emailverified.html">
+    <configuration name="emailverified.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/evisa-approver-ui/yes/emailverified.html" />
+    <configuration name="facture.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/evisa-approver-ui/yes/facture.html" />
+    <configuration name="ggg.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/evisa-approver-ui/yes/ggg.html" />
+    <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/evisa-approver-ui/index.html" />
+    <configuration name="invoi.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/evisa-approver-ui/yes/invoi.html" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.facture.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.invoi.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.emailverified.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.ggg.html" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.emailverified.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.ggg.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.invoi.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.facture.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="030f8c36-5bf9-4fcb-9c16-7f3adb08accf" name="Default" comment="" />
+      <created>1669555363152</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669555363152</updated>
+      <workItem from="1673352007010" duration="28690000" />
+      <workItem from="1673500548051" duration="20080000" />
+      <workItem from="1673761913531" duration="20287000" />
+      <workItem from="1673845914258" duration="9401000" />
+      <workItem from="1673862747320" duration="20568000" />
+      <workItem from="1674020370294" duration="6304000" />
+      <workItem from="1674546652532" duration="17332000" />
+      <workItem from="1674969325951" duration="6237000" />
+      <workItem from="1675142741225" duration="47657000" />
+      <workItem from="1675313317317" duration="8010000" />
+      <workItem from="1675593283429" duration="13265000" />
+      <workItem from="1676868624198" duration="618000" />
+      <workItem from="1677389175319" duration="4721000" />
+      <workItem from="1679218214498" duration="2876000" />
+      <workItem from="1679381134480" duration="27307000" />
+      <workItem from="1680005564901" duration="1766000" />
+      <workItem from="1680419764021" duration="39020000" />
+      <workItem from="1680680105828" duration="15050000" />
+      <workItem from="1681127913833" duration="14372000" />
+      <workItem from="1684300504945" duration="2738000" />
+      <workItem from="1684319526974" duration="68131000" />
+      <workItem from="1684906728988" duration="18491000" />
+      <workItem from="1684992186655" duration="15317000" />
+      <workItem from="1685259062434" duration="12211000" />
+      <workItem from="1685347076219" duration="752000" />
+      <workItem from="1685510818019" duration="19103000" />
+      <workItem from="1685857755674" duration="9334000" />
+      <workItem from="1685952386753" duration="11891000" />
+      <workItem from="1691930363448" duration="4000" />
+      <workItem from="1691930412110" duration="1703000" />
+      <workItem from="1692704774167" duration="49000" />
+      <workItem from="1692708084184" duration="29000" />
+      <workItem from="1692874555463" duration="26000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="463340000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-11" y="-11" width="1942" height="1030" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23126338" sideWeight="0.78592813" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.387458" sideWeight="0.4206603" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23126338" sideWeight="0.21407185" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21411765" sideWeight="0.57933974" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41647598" sideWeight="0.49785867" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.387458" sideWeight="0.4206603" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5520717" sideWeight="0.57933974" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0021299254" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41647598" sideWeight="0.49785867" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.ts</url>
+          <line>11</line>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/main/overstay-list/overstay-details/overstay-details.component.ts</url>
+          <line>66</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="4" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/app/main/overstay-list/overstay-list.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="875">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/evisa-search/evisa-search.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/overstay-list/overstay-details/overstay-details.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/visaoverstay-view/visaoverstay-view.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-450">
+          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/app-routing.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="114" column="63" lean-forward="true" selection-start-line="114" selection-start-column="37" selection-end-line="114" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="125" column="33" lean-forward="false" selection-start-line="125" selection-start-column="9" selection-end-line="125" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/overstay-list/overstay-details/overstay-details.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2600">
+          <caret line="146" column="76" lean-forward="false" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/evisa-border-processing/evisa-border-processing.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-500">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/code-maintenance/codes-detail/codes-detail.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="98" column="59" lean-forward="true" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/visa-overstay/visa-overstay.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1150">
+          <caret line="26" column="21" lean-forward="false" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/overstay-list/overstay-list.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="55" column="66" lean-forward="false" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/employee-management/employee-management.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/employee-management/employee-view/employee-view.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="50" column="34" lean-forward="true" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app-routing.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="118" column="31" lean-forward="false" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/overstay-list/overstay-details/overstay-details.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="129" column="87" lean-forward="false" selection-start-line="129" selection-start-column="87" selection-end-line="129" selection-end-column="87" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+            <element signature="n#!!block;n#getVisaExtension#0;n#OverstayDetailsComponent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/visaoverstay-view/visaoverstay-view.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/success-page/success-page.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment-completed/payment-completed.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment-completed/payment-completed.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment-completed/payment-completed-edit/payment-completed-edit.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1350">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment-completed/payment-completed-list/payment-completed-list.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-275">
+          <caret line="51" column="7" lean-forward="false" selection-start-line="51" selection-start-column="7" selection-end-line="51" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/dist/assets/plugins/flot/examples/axes-time-zones/tz/australasia">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="678" column="60" lean-forward="false" selection-start-line="678" selection-start-column="60" selection-end-line="678" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/search-extension-visa/gg.html" />
+    <entry file="file://$PROJECT_DIR$/src/app/main/extension-evisa-border-process/extension-evisa-border-process.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3950">
+          <caret line="170" column="72" lean-forward="false" selection-start-line="170" selection-start-column="72" selection-end-line="170" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/search-extension-visa/search-extension-visa.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-775">
+          <caret line="130" column="40" lean-forward="true" selection-start-line="130" selection-start-column="40" selection-end-line="130" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/visaoverstay-view/visaoverstay-view.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/exit-bco/exit-bco.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/exit-bco/exit-bco.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/exit-bco/exit-bco.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3375">
+          <caret line="135" column="50" lean-forward="false" selection-start-line="135" selection-start-column="40" selection-end-line="135" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/search-extension-visa/search-extension-visa.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/exit-bco/exit-bco.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2900">
+          <caret line="118" column="50" lean-forward="false" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/pending-payment/pending-payment.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/pending-payment/pending-payment-edit/pending-payment-edit.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/pending-payment/pending-payment-list/pending-payment-list.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1300">
+          <caret line="54" column="128" lean-forward="false" selection-start-line="54" selection-start-column="128" selection-end-line="54" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/payment-completed/payment-completed-list/payment-completed-list.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2575">
+          <caret line="105" column="103" lean-forward="false" selection-start-line="105" selection-start-column="103" selection-end-line="105" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/assets/i18n/fr.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8950">
+          <caret line="358" column="94" lean-forward="false" selection-start-line="358" selection-start-column="94" selection-end-line="359" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/sidebar/sidebar.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/app/main/sidebar/sidebar.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/sidebar/sidebar.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="27" column="42" lean-forward="false" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../evisa-applicant-ui/src/assets/i18n/en.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8625">
+          <caret line="345" column="43" lean-forward="false" selection-start-line="345" selection-start-column="43" selection-end-line="345" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/dashboard/dashboard.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9225">
+          <caret line="371" column="48" lean-forward="false" selection-start-line="371" selection-start-column="48" selection-end-line="371" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/dashboard/dashboard.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="272" column="52" lean-forward="false" selection-start-line="272" selection-start-column="52" selection-end-line="272" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/i18n/en.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2000">
+          <caret line="80" column="29" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/evisa-search/evisa-search.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2175">
+          <caret line="87" column="85" lean-forward="false" selection-start-line="87" selection-start-column="82" selection-end-line="87" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/evisa-search/evisa-search.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/common/common.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1775">
+          <caret line="75" column="35" lean-forward="false" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#101#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="39" column="29" lean-forward="false" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/main/dashboard-imo/dashboard-imo.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3450">
+          <caret line="138" column="71" lean-forward="false" selection-start-line="138" selection-start-column="61" selection-end-line="138" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/i18n/fr.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13050">
+          <caret line="522" column="14" lean-forward="false" selection-start-line="522" selection-start-column="14" selection-end-line="522" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/xampp/htdocs/hrmgo/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
