@@ -1,0 +1,159 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'VISAPENALITY.VisaPenality' | translate }}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'DASHBOARDPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>{{'VISAPENALITY.VisaPenality' | translate }}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">{{'VISAPENALITY.VisaPenality' | translate }}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.applicationnumber' | translate }} :
+                                  </label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">  {{overstayDto.applicationNumber}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.File Number' | translate}}:</label>
+
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{overstayDto.fileNumber}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.surname' | translate }}:</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{overstayDto.surname}} </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.Middlename' | translate}} :</label>
+                                    <div class="col-md-6">
+                                            <p class="form-control-static"> {{overstayDto.middlename}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.AmountPenality' | translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{overstayDto.penalityAmount}}$
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.visa expirateDate' | translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{overstayDto.visa_expiry}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p style="color: green">{{'VISAPENALITY.TextDepart' | translate}}   </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISAPENALITY.visa dateDepart' | translate}} :</label>
+                                    <div class="col-md-3">
+                                        <input
+                                                class='form-control bg-white' type="text" name="departureDate"
+                                                autocomplete="off" placeholder="dd-mm-yyyy" id="departureDate" bsDatepicker
+                                                [(ngModel)]="data.departedestimate" [bsConfig]="depConfig"/> <span style="color: red" *ngIf="error">{{error}}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                            <button type="button" (click)="getEstimatePenality()" class="btn default">{{'VISAPENALITY.Estimer' | translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" *ngIf="diplayPenalitedEstimate !=0">{{'VISAPENALITY.PenaliteEstimate' | translate}} :</label>
+                                    <div class="col-md-3">
+                                        <p class="form-control-static" *ngIf="diplayPenalitedEstimate !=0">{{diplayPenalitedEstimate}} $ <button type="button" *ngIf="diplayPenalitedEstimate != 0" (click)="getCancel()" class="btn default">{{'VISAPENALITY.Annuler' | translate}} </button>
+                                        </p>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                       <a href="javascript:;" tooltip="Payment" *ngIf="diplayPenalitedEstimate "
+                                          (click)="checkout(overstayDto.applicationNumber,diplayPenalitedEstimate)"><button>{{'VISAPENALITY.Make Payement' | translate}}</button></a>
+
+                                       <a href="javascript:;" tooltip="Payment" *ngIf="diplayPenalitedEstimate ===0"
+                                                   (click)="checkout(overstayDto.applicationNumber,overstayDto.penalityAmount)"><button>{{'VISAPENALITY.Make Payement' | translate}}</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

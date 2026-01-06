@@ -1,0 +1,36 @@
+<div class="block items-center md:flex">
+  <div class="m-8 w-auto min-w-max rounded-lg border px-6 py-2 shadow-md">
+    <h2 class="mb-4 text-3xl font-bold text-blue-800">Visa Ordinaire</h2>
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <div class="my-2 flex flex-col">
+          <span class="font-bold text-gray-400">Visa terminer</span>
+          <span class="mt-2 rounded-sm bg-blue-200 px-4 text-center text-blue-800">32</span>
+        </div>
+        <div class="my-2 flex flex-col">
+          <span class="font-bold text-gray-400">Visa en cours</span>
+          <span class="mt-2 rounded-sm bg-blue-200 px-4 text-center text-blue-800">445</span>
+        </div>
+      </div>
+      <button type="button" class="mb-2 inline-flex items-center rounded-lg border border-blue-200 bg-white px-5 py-2.5 text-center text-sm font-bold text-blue-900 hover:bg-blue-100 focus:outline-none focus:ring-4 focus:ring-blue-100 md:ml-10">Nouveau VISA</button>
+    </div>
+  </div>
+
+  <div class="m-8 w-auto min-w-max rounded-lg border px-6 py-2 shadow-md">
+    <h2 class="mb-4 text-3xl font-bold text-blue-800">Visa Extension</h2>
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <div class="my-2 flex flex-col">
+          <span class="font-bold text-gray-400">Nombre de visa terminer</span>
+          <span class="mt-2 rounded-sm bg-blue-200 px-4 text-center text-blue-800">32</span>
+        </div>
+        <div class="my-2 flex flex-col">
+          <span class="font-bold text-gray-400">Nombre de visa en cours</span>
+          <span class="mt-2 rounded-sm bg-blue-200 px-4 text-center text-blue-800">445</span>
+        </div>
+      </div>
+      <button type="button" class="mb-2 mr-2 inline-flex items-center rounded-lg border border-blue-200 bg-white px-5 py-2.5 text-center text-sm font-bold text-blue-900 hover:bg-blue-100 focus:outline-none focus:ring-4 focus:ring-blue-100">Nouveau VISA</button>
+    </div>
+  </div>
+</div>
+

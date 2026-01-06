@@ -1,0 +1,22 @@
+a .router-link-active {
+    color: red;
+    font-weight: bold;
+}
+
+/* .nav-list .menu .active{
+    background-color: aqua;
+} */
+
+/* .active[_ngcontent-c2] {
+    background-color: red;
+} */
+
+ul.page-sidebar-menu>li>ul.sub-menu>li.active>a, ul.page-sidebar-menu>li>ul.sub-menu>li>a:hover {
+    color: #ffffff !important;
+    background: #1b8fd3 !important;
+}
+
+ul.page-sidebar-menu>li>ul.sub-menu>li>a {
+    color: #ffffff !important;
+    background: none !important;
+}

@@ -1,0 +1,515 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'APPLICATIONPREVIEW.Application Preview' | translate }}
+
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'DASHBOARDPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li><a href="#">{{'APPLICATIONPREVIEW.Application Preview' | translate }}</a>
+            </li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-globe"></i>{{'DASHBOARDPAGE.My Application Details' | translate }}
+                    
+                </div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse" tooltip="Collapse"></a> -->
+
+                </div>
+            </div>
+            <div class="portlet-body">
+
+
+                <div class="portlet-body form">
+                    <form action="#" class="form-horizontal">
+                        <div class="form-body">
+                            <h3 class="form-section">{{'VISADETAILS.PersonalInformation'|translate}}</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Title' | translate
+                                            }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.title}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Surname' | translate
+                                            }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.surname}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Given Name' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.givenName}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Middle Name' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.middleName}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Gender' | translate
+                                            }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.gender === 'M'?
+                                                'MALE':'FEMALE'}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label
+                                            class="control-label col-md-3">{{'PERSONALINFO.MaritalStatus'|translate}}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.maritalStatus}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Date Of Birth' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.dateOfBirth | date
+                                                :'dd-MM-yyyy'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Profession' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.profession}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Birth Place' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.birthPlace}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Birth Country' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.birthCountry}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Nationality' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.nationality}}</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Current Nationality' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.currentNationality}}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <!--/row-->
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Email Address' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.emailAddress}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Phone Number' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.phoneNumber}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <!-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Confirm Email Address</label>
+                                            <div class="col-md-9">
+                                                <p class="form-control-static">SName@gmail.com</p>
+                                            </div>
+                        
+                                        </div>
+                                    </div> -->
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Prefered Language' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+
+                                            <p class="form-control-static">{{personalPreview?.preferredLanguage}}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.OriginCountry' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.originCountry}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <h3 class="form-section">{{'MYPROFILE.Address'|translate}}</h3>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Residential Address' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.residentialAddress}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Address in Djibouti' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.djiboutiAddress}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.City of Residence' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.residenceCity}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'PERSONALINFO.Country Of Residence'
+                                            | translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{personalPreview?.residenceCountry}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <h3 class="form-section">{{'VISADETAILS.PassportDetails'|translate}}</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Passport Number' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.passportNumber}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Country of Issue' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.issuedCountry}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Date Of Issue' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.issuedDate | date
+                                                :'dd-MM-yyyy'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Date Of Expiry' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.expiryDate| date
+                                                :'dd-MM-yyyy'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.LastVistitedCountries' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.lastVisitedCountries}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.AdditionalInformation' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">
+                                                {{passportPreview?.additionalInformation}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <h3 class="form-section">{{'VISADETAILS.TravelInformation'|translate}}</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Arrival
+                                            Location'|translate}}</label>
+                                        <div class="col-md-9">
+
+                                            <p class="form-control-static">{{passportPreview?.arrivalLocation}}</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Purpose of Travel' |
+                                            translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.travelPurpose}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Date of Arrival in
+                                            Djibouti' | translate }}</label>
+                                        <div class="col-md-9">
+
+                                            <p class="form-control-static">{{passportPreview?.arrivalDate | date
+                                                :'dd-MM-yyyy'}}</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">{{'TRAVELINFO.Date Of Departure from
+                                            Djibouti' | translate }}</label>
+                                        <div class="col-md-9">
+                                            <p class="form-control-static">{{passportPreview?.departureDate | date
+                                                :'dd-MM-yyyy'}}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <h3 class="form-section">{{'VISADETAILS.Attachments'|translate}}</h3>
+                            <table *ngIf="attachmentsPreview.length"
+                            class="styled-table" id="sample_editable_1">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{{'ATTACHMENTSINFO.Description' | translate }}</th>
+                                        <th>{{'ATTACHMENTSINFO.Attach File' | translate }}</th>
+                                        <!-- <th>{{'ATTACHMENTSINFO.Action' | translate }}</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of attachmentsPreview;let j=index">
+                                        <td>{{j+1}}</td>
+                                        <td *ngIf="data?.attachmentType === 'PP'">{{'ATTACHMENTSINFO.Passport Copy' |
+                                            translate }}</td>
+                                        <td *ngIf="data?.attachmentType === 'PG'">{{'ATTACHMENTSINFO.Photograph' |
+                                            translate }}</td>
+                                        <td *ngIf="data?.attachmentType === 'TK'">{{'ATTACHMENTSINFO.Ticket/Reservation'
+                                            | translate }} </td>
+                                        <td *ngIf="data?.attachmentType === 'HI'">{{'ATTACHMENTSINFO.Hotel Booking/ Invitation Letter' | translate}}</td>
+                                        <td *ngIf="data?.attachmentType === 'TS'">{{'ATTACHMENTSINFO.VisaTransit' | translate}}</td>
+                                        <td>
+                                            <a href="javascript:;"
+                                                (click)="downloadAttachment(data)">{{data?.fileName}}</a>
+                                        </td>
+
+                                        <!-- <td>
+                                            <a class="delete" href="javascript:;"
+                                                (click)="editAttchment(data,template)">Edit</a>
+                                        </td> -->
+                                        <!-- <td><a class="delete" data-toggle="modal" href="#basic" (click)="editAttchment(data)">Edit</a></td> -->
+
+                                    </tr>
+
+
+
+
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <a href="javascript:;"[routerLink]="['/main/dashboard']"
+                                            class="btn default button-previous pull-right">
+                                            <i class="m-icon-swapleft"></i> {{'VISADETAILS.Back'|translate}}
+                                        </a>&nbsp;
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                        <!-- <div class="form-actions fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <a href="javascript:;" [routerLink]="['/main/dashboard']"
+                                                class="btn default button-previous pull-right">
+                                                <i class="m-icon-swapleft"></i> Back
+                                            </a>&nbsp;
+                                         
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        END EXAMPLE TABLE PORTLET-->
+    </div>
+    </div>
+</div>

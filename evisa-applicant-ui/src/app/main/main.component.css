@@ -1,0 +1,14 @@
+html,body{
+    background-image: none;
+}
+
+.footer{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: calc(100% - 48px);
+}
+
+.footerMini{
+    width: calc(100% - 255px);
+}

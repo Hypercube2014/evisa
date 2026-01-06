@@ -1,0 +1,2369 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      {{ "VISADETAILS.eVisaApplication" | translate }}
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+        <a href="javacript:;" [routerLink]="['/main/dashboard']">{{
+          "DASHBOARDPAGE.Home" | translate
+        }}</a>
+        <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+      </li>
+      <li>
+        {{ "ManageApplication.eVisa" | translate
+        }}<i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        <a href="#">{{ "VISADETAILS.Apply" | translate }}</a>
+      </li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet box blue" id="form_wizard_1">
+      <div class="portlet-title">
+        <div class="caption">
+          <!-- <span class="step-title">Step 1 of 4</span> -->
+          <i class="fa fa-reorder"></i
+          >{{ "VISADETAILS.VisaApplication" | translate }}
+        </div>
+        <div class="tools hidden-xs">
+          <!-- <a href="javascript:;" class="collapse"></a> -->
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <tabset #staticTabs>
+          <tab
+            heading="{{ 'VISADETAILS.PersonalInformation' | translate }}"
+            (selectTab)="onSelect($event, 'PI')"
+          >
+            <!-- BEGIN FORM-->
+            <form
+              #personalInfoForm="ngForm"
+              (ngSubmit)="submitPersonalInfo(personalInfoForm, personalInfo)"
+              class="form-horizontal"
+            >
+              <div class="form-body">
+                <h3 class="form-section">
+                  {{ "VISADETAILS.PersonalInformation" | translate }}
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Visa Applied
+                                                for" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && appliedFor.invalid
+                          }"
+                          id="appliedFor"
+                          name="appliedFor"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.appliedFor"
+                          #appliedFor="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.visaAppliedFor" | translate }}
+                          </option>
+                          <option value="S">
+                            {{ "PERSONALINFO.Self" | translate }}
+                          </option>
+                          <option value="O">
+                            {{ "PERSONALINFO.Other" | translate }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Title" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <select
+                          name="title"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && title.invalid
+                          }"
+                          class="form-control"
+                          required
+                          id="title"
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.title"
+                          #title="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.title" | translate }}
+                          </option>
+                          <option value="Mr.">Mr.</option>
+                          <option value="Ms.">Ms.</option>
+                          <option value="Mrs.">Mrs.</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--/span-->
+                </div>
+                <div class="row">
+                  <!--/span-->
+                  <div class="col-md-6" tabindex="2">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Surname" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && surname.invalid
+                          }"
+                          class="form-control"
+                          placeholder="{{ 'PLACEHOLDERS.surName' | translate }}"
+                          id="surname"
+                          name="surname"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.surname"
+                          #surname="ngModel"
+                          autocomplete="off"
+                          (input)="validateInput($event,'string')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Middle Name" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="{{
+                            'PLACEHOLDERS.middleName' | translate
+                          }}"
+                          id="middleName"
+                          name="middleName"
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.middleName"
+                          #middleName="ngModel"
+                          autocomplete="off"
+                          (input)="validateInput($event,'string')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Given Name" | translate }}
+                        <span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && givenName.invalid
+                          }"
+                          id="givenName"
+                          name="givenName"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.givenName"
+                          #givenName="ngModel"
+                          class="form-control"
+                          placeholder="{{
+                            'PLACEHOLDERS.givenName' | translate
+                          }}"
+                          autocomplete="off"
+                          (input)="validateInput($event,'string')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Gender" | translate }}
+                        <span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && gender.invalid
+                          }"
+                          id="gender"
+                          name="gender"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.gender"
+                          #gender="ngModel"
+                          autocomplete="off"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.gender" | translate }}
+                          </option>
+                          <option value="M">
+                            {{ "PERSONALINFO.Male" | translate }}
+                          </option>
+                          <option value="F">
+                            {{ "PERSONALINFO.Female" | translate }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+
+                  <!--/span-->
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <!--/row-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Date Of
+                                                Birth" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="{
+                            'is-invalid':
+                              (personalInfoForm.submitted &&
+                                dateOfBirth.invalid) ||
+                              isValid
+                          }"
+                          class="form-control bg-white"
+                          type="text"
+                          name="dateOfBirth"
+                          bsDatepicker
+                          [(ngModel)]="personalInfo.dateOfBirth"
+                          autocomplete="off"
+                          placeholder="dd-mm-yyyy"
+                          id="dateOfBirth"
+                          required
+                          #dateOfBirth="ngModel"
+                          (bsValueChange)="onValueChange($event, 'DOB')"
+                          [bsConfig]="datePickerConfig"
+                        />
+                        <div class="error-block" *ngIf="isValid">
+                          {{ "ERRORS.invalidDate" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Birth Place" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && birthPlace.invalid
+                          }"
+                          class="form-control"
+                          id="birthPlace"
+                          placeholder="{{
+                            'PLACEHOLDERS.birthPlace' | translate
+                          }}"
+                          name="birthPlace"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.birthPlace"
+                          #birthPlace="ngModel"
+                          autocomplete="off"
+                          (input)="validateInput($event,'string')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <!--/span-->
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Birth
+                                                Country" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && birthCountry.invalid
+                          }"
+                          id="birthCountry"
+                          name="birthCountry"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.birthCountry"
+                          (click)="modo($event.target.value)"
+                          #birthCountry="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectCountry" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of countryDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.code }}-{{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Nationality" | translate }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && nationality.invalid
+                          }"
+                          id="nationality"
+                          name="nationality"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.nationality"
+                          #nationality="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectNationality" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of nationalityDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <!--/span-->
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Current
+                                                Nationality" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              currentNationality.invalid
+                          }"
+                          id="currentNationality"
+                          name="currentNationality"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.currentNationality"
+                          #currentNationality="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{
+                              "PLACEHOLDERS.selectCurrentNationality"
+                                | translate
+                            }}
+                          </option>
+                          <option
+                            *ngFor="let data of nationalityDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.Profession" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && profession.invalid
+                          }"
+                          class="form-control"
+                          placeholder="{{
+                            'PLACEHOLDERS.Profession' | translate
+                          }}"
+                          id="profession"
+                          name="profession"
+                          required
+                          maxlength="50"
+                          [(ngModel)]="personalInfo.profession"
+                          #profession="ngModel"
+                          autocomplete="off"
+                          (input)="validateInput($event,'string')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--/row-->
+
+                <div class="row">
+                  <!--/span-->
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.MaritalStatus" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              maritalStatus.invalid
+                          }"
+                          id="maritalStatus"
+                          name="maritalStatus"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.maritalStatus"
+                          #maritalStatus="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectMaritalStatus" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of maritalDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Email
+                                                Address" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="email"
+                          appBlockCopyPaste
+                          class="form-control"
+                          placeholder="example@gmail.com"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && emailAddress.invalid
+                          }"
+                          id="emailAddress"
+                          name="emailAddress"
+                          required
+                          autocomplete="off"
+                          pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$"
+                          maxlength="100"
+                          [(ngModel)]="personalInfo.emailAddress"
+                          #emailAddress="ngModel"
+                        />
+                        <p
+                          *ngIf="emailAddress.errors?.pattern"
+                          style="color: #b94a48"
+                        >
+                          {{ "ERRORS.emailValidate" | translate }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <!--/span-->
+                </div>
+                <div class="row">
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Confirm
+                                                Email Address" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="email"
+                          appBlockCopyPaste
+                          class="form-control"
+                          placeholder="example@gmail.com"
+                          (keyup)="onValidation()"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && cemail.invalid
+                          }"
+                          id="cemail"
+                          name="cemail"
+                          required
+                          autocomplete="off"
+                          pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$"
+                          maxlength="100"
+                          [(ngModel)]="personalInfo.cemail"
+                          #cemail="ngModel"
+                        />
+                        <p
+                          *ngIf="cemail.errors?.pattern"
+                          style="color: #b94a48"
+                        >
+                          {{ "ERRORS.emailValidate" | translate }}
+                        </p>
+                        <p
+                          *ngIf="cemail.valid && !cnfmMail"
+                          style="color: #b94a48"
+                        >
+                          {{ "ERRORS.cnfrmMail" | translate }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Phone
+                                                Number" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="{{
+                            'PLACEHOLDERS.phoneNumber' | translate
+                          }}"
+                          id="phoneNumber"
+                          name="phoneNumber"
+                          minlength="8"
+                          maxlength="16"
+                          [(ngModel)]="personalInfo.phoneNumber"
+                          required
+                          #phoneNumber="ngModel"
+                          autocomplete="off"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted && phoneNumber.invalid
+                          }"
+                          (input)="validateInput($event, 'number')"
+                        />
+                        <span>{{
+                          "PLACEHOLDERS.Phonexemple" | translate
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Prefered
+                                                Language" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          id="preferredLanguage"
+                          name="preferredLanguage"
+                          maxlength="15"
+                          [(ngModel)]="personalInfo.preferredLanguage"
+                          #preferredLanguage="ngModel"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              preferredLanguage.invalid
+                          }"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectLanguage" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of languageDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "PERSONALINFO.OriginCountry" | translate
+                        }}<span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              originCountry.invalid
+                          }"
+                          id="originCountry"
+                          name="originCountry"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.originCountry"
+                          #originCountry="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectOriginCountry" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of countryDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.code }}-{{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h3 class="form-section">
+                  {{ "MYPROFILE.Address" | translate }}
+                </h3>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Residential
+                                                Address" | translate
+                        }}
+                        <span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <textarea
+                          type="text"
+                          class="form-control"
+                          id="residentialAddress"
+                          name="residentialAddress"
+                          placeholder="{{
+                            'PLACEHOLDERS.residentialAddress' | translate
+                          }}"
+                          [(ngModel)]="personalInfo.residentialAddress"
+                          #residentialAddress="ngModel"
+                          required
+                          maxlength="255"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              residentialAddress.invalid
+                          }"
+                          (input)="validateInput($event, 'address')"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Country Of
+                                                Residence" | translate
+                        }}<span class="required">*</span></label
+                      >
+
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              residenceCountry.invalid
+                          }"
+                          id="residenceCountry"
+                          name="residenceCountry"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="personalInfo.residenceCountry"
+                          #residenceCountry="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectCountry" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of countryDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.code }}-{{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.City of
+                                                Residence" | translate
+                        }}
+                        <span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <input
+                          type="email"
+                          class="form-control"
+                          placeholder="{{
+                            'PLACEHOLDERS.cityOfResidence' | translate
+                          }}"
+                          id="residenceCity"
+                          name="residenceCity"
+                          maxlength="15"
+                          autocomplete="off"
+                          [(ngModel)]="personalInfo.residenceCity"
+                          #residenceCity="ngModel"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              residenceCity.invalid
+                          }"
+                          (input)="validateInput($event, 'address')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+
+                  <!--/span-->
+                </div>
+                <h3 class="form-section">
+                  {{ "PERSONALINFO.Addressadjibouti" | translate }}
+                </h3>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "PERSONALINFO.Address in
+                                                Djibouti" | translate
+                        }}
+                        <span class="required">*</span></label
+                      >
+                      <div class="col-md-9">
+                        <textarea
+                          type="text"
+                          class="form-control"
+                          id="djiboutiAddress"
+                          name="djiboutiAddress"
+                          [(ngModel)]="personalInfo.djiboutiAddress"
+                          maxlength="255"
+                          placeholder="{{
+                            'PLACEHOLDERS.addressInDjibouti' | translate
+                          }}"
+                          #djiboutiAddress="ngModel"
+                          required
+                          [ngClass]="{
+                            'is-invalid':
+                              personalInfoForm.submitted &&
+                              djiboutiAddress.invalid
+                          }"
+                          (input)="validateInput($event, 'address')"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <button type="submit" class="btn blue">
+                        {{ "ManageApplication.Save&Continue" | translate }}
+                        &nbsp;
+                        <i class="m-icon-swapright m-icon-white"></i></button
+                      >&nbsp;&nbsp;&nbsp;
+                      <button
+                        [routerLink]="[
+                          '/main/manage-applications/apps-details',
+                          this.getToken('fileNumber')
+                        ]"
+                        type="button"
+                        class="btn default"
+                      >
+                        {{ "ManageApplication.Cancel" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- END FORM-->
+          </tab>
+          <tab
+            heading="{{ 'VISADETAILS.TravelInformation' | translate }}"
+            (selectTab)="onSelect($event, 'TI')"
+          >
+            <!-- BEGIN FORM-->
+            <form
+              #travelInfoForm="ngForm"
+              (ngSubmit)="submitTravelInfo(travelInfoForm, travelInfo)"
+              class="form-horizontal"
+            >
+              <div class="form-body">
+                <h3 class="form-section">
+                  {{ "VISADETAILS.PassportDetails" | translate }}
+                </h3>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Passport
+                                                Number" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          [ngClass]="{
+                            'is-invalid':
+                              travelInfoForm.submitted && passportNumber.invalid
+                          }"
+                          class="form-control"
+                          id="passportNumber"
+                          placeholder="{{
+                            'PLACEHOLDERS.passportNumber' | translate
+                          }}"
+                          name="passportNumber"
+                          required
+                          minlength="3"
+                          maxlength="10"
+                          pattern="^(?!^0+$)[a-zA-Z0-9]{3,20}$"
+                          [(ngModel)]="travelInfo.passportNumber"
+                          autocomplete="off"
+                          #passportNumber="ngModel"
+                          (input)="validateInput($event, 'passport')"
+                        />
+                        <p
+                          *ngIf="passportNumber.errors?.pattern"
+                          style="color: red"
+                        >
+                          {{
+                            "TRAVELINFO.PassportNumberValidation" | translate
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Country of
+                                                Issue" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              travelInfoForm.submitted && issuedCountry.invalid
+                          }"
+                          id="issuedCountry"
+                          name="issuedCountry"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="travelInfo.issuedCountry"
+                          #issuedCountry="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectCountry" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of countryDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.code }}-{{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "TRAVELINFO.Date Of Issue" | translate }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="{
+                            'is-invalid':
+                              (travelInfoForm.submitted &&
+                                issuedDate.invalid) ||
+                              isissueValid
+                          }"
+                          class="form-control bg-white"
+                          type="text"
+                          name="issuedDate"
+                          bsDatepicker
+                          [(ngModel)]="travelInfo.issuedDate"
+                          autocomplete="off"
+                          placeholder="dd-mm-yyyy"
+                          id="issuedDate"
+                          required
+                          #issuedDate="ngModel"
+                          (bsValueChange)="onValueChange($event, 'DOI')"
+                          [bsConfig]="datePickerConfig"
+                        />
+
+                        <div class="error-block" *ngIf="isissueValid">
+                          {{ "ERRORS.invalidDate" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Date Of
+                                                Expiry" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="{
+                            'is-invalid':
+                              (travelInfoForm.submitted &&
+                                expiryDate.invalid) ||
+                              isexpValid
+                          }"
+                          class="form-control bg-white"
+                          type="text"
+                          name="expiryDate"
+                          bsDatepicker
+                          [(ngModel)]="travelInfo.expiryDate"
+                          autocomplete="off"
+                          placeholder="dd-mm-yyyy"
+                          id="expiryDate"
+                          required
+                          #expiryDate="ngModel"
+                          [bsConfig]="expConfig"
+                          (bsValueChange)="onValueChange($event, 'DOE')"
+                        />
+                        <div class="error-block" *ngIf="isexpValid">
+                          {{ "ERRORS.invalidDate" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{ "TRAVELINFO.LastVistitedCountries" | translate }}
+                      </label>
+                      <div class="col-md-9">
+                        <ng-select
+                          [items]="countryDetails"
+                          class="chosen-select"
+                          placeholder="{{
+                            'PLACEHOLDERS.selectLastVisitedCountry' | translate
+                          }}"
+                          [clearable]="true"
+                          [searchable]="true"
+                          [maxSelectedItems]="10"
+                          [(ngModel)]="travelInfo.lastVisitedCountries"
+                          [multiple]="true"
+                          bindLabel="description"
+                          bindValue="code"
+                          [dropdownPosition]="'auto'"
+                          name="lastVisitedCountries"
+                          #lastVisitedCountries="ngModel"
+                        >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">
+                        {{ "TRAVELINFO.AdditionalInformation" | translate }}
+                      </label>
+                      <div class="col-md-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="{{
+                            'PLACEHOLDERS.additionalInformation' | translate
+                          }}"
+                          id="additionalInformation"
+                          name="additionalInformation"
+                          maxlength="512"
+                          [(ngModel)]="travelInfo.additionalInformation"
+                          #additionalInformation="ngModel"
+                          autocomplete="off"
+                          (input)="validateInput($event, 'address')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h3 class="form-section">
+                  {{ "VISADETAILS.TravelInformation" | translate }}
+                </h3>
+                 <div *ngIf="getToken('expressVisa') === 'false'">
+                  <strong class="text-success"
+                    >{{
+                      "Content.express
+                                        visa" | translate
+                    }}&nbsp;
+                    <a
+                      href="javascript:;"
+                      class="text-danger"
+                      [routerLink]="[
+                        '/main/manage-applications/apps-details',
+                        fileNumber
+                      ]"
+                      >{{ "Content.click" | translate }}</a
+                    ></strong
+                  >
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Date of
+                                                Arrival in
+                                                Djibouti" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+
+                        <input
+                          [ngClass]="{
+                            'is-invalid':
+                              (travelInfoForm.submitted &&
+                                arrivalDate.invalid) ||
+                              isarrValid
+                          }"
+                          class="form-control bg-white"
+                          type="text"
+                          name="arrivalDate"
+                          bsDatepicker
+                          [(ngModel)]="travelInfo.arrivalDate"
+                          autocomplete="off"
+                          placeholder="dd-mm-yyyy"
+                          (bsValueChange)="onValueChange($event, 'DOA')"
+                          id="arrivalDate"
+                          required
+                          #arrivalDate="ngModel"
+                          (ngModelChange)="
+                            compareDate(
+                              travelInfo.arrivalDate,
+                              travelInfo.departureDate
+                            );
+                            arrivalChange(travelInfo.arrivalDate)
+                          "
+                          [bsConfig]="arrConfig"
+                        />
+                        <!-- <div class="error-block" *ngIf="((submitted || arrivalDate.touched) && arrivalDate.invalid)">
+                                                        {{"Error"}}
+                                                      </div> -->
+                        <div class="error-block" *ngIf="isarrValid">
+                          {{ "ERRORS.invalidDate" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Date Of
+                                                Departure from Djibouti"
+                            | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="{
+                            'is-invalid':
+                              travelInfoForm.submitted && departureDate.invalid
+                          }"
+                          class="form-control bg-white"
+                          type="text"
+                          name="departureDate"
+                          required
+                          bsDatepicker
+                          [(ngModel)]="travelInfo.departureDate"
+                          autocomplete="off"
+                          placeholder="dd-mm-yyyy"
+                          (bsValueChange)="onValueChange($event, 'DOD')"
+                          id="departureDate"
+                          #departureDate="ngModel"
+                          (ngModelChange)="
+                            compareDate(
+                              travelInfo.arrivalDate,
+                              travelInfo.departureDate
+                            )
+                          "
+                          [bsConfig]="depConfig"
+                        />
+
+                        <div
+                          class="error-block"
+                          *ngIf="
+                            travelInfo.arrivalDate &&
+                            travelInfo.departureDate &&
+                            dateError
+                          "
+                        >
+                          {{ "ERRORS.invalidDate" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Arrival
+                                                Location" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              travelInfoForm.submitted &&
+                              arrivalLocation.invalid
+                          }"
+                          id="arrivalLocation"
+                          name="arrivalLocation"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="travelInfo.arrivalLocation"
+                          #arrivalLocation="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.arrivalLocation" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of locationDetails"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.code }}-{{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >{{
+                          "TRAVELINFO.Purpose of
+                                                Travel" | translate
+                        }}
+                        <span class="required">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <select
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':
+                              travelInfoForm.submitted && travelPurpose.invalid
+                          }"
+                          id="travelPurpose"
+                          name="travelPurpose"
+                          required
+                          maxlength="25"
+                          [(ngModel)]="travelInfo.travelPurpose"
+                          #travelPurpose="ngModel"
+                        >
+                          <option value="" disabled selected>
+                            {{ "PLACEHOLDERS.selectPurpose" | translate }}
+                          </option>
+                          <option
+                            *ngFor="let data of travelDetails"
+                            [hidden]="getToken('visaType') === 'TS15' && data.code == 'TST'  ? false : true"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.description }}
+                          </option>
+                          <option
+                            *ngFor="let data of travelDetails"
+                            [hidden]="getToken('visaType') !== 'TS15' && data.code !== 'TST'  ? false : true"
+                            value="{{ data?.code }}"
+                          >
+                            {{ data?.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <a
+                        href="javascript:;"
+                        (click)="onPrevious('TI')"
+                        class="btn default button-previous"
+                      >
+                        <i class="m-icon-swapleft"></i>
+                        {{ "VISADETAILS.Back" | translate }} </a
+                      >&nbsp;
+
+                      <button type="submit" class="btn blue">
+                        {{ "ManageApplication.Save&Continue" | translate
+                        }}<i class="m-icon-swapright m-icon-white"></i></button
+                      >&nbsp;
+                      <button
+                        [routerLink]="[
+                          '/main/manage-applications/apps-details',
+                          this.getToken('fileNumber')
+                        ]"
+                        type="button"
+                        class="btn default"
+                      >
+                        {{ "ManageApplication.Cancel" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- END FORM-->
+          </tab>
+
+          <tab
+            heading="{{ 'VISADETAILS.Attachments' | translate }}"
+            (selectTab)="onSelect($event, 'A')"
+          >
+            <form
+              #attachmentsInfoForm="ngForm"
+              (ngSubmit)="
+                submitAttachemntsInfo(attachmentsInfoForm, attachmentsInfo)
+              "
+            >
+              <h3 class="form-section">
+                &nbsp;{{ "ATTACHMENTSINFO.Instructions" | translate }}
+              </h3>
+              <ol>
+                <li>
+                  <strong
+                    >{{ "ATTACHMENTSINFO.Photograph must be" | translate }}
+                  </strong>
+                </li>
+                <img
+                  src="assets/img/tourists/ph5.png"
+                  style="height: 100px; width: 79px"
+                />
+                &nbsp;&nbsp;
+                <img
+                  src="assets/img/tourists/ph1.png"
+                  style="height: 100px; width: 100px"
+                />
+                &nbsp;&nbsp;
+                <img
+                  src="assets/img/tourists/ph3.png"
+                  style="height: 100px; width: 130px"
+                />
+                &nbsp;&nbsp;
+                <img
+                  src="assets/img/tourists/ph4.png"
+                  style="height: 100px; width: 150px"
+                />
+                <li>
+                  <strong>
+                    {{ "ATTACHMENTSINFO.documents" | translate }}.</strong
+                  >
+                </li>
+                <li>
+                  <strong>{{ "ATTACHMENTSINFO.Size" | translate }}.</strong>
+                </li>
+                <li>
+                  <strong>{{
+                    "ATTACHMENTSINFO.Invitation" | translate
+                  }}</strong>
+                </li>
+                <li *ngIf="getpurpose === 'Transit'">
+                  <strong>{{
+                    "ATTACHMENTSINFO.transitinformation" | translate
+                  }}</strong>
+                </li>
+              </ol>
+              <strong class="text-success">
+                ** {{ "Content.attchinfo" | translate }}</strong
+              >
+              <h3
+                class="form-section"
+                style="font-weight: 700; margin-top: 1em"
+              >
+                &nbsp;{{ "VISADETAILS.Documents" | translate }}
+              </h3>
+              <!-- <h5 *ngIf=" this.isPPSize || this.isPGSize || this.isTRSize || this.isHBSize || this.isNASize" class="form-section" style="font-weight: 700;
+                            margin-top: 1em; color: red;">&nbsp;The size of your document is too big or choosen format is wrong.</h5> -->
+              <table
+                *ngIf="!attachments.length"
+                class="styled-table"
+                id="sample_editable_1"
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>{{ "ATTACHMENTSINFO.Description" | translate }}</th>
+                    <th>{{ "ATTACHMENTSINFO.Attach File" | translate }}</th>
+                    <th>{{ "ATTACHMENTSINFO.Action" | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      {{ "ATTACHMENTSINFO.Photograph" | translate }}
+                      <span style="color: red">*</span>
+                    </td>
+                    <td>
+                      <input
+                        type="File"
+                        #photographFile
+                        name="Photograph"
+                        class="form-control"
+                        [(ngModel)]="attachmentsInfo.Photograph"
+                        placeholder="File"
+                        accept=".png,.jpg,.jpeg"
+                        (change)="fileUpload($event, 'PG')"
+                        id="Photograph"
+                        #Photograph="ngModel"
+                        required
+                      />
+                    </td>
+
+                    <td>
+                      <a
+                        *ngIf="attachmentsInfo.Photograph"
+                        class="delete"
+                        href="javascript:;"
+                        (click)="removeAttchment('PG')"
+                        >{{ "VISADETAILS.Delete" | translate }}</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>
+                      {{ "ATTACHMENTSINFO.Passport Copy" | translate
+                      }}<span style="color: red">*</span>
+                    </td>
+                    <td>
+                      <input
+                        type="File"
+                        #passportFile
+                        name="passPort"
+                        class="form-control"
+                        [(ngModel)]="attachmentsInfo.passPort"
+                        placeholder="File"
+                        accept=".pdf,.png,.jpg,.jpeg"
+                        (change)="fileUpload($event, 'PP')"
+                        id="passPort"
+                        #passPort="ngModel"
+                        required
+                      />
+                    </td>
+
+                    <td>
+                      <a
+                        *ngIf="attachmentsInfo.passPort"
+                        class="delete"
+                        href="javascript:;"
+                        (click)="removeAttchment('PI')"
+                        >{{ "VISADETAILS.Delete" | translate }}</a
+                      >
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>3</td>
+                    <td>
+                      {{ "ATTACHMENTSINFO.Ticket/Reservation" | translate }}
+                      <span style="color: red">*</span>
+                    </td>
+                    <td>
+                      <input
+                        type="File"
+                        #ticketFile
+                        class="form-control"
+                        name="ticketReservation"
+                        [(ngModel)]="attachmentsInfo.ticketReservation"
+                        placeholder="File"
+                        accept=".pdf,.png,.jpg,.jpeg"
+                        (change)="fileUpload($event, 'TR')"
+                        id="ticketReservation"
+                        #ticketReservation="ngModel"
+                        required
+                      />
+                    </td>
+
+                    <td>
+                      <a
+                        *ngIf="attachmentsInfo.ticketReservation"
+                        class="delete"
+                        href="javascript:;"
+                        (click)="removeAttchment('T')"
+                        >{{ "VISADETAILS.Delete" | translate }}</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>
+                      {{
+                        "ATTACHMENTSINFO.Hotel Booking/ Invitation Letter"
+                          | translate
+                      }}
+                      <span style="color: red">*</span>
+                    </td>
+                    <td>
+                      <input
+                        type="File"
+                        #hotelBookingFile
+                        class="form-control"
+                        name="hotelBooking"
+                        [(ngModel)]="attachmentsInfo.hotelBooking"
+                        accept=".pdf,.png,.jpg,.jpeg"
+                        placeholder="File"
+                        (change)="fileUpload($event, 'HB')"
+                        id="hotelBooking"
+                        #hotelBooking="ngModel"
+                        required
+                      />
+                    </td>
+
+                    <td>
+                      <a
+                        *ngIf="attachmentsInfo.hotelBooking"
+                        class="delete"
+                        href="javascript:;"
+                        (click)="removeAttchment('HB')"
+                        >{{ "VISADETAILS.Delete" | translate }}</a
+                      >
+                    </td>
+                    <!-- <a href="assets/downloads/EmployeeHandbook.pdf" download>Download</a>|<a
+                                                href="editEmployeeDownloads.html">Edit</a> |  -->
+                  </tr>
+                  <tr *ngIf="getpurpose === 'Transit'">
+                    <td>5</td>
+                    <td>{{ "ATTACHMENTSINFO.VisaTransit" | translate }}<span style="color: red">*</span></td>
+                    <td>
+                      <input
+                        type="File"
+                        #TransitBook
+                        class="form-control"
+                        name="transitBook"
+                        [(ngModel)]="attachmentsInfo.transitBook"
+                        accept=".pdf,.png,.jpg,.jpeg"
+                        placeholder="File"
+                        (change)="fileUpload($event, 'TS')"
+                        id="transitBook"
+                        #hotelBooking="ngModel"
+                        required
+                      />
+                    </td>
+
+                    <td>
+                      <a
+                        *ngIf="attachmentsInfo.transitBook"
+                        class="delete"
+                        href="javascript:;"
+                        (click)="removeAttchment('TS')"
+                        >{{ "VISADETAILS.Delete" | translate }}</a
+                      >
+                    </td>
+                    <!-- <a href="assets/downloads/EmployeeHandbook.pdf" download>Download</a>|<a
+                                                href="editEmployeeDownloads.html">Edit</a> |  -->
+                  </tr>
+                </tbody>
+              </table>
+              <table
+                *ngIf="attachments.length"
+                class="styled-table"
+                id="sample_editable_1"
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>{{ "ATTACHMENTSINFO.Description" | translate }}</th>
+                    <th>{{ "ATTACHMENTSINFO.Attach File" | translate }}</th>
+                    <th>{{ "ATTACHMENTSINFO.Action" | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of attachments; let j = index">
+                    <td>{{ j + 1 }}</td>
+                    <td *ngIf="data?.attachmentType === 'PG'">
+                      {{ "ATTACHMENTSINFO.Photograph" | translate }}
+                    </td>
+                    <td *ngIf="data?.attachmentType === 'PP'">
+                      {{ "ATTACHMENTSINFO.Passport Copy" | translate }}
+                    </td>
+
+                    <td *ngIf="data?.attachmentType === 'TK'">
+                      {{ "ATTACHMENTSINFO.Ticket/Reservation" | translate }}
+                    </td>
+                    <td *ngIf="data?.attachmentType === 'HI'">
+                      {{
+                        "ATTACHMENTSINFO.Hotel Booking/
+                                            Invitation Letter" | translate
+                      }}
+                    </td>
+                    <td *ngIf="data?.attachmentType === 'TS'">
+                      {{ "ATTACHMENTSINFO.VisaTransit" | translate }}
+                    </td>
+                    <td>
+                      <a
+                        href="javascript:;"
+                        (click)="downloadAttachment(data)"
+                        >{{ data?.fileName }}</a
+                      >
+                    </td>
+
+                    <!-- <td>
+                                            <a class="delete" href="javascript:;"
+                                                (click)="editAttchment(data,template)">Edit</a>
+                                        </td> -->
+                    <td>
+                      <a
+                        class="delete"
+                        data-toggle="modal"
+                        href="#basic"
+                        (click)="editAttchment(data)"
+                        >{{ "MYPROFILE.Edit" | translate }}</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="form-actions fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <a
+                        href="javascript:;"
+                        (click)="onPrevious('A')"
+                        class="btn default button-previous"
+                      >
+                        <i class="m-icon-swapleft"></i>
+                        {{ "VISADETAILS.Back" | translate }} </a
+                      >&nbsp;
+
+                      <button
+                        type="submit"
+                        class="btn blue"
+                        *ngIf="!attachments.length"
+                        [disabled]="attachmentsInfoForm.invalid"
+                      >
+                        {{ "ManageApplication.Save&Continue" | translate }}
+                        &nbsp;<i class="m-icon-swapright m-icon-white"></i>
+                      </button>
+                      <button
+                        (click)="continueToPreview()"
+                        type="button"
+                        class="btn blue"
+                        *ngIf="attachments.length"
+                      >
+                        {{ "VISADETAILS.Continue" | translate }} &nbsp;<i
+                          class="m-icon-swapright m-icon-white"
+                        ></i></button
+                      >&nbsp;
+                      <button
+                        [routerLink]="[
+                          '/main/manage-applications/apps-details',
+                          this.getToken('fileNumber')
+                        ]"
+                        type="button"
+                        class="btn default"
+                      >
+                        {{ "ManageApplication.Cancel" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </tab>
+          <tab
+            heading="{{ 'VISADETAILS.Preview' | translate }}"
+            (selectTab)="onSelect($event, 'P')"
+          >
+            <form action="#" class="form-horizontal">
+              <div class="form-body">
+                <h3 class="form-section">
+                  {{ "VISADETAILS.PersonalInformation" | translate }}
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Title" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.title }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Surname" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.surname }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Given Name" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.givenName }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Middle
+                                                Name" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.middleName }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <!--/row-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Gender" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{
+                            personalPreview?.gender === "M" ? "MALE" : "FEMALE"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.MaritalStatus" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.maritalStatus }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Date Of
+                                                Birth" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{
+                            personalPreview?.dateOfBirth | date : "dd-MM-yyyy"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Profession" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.profession }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Birth Place" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.birthPlace }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Birth
+                                                Country" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.birthCountry }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Nationality" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.nationality }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Current
+                                                Nationality" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.currentNationality }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+
+                <!--/row-->
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Email
+                                                Address" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.emailAddress }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Phone
+                                                Number" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.phoneNumber }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <div class="row">
+                  <!-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Confirm Email Address</label>
+                                            <div class="col-md-9">
+                                                <p class="form-control-static">SName@gmail.com</p>
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Prefered
+                                                Language" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.preferredLanguage }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.OriginCountry" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.originCountry }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <h3 class="form-section">
+                  {{ "PERSONALINFO.yaddress" | translate }}
+                </h3>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Residential
+                                                Address" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.residentialAddress }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.City of
+                                                Residence" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.residenceCity }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Country Of
+                                                Residence" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.residenceCountry }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+
+                <h3 class="form-section">
+                  {{ "PERSONALINFO.Addressadjibouti" | translate }}
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "PERSONALINFO.Address in
+                                                Djibouti" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ personalPreview?.djiboutiAddress }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="form-section">
+                  {{ "VISADETAILS.PassportDetails" | translate }}
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Passport
+                                                Number" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ passportPreview?.passportNumber }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Country of
+                                                Issue" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ passportPreview?.issuedCountry }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Date Of
+                                                Issue" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{
+                            passportPreview?.issuedDate | date : "dd-MM-yyyy"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Date Of
+                                                Expiry" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{
+                            passportPreview?.expiryDate | date : "dd-MM-yyyy"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.LastVistitedCountries" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ passportPreview?.lastVisitedCountries }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.AdditionalInformation" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ passportPreview?.additionalInformation }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <h3 class="form-section">
+                  {{ "VISADETAILS.TravelInformation" | translate }}
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold"
+                        >Arrival Location</label
+                      >
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ passportPreview?.arrivalLocation }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Purpose of
+                                                Travel" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{ passportPreview?.travelPurpose }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Date of
+                                                Arrival in Djibouti" | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{
+                            passportPreview?.arrivalDate | date : "dd-MM-yyyy"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-md-3 labelbold">{{
+                        "TRAVELINFO.Date Of
+                                                Departure from Djibouti"
+                          | translate
+                      }}</label>
+                      <div class="col-md-9">
+                        <p class="form-control-static">
+                          {{
+                            passportPreview?.departureDate | date : "dd-MM-yyyy"
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+
+                <h3 class="form-section">
+                  {{ "VISADETAILS.Attachments" | translate }}
+                </h3>
+                <table
+                  *ngIf="attachmentsPreview.length"
+                  class="styled-table"
+                  id="sample_editable_1"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>{{ "ATTACHMENTSINFO.Description" | translate }}</th>
+                      <th>{{ "ATTACHMENTSINFO.Attach File" | translate }}</th>
+                      <!-- <th>{{'ATTACHMENTSINFO.Action' | translate }}</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of attachmentsPreview; let j = index">
+                      <td>{{ j + 1 }}</td>
+                      <td *ngIf="data?.attachmentType === 'PP'">
+                        {{ "ATTACHMENTSINFO.Passport Copy" | translate }}
+                      </td>
+                      <td *ngIf="data?.attachmentType === 'PG'">
+                        {{ "ATTACHMENTSINFO.Photograph" | translate }}
+                      </td>
+                      <td *ngIf="data?.attachmentType === 'TK'">
+                        {{ "ATTACHMENTSINFO.Ticket/Reservation" | translate }}
+                      </td>
+                      <td *ngIf="data?.attachmentType === 'HI'">
+                        {{
+                          "ATTACHMENTSINFO.Hotel Booking/
+                                                Invitation Letter" | translate
+                        }}
+                      </td>
+                      <td *ngIf="data?.attachmentType === 'TS'">
+                        {{ "ATTACHMENTSINFO.VisaTransit" | translate }}
+                      </td>
+                      <td>
+                        <a
+                          href="javascript:;"
+                          (click)="downloadAttachment(data)"
+                          >{{ data?.fileName }}</a
+                        >
+                      </td>
+
+                      <!-- <td>
+                                            <a class="delete" href="javascript:;"
+                                                (click)="editAttchment(data,template)">Edit</a>
+                                        </td> -->
+                      <!-- <td><a class="delete" data-toggle="modal" href="#basic" (click)="editAttchment(data)">Edit</a></td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="form-actions fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <a
+                        href="javascript:;"
+                        (click)="onPrevious('P')"
+                        class="btn default button-previous"
+                      >
+                        <i class="m-icon-swapleft"></i>
+                        {{ "VISADETAILS.Back" | translate }} </a
+                      >&nbsp;
+                      <button
+                        type="type"
+                        class="btn blue"
+                        [routerLink]="[
+                          '/main/manage-applications/apps-details',
+                          this.getToken('fileNumber')
+                        ]"
+                      >
+                        {{ "VISADETAILS.Continue" | translate
+                        }}<i class="m-icon-swapright m-icon-white"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-ui-loader hasProgressBar="false" fgsType="three-strings"></ngx-ui-loader>
+
+<div
+  class="modal fade"
+  id="basic"
+  tabindex="-1"
+  role="basic"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #4b8df8; padding: 8px">
+        <button
+          type="button"
+          class="close"
+          #closebutton
+          data-dismiss="modal"
+          aria-hidden="true"
+        >
+          X
+        </button>
+        <h4 class="modal-title">{{ "POPUP.UpdateAttachment" | translate }}</h4>
+      </div>
+      <form
+        #attachForm="ngForm"
+        (ngSubmit)="updateAttachment(attachForm)"
+        class="form-horizontal"
+      >
+        <div class="modal-body">
+          <div class="form-body">
+            <div class="form-group">
+              <label class="col-md-4 control-label"
+                >{{ "POPUP.AttachNewFile" | translate }} :<span class="required"
+                  >*</span
+                ></label
+              >
+              <div class="col-md-6" *ngIf="attachmentType === 'PG'">
+                <input
+                  type="File"
+                  #newAttachFile
+                  name="newAttachment"
+                  class="form-control"
+                  [(ngModel)]="attachmentsInfo.newAttachment"
+                  placeholder="File"
+                  accept=".png,.jpg,.jpeg"
+                  (change)="updateFile($event, attachmentType)"
+                  id="newAttachment"
+                  #newAttachment="ngModel"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6" *ngIf="attachmentType != 'PG'">
+                <input
+                  type="File"
+                  #newAttachFile
+                  name="newAttachment"
+                  class="form-control"
+                  [(ngModel)]="attachmentsInfo.newAttachment"
+                  placeholder="File"
+                  accept="image/*,.pdf"
+                  (change)="updateFile($event, attachmentType)"
+                  id="newAttachment"
+                  #newAttachment="ngModel"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn default" data-dismiss="modal">
+            {{ "ManageApplication.Close" | translate }}
+          </button>
+          <button
+            type="submit"
+            [disabled]="!attachmentsInfo.newAttachment"
+            class="btn blue"
+          >
+            {{ "ManageApplication.Savechanges" | translate }}
+          </button>
+        </div>
+      </form>
+
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</div>

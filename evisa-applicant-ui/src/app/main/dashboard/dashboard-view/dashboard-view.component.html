@@ -1,0 +1,220 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'DASHBOARDPAGE.Dashboard' | translate }} <small> {{'DASHBOARDPAGE.statistics and more' | translate
+                }}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'DASHBOARDPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>{{'DASHBOARDPAGE.Dashboard' | translate }}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption">{{'Content.Viewstatus' | translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+
+
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'DASHBOARDPAGE.Application Number' |
+                                        translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{dashboardVisaStatus?.applicationNumber}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'DASHBOARDPAGE.Email' | translate }} :
+                                    </label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{dashboardVisaStatus?.emailAddress}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'Content.ApplicantName' | translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{dashboardVisaStatus?.givenName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'DASHBOARDPAGE.File Number' | translate }}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{dashboardVisaStatus?.fileNumber}}</p>
+                                    </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'Content.submissiondate' | translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{dashboardVisaStatus?.submittedDate|
+                                            date:'dd-MM-yyyy HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'Content.ClosedDate' | translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{dashboardVisaStatus?.closedDate| date:'dd-MM-yyyy HH:mm:ss'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'DASHBOARDPAGE.Document Status' |
+                                        translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.documentStatus === 'SUB'">
+                                            Pending Allocation
+                                        </p>
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.documentStatus === 'PEN'">
+                                            Pending Approval
+                                        </p>
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.documentStatus === 'CLS'">
+                                            Closed
+                                        </p>
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.documentStatus === 'VAL'">
+                                            Pending Validation
+                                        </p>
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.documentStatus === 'DRA'">
+                                            Draft
+                                        </p>
+
+                                        <p class="form-control-static" *ngIf="dashboardVisaStatus?.documentStatus === 'PP'">
+                                            Pending Payment
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'DASHBOARDPAGE.Visa Status' | translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.visaStatus === 'APR'">
+                                            Approved
+                                        </p>
+                                        <p class="form-control-static"
+                                            *ngIf="dashboardVisaStatus?.visaStatus === 'REJ'">
+                                            Rejected
+                                        </p>
+                                        <p class="form-control-static" *ngIf="dashboardVisaStatus?.visaStatus === 'UP'">
+                                            Under Processing
+                                        </p>
+                                        <p class="form-control-static" *ngIf="dashboardVisaStatus?.visaStatus === 'PP'">
+                                            Pending Payment
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'Content.ResultofApplicant' | translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successContent?.applicationResult}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'Content.remarks' | translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successContent?.approverRemarks}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-md-3"><a *ngIf="dashboardVisaStatus?.visaStatus==='APR'"
+                                                     (click)="downloadApplication(dashboardVisaStatus?.applicationNumber)"
+                                                     href="javascript:;">
+                                <b> {{'Content.Download'|translate}}</b></a></div>
+                            </div>
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+
+                                        <button type="button" class="btn default"
+                                            [routerLink]="['/main/dashboard']">{{'ManageApplication.Close'|
+                                            translate}}</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

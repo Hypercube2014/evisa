@@ -1,0 +1,471 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'MYPROFILE.ManageProfile'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'APPLICATIONSPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>
+                {{'MYPROFILE.ManageProfile'|translate}}
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>{{'MYPROFILE.ProfileSettings'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<br><br><br>
+
+
+<div class="row">
+    <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+        <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 order-lg-2">
+                    <div class="card-profile-image">
+                        <a href="javascript:;">
+                            <img [src]="(user.photo? user.photo: 'assets/img/avatar-profile2.jpg')"
+                                class="rounded-circle">
+                            <div class="upload-file">
+                                <label style="cursor: pointer;">
+                                    <input style="cursor: pointer;" class='file-input' type="file" name="profile_photo"
+                                        accept="image/*" (change)="fileChangeEvent($event,template)"
+                                        (click)="clearFile()" id="profile" class="hide-style">
+                                </label>
+
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <i class="fa fa-ellipsis-vertical menu-icon pull-right" style="cursor: pointer;margin-top: -9px;
+                margin-right: 10px;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"></i>
+                <div class="dropdown-menu  menu-icon pull-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="javascript:;" (click)="openfile($event)"><i
+                            class="fa fa-pen menu-icon"></i>{{'MYPROFILE.UpdatePhoto'|translate}}</a><br>
+                    <a class="dropdown-item" *ngIf="this.getToken('profilePic')" href="javascript:;"
+                        (click)="removePhoto()"><i
+                            class="fa fa-trash-o menu-icon"></i>{{'MYPROFILE.RemovePhoto'|translate}}</a>
+                </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                            <div>
+                                <span class="heading"></span>
+                                <span class="description"></span>
+                            </div>
+                            <div>
+                                <span class="heading"></span>
+                                <span class="description"></span>
+                            </div>
+                            <div>
+                                <span class="heading"></span>
+                                <span class="description"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="text-center">
+                    <h3>
+                        {{profileData?.firstName}} {{profileData?.lastName}}<span class="font-weight-light"></span>
+                    </h3>
+
+                    <div>
+                        <i class="ni education_hat mr-2"></i><b>{{'MYPROFILE.Applicant'|translate}}</b>
+                       <!-- {{profileData?.role}} -->
+                    </div>
+                    <hr class="my-4">
+                    <!-- <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+            <a href="#">Show more</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 order-xl-1">
+        <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="mb-0">{{'MYPROFILE.MyProfile'|translate}}</h3>
+                    </div>
+                    <div class="col-4 text-right">
+                        <!-- <a href="javacript:;" class="btn btn-sm btn-primary">Settings</a> -->
+
+                        <div class="col-2 text-right">
+                            <button type="button" class="btn btn-primary" (click)="onEdit()"
+                                *ngIf="!isEdit">{{'MYPROFILE.Edit'|translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="form-horizontal" #statusForm="ngForm" (ngSubmit)='submitForm(statusForm, profileData)'>
+
+                    <div class="form-body">
+
+                        <div class="row" *ngIf="!isEdit">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.IsOrganisation'|translate}}
+                                        :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.organisation}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="isEdit">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label col-md-3 labelbold">{{'MYPROFILE.IsOrganisation'|translate}}</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="organisation" id="organisation"
+                                            [(ngModel)]="profileData.organisation" #organisation="ngModel"
+                                            placeholder="organisation" [disabled]="isEdit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="profileData?.organisationName">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.OrganisationName'|translate}}
+                                        :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.organisationName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label col-md-3 labelbold">{{'MYPROFILE.OrganisationName'|translate}}</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="organisationName"
+                                            id="organisationName" required [(ngModel)]="profileData.organisationName"
+                                            #organisationName="ngModel" placeholder="organisationName"
+                                            [disabled]="isEdit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" *ngIf="profileData?.organisationCategory">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.organisationCategory'|translate}}
+                                        :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.organisationCategory}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label col-md-3 labelbold">{{'MYPROFILE.organisationCategory'|translate}}</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="organisationCategory"
+                                            id="organisationCategory" required
+                                            [(ngModel)]="profileData.organisationCategory"
+                                            #organisationCategory="ngModel" placeholder="organisationCategory"
+                                            [disabled]="isEdit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" *ngIf="profileData?.organisationSponsor">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.organisationSponsor'|translate}}
+                                        :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.organisationSponsor}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label col-md-3 labelbold">{{'MYPROFILE.organisationSponsor'|translate}}</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="organisationSponsor"
+                                            id="organisationSponsor" required
+                                            [(ngModel)]="profileData.organisationSponsor" #organisationSponsor="ngModel"
+                                            placeholder="{{'MYPROFILE.organisationSponsor'|translate}}"
+                                            [disabled]="isEdit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for first name -->
+                        <div class="row" *ngIf="profileData?.organisation === 'No'">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.FirstName'|translate}} :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.firstName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.FirstName'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="firstName" id="firstName" required
+                                            [(ngModel)]="profileData.firstName" #firstName="ngModel"
+                                            placeholder="{{'MYPROFILE.FirstName'|translate}}"
+                                            style="border-color: #666666;" />
+
+                                        <div class="error-block"
+                                            *ngIf="((submitted || firstName.touched) && firstName.invalid)">
+                                            {{'ERRORS.requiredField'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- label for middle name -->
+                        <div class="row" *ngIf="profileData?.organisation === 'No'">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.MiddleName'|translate}} :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.middleName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.MiddleName'|translate}}</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="middleName" id="middleName"
+                                            [(ngModel)]="profileData.middleName" #middleName="ngModel"
+                                            placeholder="{{'MYPROFILE.MiddleName'|translate}}"
+                                            style="border-color: #666666;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for Last name -->
+                        <div class="row" *ngIf="profileData?.organisation === 'No'">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.LastName'|translate}} :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.lastName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.LastName'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="lastName" id="lastName" required
+                                            [(ngModel)]="profileData.lastName" #lastName="ngModel"
+                                            placeholder="{{'MYPROFILE.LastName'|translate}}"
+                                            style="border-color: #666666;" />
+
+                                        <div class="error-block"
+                                            *ngIf="((submitted || lastName.touched) && lastName.invalid)">
+                                            {{'ERRORS.requiredField'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for  Gender -->
+                        <div class="row" *ngIf="profileData?.organisation === 'No'">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.Gender'|translate}} :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.gender === 'M'? 'Male' :'Female'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.Gender'|translate}}</label>
+                                    <div class="col-md-5">
+                                        <ng-select [items]="genderDetails" [searchable]='false'
+                                            [(ngModel)]="profileData.gender" bindLabel="name" bindValue="code"
+                                            name="gender" #gender="ngModel" [disabled]="isEdit">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- label for mobile number -->
+                        <div class="row">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.MobileNumber'|translate}}
+                                        :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.mobileNumber}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.MobileNumber'|translate}}<span
+                                            class="required">*</span>
+                                    </label>
+
+                                    <div class="col-md-5">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            (keypress)="AllowNumbers($event)" minlength=6 maxlength=15
+                                            name="mobileNumber" [(ngModel)]="profileData.mobileNumber"
+                                            placeholder="{{'MYPROFILE.MobileNumber'|translate}}" id="mobileNumber"
+                                            required #mobileNumber="ngModel" style="border-color: #666666;" />
+
+                                        <div class="error-block"
+                                            *ngIf="((submitted|| mobileNumber.touched)&& mobileNumber.invalid)">
+                                            {{'ERRORS.requiredField'|translate}}
+                                        </div>
+
+                                        <div class="error-block" *ngIf="mobileNumber.invalid && mobileNumber.dirty">
+                                            {{'ERRORS.MobNoValidation'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for emailId -->
+                        <div class="row">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.EmailId'|translate}} :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.emailId}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.EmailId'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-5">
+                                        <input class='form-control text' autocomplete="off" type="email" name="emailId"
+                                            pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$"
+                                            [(ngModel)]="profileData.personalEmail" [(ngModel)]="profileData.emailId"
+                                            placeholder="{{'MYPROFILE.EmailId'|translate}}" id="emailId" required
+                                            #emailId="ngModel" style="border-color: #666666;" />
+
+                                        <div class="error-block"
+                                            *ngIf="((submitted || emailId.touched) && emailId.invalid)">
+                                            {{'ERRORS.requiredField'|translate}}
+                                        </div>
+
+                                        <div class="error-block" *ngIf="emailId.invalid && emailId.errors?.pattern">
+                                            {{'ERRORS.emailValidate'|translate}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for address -->
+                        <div class="row">
+                            <div class="col-md-12" *ngIf="!isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.Address'|translate}} :</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">{{profileData?.address}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="isEdit">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 labelbold">{{'MYPROFILE.Address'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" name="address" id="address" required
+                                            [(ngModel)]="profileData.address" #address="ngModel"
+                                            placeholder="{{'MYPROFILE.Address'|translate}}"
+                                            style="border-color: #666666;" />
+
+                                        <div class="error-block"
+                                            *ngIf="((submitted || address.touched) && address.invalid)">
+                                            {{'ERRORS.requiredField'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right"
+                        *ngIf="isEdit">{{'MYPROFILE.Update'|translate}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"></h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <input type="file" (change)="fileChangeEvent($event)" />  -->
+
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1/1"
+            [imageQuality]="92" [resizeToWidth]="0" format="png" (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+        <br>
+        <span style="color:red" *ngIf="isExceed"><strong>{{'MYPROFILE.Error'|translate}}</strong></span>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="button" *ngIf="!isExceed" style="font-size: 14px;" class="btn blue pull-right"
+                    (click)="submitcropped()">{{'MYPROFILE.Apply & Save'|translate}}</button>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

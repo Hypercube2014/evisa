@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'VISAPENALITY.VisaPenality'|translate}}
+            <!-- <small> {{'APPLICATIONSPAGE.Applications' | translate }}</small> -->
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/visaoverstay-view']">{{'APPLICATIONSPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>  {{'VISAPENALITY.VisaPenality'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">{{'VISAPENALITY.visa overstay'|translate}}</div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse" tooltip="Collapse"></a> -->
+                  <!--  <a href="javascript:;" style="position: relative; top: -5px; color: #e5e5e5;" tooltip="Refresh"><i
+                            (click)="" class="fa fa-refresh"></i></a>-->
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="styled-table"
+                           id="sample_editable_1">
+                        <thead>
+                        <tr>
+                            <th>{{'VISAPENALITY.applicationnumber'|translate}}</th>
+                            <th>{{'VISAPENALITY.File Number'|translate}}</th>
+                            <th>{{'VISAPENALITY.surname'|translate}}</th>
+                            <th>{{'VISAPENALITY.visa expirateDate'|translate}}</th>
+                            <th>{{'VISAPENALITY.AmountPenality'|translate}}</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr class="odd gradeX" *ngFor="let data of visaCheckOverstayDetails">
+                            <td>{{data?.applicationNumber}}</td>
+                            <td>{{data?.fileNumber}}</td>
+                            <td>{{data?.surname}}</td>
+                            <td>{{data?.visa_expiry}}</td>
+                            <td>{{data?.penalityAmount}} $</td>
+                            <td>&nbsp;&nbsp;
+                                <a href=javascript:;
+                                   [routerLink]="['/main/visaoverstay-view',data?.applicationNumber,data?.penalityAmount]" *ngIf="data?.penalityAmount != 0">Action</a>
+                                <!--<a href="javascript:;" tooltip="Payment" *ngIf="data?.penalityAmount != 0"
+                                   (click)="checkout(data?.applicationNumber,data?.penalityAmount)"><i class="fa fa-money"></i></a>-->
+                                <span *ngIf="data?.penalityAmount === 0" style="color: green">Payée</span>
+                            </td>
+                        </tr>
+                        <tr class="odd" *ngIf="">
+                            <td style="text-align: center" colspan="10" class="dataTables_empty">
+                                <b>{{'VISAPENALITY.noVisaEligible'|translate}}</b>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <!-- <tbody *ngIf="loading">
+                            <div class="loading">Loading&#8230;</div>
+                        </tbody> -->
+                    </table>
+                </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+</div>

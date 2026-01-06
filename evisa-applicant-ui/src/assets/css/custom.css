@@ -1,0 +1,188 @@
+/* here you can put your own css to customize and override the theme */
+
+.user-panel {
+    position: relative;
+    width: 100%;
+    padding: 20px 10px;
+    overflow: hidden;
+}
+
+.user-panel:before,
+.user-panel:after {
+    content: " ";
+    display: table;
+}
+
+.user-panel:after {
+    clear: both;
+}
+
+.user-panel .image img {
+    width: 100%;
+    max-width: 65px;
+    max-height: 65px;
+    /*border: 2px solid rgba(255, 255, 255, 0.1);*/
+    padding: 5px;
+}
+
+.user-panel .info {
+    padding: 5px 5px 5px 15px;
+    line-height: 1;
+}
+
+.user-panel .info p {
+    font-weight: 500;
+    margin-bottom: 9px;
+    color: #fff;
+    margin: 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-panel .info a {
+    text-decoration: none;
+    padding-right: 5px;
+    margin-top: 3px;
+    font-size: 11px;
+}
+
+.user-panel .info a .fa,
+.user-panel .info a .ion,
+.user-panel .info a .glyphicon {
+    margin-right: 3px;
+}
+
+.page-sidebar-closed .page-sidebar .user-panel .info {
+  display: none;
+}
+
+.breadcrumb {
+	background-color:#ffffff;
+}
+
+
+
+/***
+sbox portlet
+***/
+
+
+.portlet.sbox {
+   padding:0px !important;
+   height:400px;
+   overflow:scroll;
+}
+
+.portlet.sbox > .portlet-title {  
+   padding:8px 10px 2px 10px;
+   border-bottom: 1px solid #eee;
+   color: #fff !important;
+}
+
+.portlet.sbox > .portlet-title > .actions > .btn > i {
+  color: #fff !important;
+}
+
+.portlet.sbox > .portlet-title > .tools {
+  margin-top: 3px;
+}
+
+.portlet.sbox > .portlet-title > .tools > a.remove, 
+.portlet.solid > .portlet-title > .tools > a.remove {
+  background-image:url(../img/portlet-remove-icon-white.png);
+}
+
+.portlet.sbox > .portlet-title > .tools > a.config,
+.portlet.solid > .portlet-title > .tools > a.config {
+  background-image:url(../img/portlet-config-icon-white.png);
+}
+
+.portlet.sbox > .portlet-title > .tools > a.reload,
+.portlet.solid > .portlet-title > .tools > a.reload {
+  background-image:url(../img/portlet-reload-icon-white.png);
+}
+
+.portlet.sbox > .portlet-title > .tools > a.expand,
+.portlet.solid > .portlet-title > .tools > a.expand {
+  background-image:url(../img/portlet-expand-icon-white.png);
+}
+
+.portlet.sbox > .portlet-title > .tools > a.collapse,
+.portlet.solid > .portlet-title > .tools > a.collapse {
+  background-image:url(../img/portlet-collapse-icon-white.png);
+}
+
+/* portlet buttons */
+.portlet.sbox > .portlet-body {
+  background-color: #fff;
+  padding: 10px;
+}
+
+.portlet.sbox > .portlet-title {  
+  margin-bottom: 0px;
+}
+
+.portlet.sbox.blue > .portlet-title {
+  background-color: #4b8df8;
+} 
+
+.portlet.sbox.blue {  
+   border: 1px solid #b4cef8;
+   border-top: 0;
+}
+
+.portlet.sbox.red > .portlet-title {
+  background-color: #e02222;
+} 
+
+.portlet.sbox.red {  
+   border: 1px solid #ef8476;
+   border-top: 0;
+}
+
+.portlet.sbox.yellow > .portlet-title {
+  background-color: #ffb848;
+} 
+
+.portlet.sbox.yellow {  
+   border: 1px solid #fccb7e;
+   border-top: 0;
+}
+
+.portlet.sbox.green > .portlet-title {
+  background-color: #35aa47;
+} 
+
+.portlet.sbox.green {  
+   border: 1px solid #77e588;
+   border-top: 0;
+}
+
+.portlet.sbox.purple > .portlet-title {
+  background-color: #852b99;
+} 
+
+.portlet.sbox.purple {  
+   border: 1px solid #af5cc1;
+   border-top: 0;
+}
+
+.portlet.sbox.grey > .portlet-title {
+  background-color: #555555;
+} 
+
+.portlet.sbox.grey {  
+   border: 1px solid #9d9c9c;
+   border-top: 0;
+}
+
+.portlet.sbox.light-grey > .portlet-title {
+  background-color: #aaa;
+} 
+
+.portlet.sbox.light-grey {  
+   border: 1px solid #bbb;
+   border-top: 0;
+}
+
+

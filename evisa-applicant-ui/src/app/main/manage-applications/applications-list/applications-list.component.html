@@ -1,0 +1,165 @@
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">Widget settings form goes here</div>
+      <div class="modal-footer">
+        <button type="button" class="btn blue">
+          {{ "ManageApplication.Savechanges" | translate }}
+        </button>
+        <button type="button" class="btn default" data-dismiss="modal">
+          {{ "ManageApplication.Close" | translate }}
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      {{ "APPLICATIONSPAGE.Request not submitted" | translate }}
+      <!-- <small> {{'APPLICATIONSPAGE.Applications' | translate }}</small> -->
+    </h3>
+    <ul class="page-breadcrumb breadcrumb" style="display: flex; align-items: center">
+      <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+        <a href="javascript:;" [routerLink]="['/main/dashboard']">{{
+          "APPLICATIONSPAGE.Home" | translate
+          }}</a>
+        <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+      </li> <li style="margin-left: 0.5rem; margin-right: 0.5rem">{{'SIDEBAR.Manage Visa' |translate}}<i class="fa fa-angle-right" style="padding: 0 1rem"></i></li>
+      <li> {{ "APPLICATIONSPAGE.Request not submitted" | translate }}
+      </li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          {{ "APPLICATIONSPAGE.My Draft Application Details" | translate }}
+        </div>
+        <div class="tools">
+          <!-- <a href="javascript:;" class="collapse" tooltip="Collapse"></a> -->
+          <a href="javascript:;" style="position: relative; top: -5px; color: #e5e5e5" (click)="refreshPage()"
+            tooltip="Refresh"><i class="fa fa-refresh"></i></a>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-toolbar">
+          <div class="btn-group">
+            <button id="sample_editable_1_new" class="btn green"
+              [routerLink]="['/main/manage-applications/apps-details/', 'new']">
+              {{ "APPLICATIONSPAGE.Apply Evisa" | translate }} &nbsp;<i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="text-success" style="margin-top: -13px; text-align: right">
+          <strong>{{ "Content.section" | translate }}</strong>
+        </div>
+
+        <div class="table-scrollable">
+          <table class="styled-table" id="sample_editable_1">
+            <thead>
+              <tr>
+                <th>
+                  {{ "APPLICATIONSPAGE.File Number" | translate }}
+                </th>
+                <th>
+                  {{ "APPLICATIONSPAGE.Applicant Type" | translate }}
+                </th>
+                <th>
+                  {{ "APPLICATIONSPAGE.Duration Visa" | translate }}
+                </th>
+                <th>
+                  {{ "APPLICATIONSPAGE.Express Visa" | translate }}
+                </th>
+                <th>
+                  {{ "APPLICATIONSPAGE.Action" | translate }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of draftApplications">
+                <td>
+                  {{ data?.fileNumber }}
+                </td>
+                <td>
+                  {{ data?.applicantType === "I" ? "Individual" : "Group" }}
+                </td>
+                <td>
+                  {{ data?.visaDescription }}
+                </td>
+                <td>
+                  {{ data?.expressVisa ? "Yes" : "No" }}
+                </td>
+                <td>
+                  <a href="javascript:;" style="cursor: pointer" tooltip="Edit" [routerLink]="[
+                      '/main/manage-applications/apps-details',
+                      data?.fileNumber
+                    ]">
+                    {{ "MYPROFILE.EditFinish" | translate }}
+                  </a>
+                </td>
+              </tr>
+              <tr *ngIf="!draftApplications.length && !loading">
+                <td style="text-align: center; font-size: 15px" colspan="10" class="dataTables_empty">
+                  <b>{{ "RECORDS.NoFound" | translate}}</b>
+                </td>
+              </tr>
+            </tbody>
+            <!-- <tbody *ngIf="loading">
+                            <div class="loading">Loading&#8230;</div>
+                        </tbody> -->
+          </table>
+        </div>
+        <div class="row" *ngIf="totalElements > 0">
+          <div class="col-md-4 col-sm-12">
+            <div class="btn-group">
+              <ng-select (change)="rangeChanged(pagesize)" [items]="rangeList" bindLabel="name" bindValue="id"
+                placeholder="Select" [(ngModel)]="pagesize" [ngModelOptions]="{ standalone: true }" [clearable]="false"
+                [searchable]="false" [dropdownPosition]="'top'">
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="dataTables_info" id="sample_editable_1_info" style="color: #aaa; font-size: 12px">
+              {{ "PAGINATION.Showing" | translate }} {{ number * size + 1 }}
+              {{ "PAGINATION.to" | translate }}
+              {{ number * size + noofelements }}
+              <!--{{ "PAGINATION.of" | translate }} {{ totalElements }}-->
+              {{ "PAGINATION.entries" | translate }}
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="dataTables_paginate paging_bootstrap">
+              <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'" [itemsPerPage]="pagesize"
+                name="currentPage" ngDefaultControl [totalItems]="totalItem" [maxSize]="5" [(ngModel)]="currentPage"
+                [ngModelOptions]="{ standalone: true }" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+                nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+  </div>
+</div>
+
+<ngx-ui-loader hasProgressBar="false" fgsType="three-strings"></ngx-ui-loader>

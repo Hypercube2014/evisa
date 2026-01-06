@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'SIDEBAR.PendingPayment' | translate }}
+            <!-- <small> Applications' | translate }}</small> -->
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'APPLICATIONSPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">{{'SIDEBAR.Manage Visa' |translate}}<i class="fa fa-angle-right" style="padding: 0 1rem"></i></li>
+            <li>{{'SIDEBAR.PendingPayment' | translate }}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">{{'SIDEBAR.All payments pending' | translate }}</div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse" tooltip="Collapse"></a> -->
+                    <a href="javascript:;" style="position: relative;
+                    top: -5px;
+                    color: #e5e5e5;" (click)="refreshPage()" tooltip="Refresh"><i class="fa fa-refresh"></i></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+
+                <div class="table-scrollable">
+                    <table  class="styled-table"
+                        id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>{{'PAYMENT.File Number'|translate}}</th>
+                                <th>{{'PAYMENT.Due Amount'|translate}}</th>
+                                <th>{{'PAYMENT.Instruction Type'|translate}}</th>
+                                <th>{{'PAYMENT.Status'|translate}}</th>
+                                <th>{{'PAYMENT.Invoiced Date'|translate}}</th>
+                                <th>{{'PAYMENT.Action'|translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX" *ngFor="let data of pendingPayment">
+                                <td *ngIf="data?.instrType==='EVISA_PAY'">{{data?.fileNumber}}</td>
+                                <td *ngIf="data?.instrType==='EVISA_PAY'">{{data?.amountDue}} {{data?.paymentCurrency}}</td>
+                                <td *ngIf="data?.instrType==='EVISA_PAY'">{{'SIDEBAR.Manage Applications'|translate}}</td>
+                                <td *ngIf="data?.status==='PP' && data?.instrType==='EVISA_PAY'">{{'Result.PendingPayment'|translate}}</td>
+                                <td *ngIf="data?.instrType==='EVISA_PAY' ">{{data?.createdDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td *ngIf="data?.instrType==='EVISA_PAY' ">
+                                    <a href="javascript:;" tooltip="Edit"
+                                        [routerLink]="['/main/pending-payment/pending-edit/',data?.fileNumber]"
+                                        routerLinkActive="active"><i class="fa fa-eye"></i></a> &nbsp;&nbsp;
+                                        <a href="javascript:;" tooltip="Payment" *ngIf="((data?.createdDate | date:'yyyy-MM-ddZ') < (datetoday | date:'yyyy-MM-ddZ'))"
+                                         (click)="checkout(data?.fileNumber,data?.amountDue, data?.instrType)"><button class="btn btn-blue">{{'PAYMENT.pay'|translate}}</button></a>
+                                </td>
+                            </tr>
+                            <tr class="odd" *ngIf="(!pendingPayment.length) &&(!loading)">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty"><b>{{'RECORDS.NoFound' | translate }}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="row" *ngIf="totalElements>0">
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="btn-group">
+                            <ng-select (change)="rangeChanged(pagesize)" [items]="rangeList" bindLabel="name"
+                                bindValue="id" placeholder="Select" [(ngModel)]="pagesize"
+                                [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                [dropdownPosition]="'top'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info">{{'PAGINATION.Showing'|translate}}
+                            {{(number*size) + 1}} {{'PAGINATION.to'|translate}}
+                            {{(number*size) + noofelements}}  <!--{{'PAGINATION.of'|translate}} {{totalElements}}-->
+                            {{'PAGINATION.entries'|translate}}
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                [itemsPerPage]='pagesize' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                                [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

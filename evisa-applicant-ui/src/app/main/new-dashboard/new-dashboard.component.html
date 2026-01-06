@@ -1,0 +1,188 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'SIDEBAR.Dashboard' | translate }}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;">{{'DASHBOARDPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>{{'SIDEBAR.Dashboard' | translate }}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="grid p-8 md:grid-cols-2">
+            <div class="m-4 max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow">
+                <h2 class="mb-8 text-3xl font-extrabold tracking-tight text-gray-900">Visa Ordinaire</h2>
+                <div class="mb-6 grid grid-cols-2 divide-x">
+                    <div class="px-4">
+                        <span>
+                            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900"><span
+                                    class="rounded-md bg-blue-100 px-4 text-blue-800">34</span></h5>
+                        </span>
+                        <p class="mb-3 font-normal text-gray-500">Terminer</p>
+                    </div>
+                    <div class="px-4 text-right">
+                        <span>
+                            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900"><span
+                                    class="rounded-md bg-blue-100 px-4 text-blue-800">45</span></h5>
+                        </span>
+                        <p class="mb-3 font-normal text-gray-500">En cours</p>
+                    </div>
+                </div>
+                <a href='javascript:;' [routerLink]="['/main/manage-applications/apps-details/new']"
+                    class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-bold text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    Nouveau Visa
+                    <svg class="ml-2 h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                </a>
+            </div>
+            <div class="m-4 max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow">
+                <h2 class="mb-8 text-3xl font-extrabold tracking-tight text-gray-900">Visa Extension</h2>
+                <div class="mb-6 grid grid-cols-2 divide-x">
+                    <div class="px-4">
+                        <span>
+                            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900"><span
+                                    class="rounded-md bg-blue-100 px-4 text-blue-800">34</span></h5>
+                        </span>
+                        <p class="mb-3 font-normal text-gray-500">Terminer</p>
+                    </div>
+                    <div class="px-4 text-right">
+                        <span>
+                            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900"><span
+                                    class="rounded-md bg-blue-100 px-4 text-blue-800">45</span></h5>
+                        </span>
+                        <p class="mb-3 font-normal text-gray-500">En cours</p>
+                    </div>
+                </div>
+                <a href='javascript:;' [routerLink]="['/main/evisa-extension/apply-visa-list']"
+                    class="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-bold text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    Nouveau Visa
+                    <svg class="ml-2 h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">Status de visa ordinaire</div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse" tooltip="Collapse"></a> -->
+                  <!--  <a href="javascript:;" style="position: relative; top: -5px; color: #e5e5e5;" tooltip="Refresh"><i
+                            (click)="" class="fa fa-refresh"></i></a>-->
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="styled-table">
+                        <thead>
+                        <tr>
+                            <th>{{'DASHBOARDPAGE.Action' | translate }}</th>
+                            <th>{{'DASHBOARDPAGE.Application No' | translate }}</th>
+                            <th>{{'DASHBOARDPAGE.Applicant Name' | translate }}</th>
+                            <!--  <th>{{'DASHBOARDPAGE.Email' | translate }}</th>
+                              <th>{{'DASHBOARDPAGE.File Number' | translate }}</th> -->
+                            <th>{{'DASHBOARDPAGE.Date & Time Submitted' | translate }}</th>
+                            <th>{{'DASHBOARDPAGE.Date & Time Closed' | translate }}</th>
+                            <!-- <th>{{'DASHBOARDPAGE.Status' | translate }}</th> -->
+                            <th>{{'DASHBOARDPAGE.Application Outcome' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <!-- <div class="loading" *ngIf="loading">Loading&#8230;</div> -->
+                        <tr *ngFor="let data of Applications">
+                            <td>
+                                <a *ngIf="data?.visaStatus==='APR'"
+                                   (click)="downloadApplication(data?.applicationNumber)" href="javascript:;"
+                                   style="cursor: pointer;" tooltip="Download"><i class="fa fa-download"></i>{{'Content.Download'|translate}}
+                                </a>
+                                <!--  <a [routerLink]="['/main/viewdetails',data?.applicationNumber]" href="javascript:;"
+                                      style="cursor: pointer;">{{'Content.action'|translate}}
+                                  </a>
+                                <a href=javascript:;
+                                   [routerLink]="['/main/application-preview',data?.applicationNumber]"><button class="btn btn-info">{{'Content.action'|translate}} </button></a>  -->
+                            </td>
+
+                            <td><a href=javascript:;
+                                   [routerLink]="['/main/application-preview',data?.applicationNumber]"> <i class="fa fa-eye"></i> <u> {{data?.applicationNumber}}</u></a>
+                            </td>
+                            <td>{{data?.givenName}}</td>
+                            <!--  <td>{{data?.emailAddress}}</td>
+                              <td>{{data?.fileNumber}}</td> -->
+                            <td>{{data?.submittedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td>{{data?.closedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <!--<td *ngIf="data?.documentStatus === 'PEN'"><span
+                                    class="label label-sm label-default">{{'Pending Payment'}}</span></td>
+                            <td *ngIf="data?.documentStatus === 'CLS'"><span
+                                    class="label label-sm label-success">{{'Closed'}}</span></td>
+                            <td *ngIf="data?.documentStatus === 'SUB'"><span
+                                    class="label label-sm label-default">{{'Submitted'}}</span></td> -->
+                            <td *ngIf="data?.visaStatus==='APR'"><span
+                                    class="label label-sm label-success">{{'Result.Granted'|translate}}</span></td>
+                            <td *ngIf="data?.visaStatus==='REJ'"><span
+                                    class="label label-sm label-danger">{{'Result.Rejected'|translate}}</span></td>
+                            <td *ngIf="data?.visaStatus==='UP'"><span class="label label-sm label-info">{{'Result.UnderProcessing'|translate}}</span></td>
+                            <td *ngIf="data?.visaStatus==='PP'"><span class="label label-sm label-warning">{{'Result.PendingPayment'|translate}}</span></td>
+
+                        </tr>
+                        <tr *ngIf="(!Applications.length) &&(!loading)">
+                            <td style="text-align: center" colspan="10" class="dataTables_empty"><b>{{'RECORDS.NoFound'|translate}}</b></td>
+                        </tr>
+                        </tbody>
+                        <!-- <tbody *ngIf="loading">
+                                <div class="loading">Loading&#8230;</div>
+                            </tbody> -->
+                    </table>
+
+                </div>
+                <div class="row" *ngIf="totalElements>0">
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="btn-group">
+                            <ng-select (change)="rangeChanged(pagesize)" [items]="rangeList" bindLabel="name"
+                                       bindValue="id" placeholder="Select" [(ngModel)]="pagesize"
+                                       [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                       [dropdownPosition]="'top'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info">{{'PAGINATION.Showing'|translate}}
+                            {{(number*size) + 1}} {{'PAGINATION.to'|translate}}
+                            {{(number*size) + noofelements}} {{'PAGINATION.of'|translate}} {{totalElements}}
+                            {{'PAGINATION.entries'|translate}}
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                        [itemsPerPage]='pagesize' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                                        [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                                        (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                        firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+    </div>
+</div>

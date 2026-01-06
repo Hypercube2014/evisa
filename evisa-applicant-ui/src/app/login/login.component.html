@@ -1,0 +1,1801 @@
+<div class="login-content" *ngIf="isLogin">
+  <!-- <label > Language:</label>
+	<select #langSelect (change)="translate.use(langSelect.value);translateLang(langSelect.value)">
+		<option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+		
+	</select> -->
+
+  <!-- BEGIN LOGO -->
+  <div class="logo">
+    <a href="landing.html"> <img src="assets/img/evisa.png" alt="" style="width: 100%" /> </a>
+    <!--<img src="assets/img/faviconTypo.png" alt="" style="width: 320px" />-->
+  </div>
+  <!-- END LOGO -->
+
+  <!-- BEGIN LOGIN FORM -->
+  <form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm, loginDetails)">
+    <h3 class="form-title">{{ "LOGIN.Signin" | translate }}</h3>
+
+    <div class="form-group">
+      <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+      <label class="control-label visible-ie8 visible-ie9">{{
+        "LOGIN.Username" | translate
+        }}</label>
+      <div class="input-icon">
+        <i class="fa fa-user"></i>
+        <input class="form-control placeholder-no-fix" type="text" autocomplete="off"
+          placeholder="{{ 'LOGIN.Username' | translate }}" name="username" id="username" maxlength="25"
+          [(ngModel)]="loginDetails.username" required #username="ngModel"
+          [ngClass]="{ 'is-invalid': loginForm.submitted && username.invalid }" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label visible-ie8 visible-ie9">{{
+        "LOGIN.Password" | translate
+        }}</label>
+      <div class="input-icon">
+        <i class="fa fa-lock"></i>
+        <input class="form-control placeholder-no-fix" [type]="show ? 'text' : 'password'" autocomplete="off"
+          placeholder="{{ 'LOGIN.Password' | translate }}" name="secretKey" id="secretKey" maxlength="25"
+          [(ngModel)]="loginDetails.secretKey" required #secretKey="ngModel"
+          [ngClass]="{ 'is-invalid': loginForm.submitted && secretKey.invalid }" />
+        <span style="position: absolute; right: 35px; top: -1px; cursor: pointer" (click)="onClick('secret')">
+          <i class="fa fa-eye" style="color: black" *ngIf="!show"></i>
+          <i class="fa fa-eye-slash" style="color: black" aria-hidden="true" *ngIf="show"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="checkbox" style="margin-left: 20px">
+        <input type="checkbox" name="remember" value="1" />
+        {{ "LOGIN.Remember" | translate }}
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn blue">
+        {{ "LOGIN.Login" | translate }}
+        <i class="m-icon-swapright m-icon-white"></i>
+        <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+      </button>
+    </div>
+    <div class="forget-password">
+      <h4>{{ "LOGIN.Forgot" | translate }}</h4>
+      <p>
+        {{ "LOGIN.No worries" | translate }}
+        <a href="javascript:;" (click)="forgotPassword()">{{
+          "LOGIN.here" | translate
+          }}</a>
+        {{ "LOGIN.to reset your password" | translate }}
+      </p>
+      <!-- <p>
+        {{ "LOGIN.confirmation email" | translate }}
+        <a href="javascript:;" (click)="forgotPassword()">{{
+          "LOGIN.here" | translate
+          }}</a>
+      </p> -->
+    </div>
+    <div class="create-account">
+      <p>
+        {{ "LOGIN.Donot have" | translate }} ?&nbsp;
+        <a href="javascript:;" id="register-btn" (click)="register()">{{
+          "LOGIN.Create account" | translate
+          }}</a>
+      </p>
+    </div>
+  </form>
+</div>
+<div class="forgot-content" *ngIf="isForgot">
+  <!-- BEGIN LOGO -->
+  <div class="logo">
+    <a href="landing.html"> <img src="assets/img/evisa.png" alt="" style="width: 100%" /> </a>
+    <!--<img src="assets/img/faviconTypo.png" alt="" style="width: 320px" />-->
+  </div>
+  <!-- END LOGO -->
+
+  <!-- BEGIN FORGOT PASSWORD FORM -->
+  <form #forgotForm="ngForm" (ngSubmit)="userForgotPassword(forgotForm, passwordDetails)">
+    <h3>{{ "LOGIN.Forget Password" | translate }}</h3>
+    <p>{{ "LOGIN.Enter your e-mail" | translate }}</p>
+    <div class="form-group">
+      <div class="input-icon">
+        <i class="fa fa-envelope"></i>
+        <input class="form-control placeholder-no-fix" type="text" autocomplete="off"
+          placeholder="{{ 'SIGNUP.emailId' | translate }}" id="emailid" name="emailid" maxlength="75"
+          [(ngModel)]="passwordDetails.emailid" #emailid="ngModel" required
+          pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$" />
+        <div class="error-block" *ngIf="(submitted || emailid.touched) && emailid.invalid">
+          {{ "ERRORS.requiredField" | translate }}
+        </div>
+        <div class="error-block" *ngIf="emailid.errors?.pattern">
+          {{ "ERRORS.EmailValidation" | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="captcha-container {{ config.cssClass }}">
+        <canvas id="captcahCanvas" width="316" height="80"></canvas>
+
+        <div class="captcha-actions">
+          <input type="text" [(ngModel)]="passwordDetails.captch_input" id="captch_input" name="captch_input"
+            #captch_input="ngModel" required (keyup)="checkCaptcha()" />
+          <a href="javascript:void(0)" class="cpt-btn" (click)="playCaptcha()">🔈</a>
+          <a href="javascript:void(0)" class="cpt-btn reload" (click)="createCaptcha()">&#x21bb;</a>
+          <div class="error-block" *ngIf="(submitted || captch_input.touched) && captch_input.invalid">
+            {{ "ERRORS.requiredField" | translate }}
+          </div>
+          <div class="error-block" *ngIf="
+              (submitted || captch_input.touched || captch_input.dirty) &&
+              captch_input.valid &&
+              !isValidCaptcha
+            ">
+            {{ "ERRORS.captchaValidation" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [disabled]='!isEnable' -->
+    <div class="form-actions">
+      <button (click)="backToLogin('F')" type="button" class="btn">
+        <i class="m-icon-swapleft"></i> {{ "VISADETAILS.Back" | translate }}
+      </button>
+      <button type="submit" class="btn green pull-right">
+        {{ "LOGIN.Submit" | translate }}
+        <i class="m-icon-swapright m-icon-white"></i>
+      </button>
+    </div>
+  </form>
+  <!-- END FORGOT PASSWORD FORM -->
+</div>
+
+<div class="register-content" *ngIf="isRegister">
+  <!-- BEGIN LOGO -->
+
+  <!-- END LOGO -->
+
+  <!-- BEGIN REGISTRATION FORM -->
+  <form #registerForm="ngForm" (ngSubmit)="userRegister(registerForm, registerDetails)">
+    <div class="row">
+      <!-- <div class="col-md-6">
+        <h3>{{ "SIGNUP.signup" | translate }}</h3>
+        <p>{{ "SIGNUP.personalDetails" | translate }}</p>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" (change)="isOrganisation(registerDetails.organisation)" id="organisation"
+              name="organisation" [(ngModel)]="registerDetails.organisation" #organisation="ngModel" />&nbsp;
+            <span>
+              {{ "SIGNUP.isOrg" | translate }}
+            </span>
+          </label>
+        </div>
+      </div> -->
+      <div class="col-md-6">
+        <div class="logo" style="margin-top: -19px">
+          <a href="landing.html">
+            <img src="assets/img/evisa.png" width="100%" alt="" />
+            <!--  <img src="assets/img/faviconTypo.png" alt="" width="250px" />-->
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6" *ngIf="!isOrg">
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.firstName" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-font"></i>
+            <input class="form-control placeholder-no-fix" type="text"
+              placeholder="{{ 'SIGNUP.firstName' | translate }}" id="firstName" name="firstName" maxlength="25"
+              [(ngModel)]="registerDetails.firstName" required #firstName="ngModel"
+              (keypress)="omit_special_char($event)" [ngClass]="{
+                'is-invalid': registerForm.submitted && firstName.invalid
+              }" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.middleName" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-font"></i>
+            <input class="form-control placeholder-no-fix" type="text"
+              placeholder="{{ 'SIGNUP.middleName' | translate }}" id="middleName" name="middleName" maxlength="25"
+              [(ngModel)]="registerDetails.middleName" #middleName="ngModel" (keypress)="omit_special_char($event)" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.lastName" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-font"></i>
+            <input class="form-control placeholder-no-fix" type="text" placeholder="{{ 'SIGNUP.lastName' | translate }}"
+              id="lastName" name="lastName" maxlength="25" [(ngModel)]="registerDetails.lastName" required
+              #lastName="ngModel" (keypress)="omit_special_char($event)" [ngClass]="{
+                'is-invalid': registerForm.submitted && lastName.invalid
+              }" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">Gender</label>
+          <div class="input-icon">
+            <!-- <i class="fa fa-location-arrow"></i> -->
+            <select id="gender" placeholder="Gender" name="gender" maxlength="25" [(ngModel)]="registerDetails.gender"
+              required #gender="ngModel" class="select2 form-control" [ngClass]="{
+                'is-invalid': registerForm.submitted && gender.invalid
+              }">
+              <option [ngValue]="undefined" selected disabled>
+                {{ "PLACEHOLDERS.gender" | translate }}
+              </option>
+              <!-- <option value=""></option> -->
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.emailId" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-envelope"></i>
+            <input class="form-control placeholder-no-fix" type="email" placeholder="{{ 'SIGNUP.emailId' | translate }}"
+              id="emailId" name="emailId" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" maxlength="100"
+              [(ngModel)]="registerDetails.emailId" required #emailId="ngModel" autocomplete="off" [ngClass]="{
+                'is-invalid': registerForm.submitted && emailId.invalid
+              }" />
+            <p *ngIf="emailId.errors?.pattern" style="color: red">
+              {{ "ERRORS.emailValidate" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="isOrg">
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.orgName" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-font"></i>
+            <input [ngClass]="{
+                'is-invalid': registerForm.submitted && organisationName.invalid
+              }" class="form-control placeholder-no-fix" type="text" placeholder="{{ 'SIGNUP.orgName' | translate }}"
+              id="organisationName" required name="organisationName" maxlength="255"
+              [(ngModel)]="registerDetails.organisationName" #organisationName="ngModel" />
+          </div>
+        </div>
+        <div class="form-group">
+          <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.orgCategory" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-envelope"></i>
+            <input [ngClass]="{
+                'is-invalid':
+                  registerForm.submitted && organisationCategory.invalid
+              }" class="form-control placeholder-no-fix" type="text"
+              placeholder="{{ 'SIGNUP.orgCategory' | translate }}" id="organisationCategory" required
+              name="organisationCategory" maxlength="255" [(ngModel)]="registerDetails.organisationCategory"
+              #organisationCategory="ngModel" />
+          </div>
+        </div>
+        <div class="form-group">
+          <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.orgSponsor" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-envelope"></i>
+            <input [ngClass]="{
+                'is-invalid':
+                  registerForm.submitted && organisationSponsor.invalid
+              }" class="form-control placeholder-no-fix" type="text"
+              placeholder="{{ 'SIGNUP.orgSponsor' | translate }}" id="organisationSponsor" required
+              name="organisationSponsor" maxlength="255" [(ngModel)]="registerDetails.organisationSponsor"
+              #organisationSponsor="ngModel" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.emailId" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-envelope"></i>
+            <input class="form-control placeholder-no-fix" type="email" placeholder="{{ 'SIGNUP.emailId' | translate }}"
+              id="emailId" name="emailId" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="100"
+              [(ngModel)]="registerDetails.emailId" required #emailId="ngModel" autocomplete="off" [ngClass]="{
+                'is-invalid': registerForm.submitted && emailId.invalid
+              }" />
+            <p *ngIf="emailId.errors?.pattern" style="color: red">
+              {{ "ERRORS.emailValidate" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.address" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa-address-book-o"></i>
+
+            <textarea rows="5" cols="20" class="form-control placeholder-no-fix" type="text" name="address"
+              [(ngModel)]="registerDetails.address" maxlength="255" required
+              placeholder="{{ 'SIGNUP.address' | translate }}" id="address" #address="ngModel" [ngClass]="{
+                'is-invalid': registerForm.submitted && address.invalid
+              }"></textarea>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+					<label class="control-label visible-ie8 visible-ie9">City/Town</label>
+					<div class="input-icon">
+						<i class="fa fa-location-arrow"></i>
+						<input class="form-control placeholder-no-fix" type="text" placeholder="City/Town"
+						id="address" name="address" maxlength="255" [(ngModel)]="registerDetails.address" required
+						#address="ngModel" />
+					</div>
+				</div> -->
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.country" | translate
+            }}</label>
+          <select [ngClass]="{
+              'is-invalid': registerForm.submitted && country.invalid
+            }" name="country" id="country" name="country" maxlength="25" [(ngModel)]="registerDetails.country" required
+            #country="ngModel" class="select2 form-control">
+            <option [ngValue]="undefined" selected disabled>
+              {{ "PLACEHOLDERS.Country" | translate }}
+            </option>
+            <option value="AF">Afghanistan</option>
+            <option value="AL">Albania</option>
+            <option value="DZ">Algeria</option>
+            <option value="AS">American Samoa</option>
+            <option value="AD">Andorra</option>
+            <option value="AO">Angola</option>
+            <option value="AI">Anguilla</option>
+            <option value="AQ">Antarctica</option>
+            <option value="AR">Argentina</option>
+            <option value="AM">Armenia</option>
+            <option value="AW">Aruba</option>
+            <option value="AU">Australia</option>
+            <option value="AT">Austria</option>
+            <option value="AZ">Azerbaijan</option>
+            <option value="BS">Bahamas</option>
+            <option value="BH">Bahrain</option>
+            <option value="BD">Bangladesh</option>
+            <option value="BB">Barbados</option>
+            <option value="BY">Belarus</option>
+            <option value="BE">Belgium</option>
+            <option value="BZ">Belize</option>
+            <option value="BJ">Benin</option>
+            <option value="BM">Bermuda</option>
+            <option value="BT">Bhutan</option>
+            <option value="BO">Bolivia</option>
+            <option value="BA">Bosnia and Herzegowina</option>
+            <option value="BW">Botswana</option>
+            <option value="BV">Bouvet Island</option>
+            <option value="BR">Brazil</option>
+            <option value="IO">British Indian Ocean Territory</option>
+            <option value="BN">Brunei Darussalam</option>
+            <option value="BG">Bulgaria</option>
+            <option value="BF">Burkina Faso</option>
+            <option value="BI">Burundi</option>
+            <option value="KH">Cambodia</option>
+            <option value="CM">Cameroon</option>
+            <option value="CA">Canada</option>
+            <option value="CV">Cape Verde</option>
+            <option value="KY">Cayman Islands</option>
+            <option value="CF">Central African Republic</option>
+            <option value="TD">Chad</option>
+            <option value="CL">Chile</option>
+            <option value="CN">China</option>
+            <option value="CX">Christmas Island</option>
+            <option value="CC">Cocos (Keeling) Islands</option>
+            <option value="CO">Colombia</option>
+            <option value="KM">Comoros</option>
+            <option value="CG">Congo</option>
+            <option value="CD">Congo, the Democratic Republic of the</option>
+            <option value="CK">Cook Islands</option>
+            <option value="CR">Costa Rica</option>
+            <option value="CI">Cote d'Ivoire</option>
+            <option value="HR">Croatia (Hrvatska)</option>
+            <option value="CU">Cuba</option>
+            <option value="CY">Cyprus</option>
+            <option value="CZ">Czech Republic</option>
+            <option value="DK">Denmark</option>
+            <option value="DJ">Djibouti</option>
+            <option value="DM">Dominica</option>
+            <option value="DO">Dominican Republic</option>
+            <option value="EC">Ecuador</option>
+            <option value="EG">Egypt</option>
+            <option value="SV">El Salvador</option>
+            <option value="GQ">Equatorial Guinea</option>
+            <option value="ER">Eritrea</option>
+            <option value="EE">Estonia</option>
+            <option value="ET">Ethiopia</option>
+            <option value="FK">Falkland Islands (Malvinas)</option>
+            <option value="FO">Faroe Islands</option>
+            <option value="FJ">Fiji</option>
+            <option value="FI">Finland</option>
+            <option value="FR">France</option>
+            <option value="GF">French Guiana</option>
+            <option value="PF">French Polynesia</option>
+            <option value="TF">French Southern Territories</option>
+            <option value="GA">Gabon</option>
+            <option value="GM">Gambia</option>
+            <option value="GE">Georgia</option>
+            <option value="DE">Germany</option>
+            <option value="GH">Ghana</option>
+            <option value="GI">Gibraltar</option>
+            <option value="GR">Greece</option>
+            <option value="GL">Greenland</option>
+            <option value="GD">Grenada</option>
+            <option value="GP">Guadeloupe</option>
+            <option value="GU">Guam</option>
+            <option value="GT">Guatemala</option>
+            <option value="GN">Guinea</option>
+            <option value="GW">Guinea-Bissau</option>
+            <option value="GY">Guyana</option>
+            <option value="HT">Haiti</option>
+            <option value="HM">Heard and Mc Donald Islands</option>
+            <option value="VA">Holy See (Vatican City State)</option>
+            <option value="HN">Honduras</option>
+            <option value="HK">Hong Kong</option>
+            <option value="HU">Hungary</option>
+            <option value="IS">Iceland</option>
+            <option value="IN">India</option>
+            <option value="ID">Indonesia</option>
+            <option value="IR">Iran (Islamic Republic of)</option>
+            <option value="IQ">Iraq</option>
+            <option value="IE">Ireland</option>
+            <option value="IL">Israel</option>
+            <option value="IT">Italy</option>
+            <option value="JM">Jamaica</option>
+            <option value="JP">Japan</option>
+            <option value="JO">Jordan</option>
+            <option value="KZ">Kazakhstan</option>
+            <option value="KE">Kenya</option>
+            <option value="KI">Kiribati</option>
+            <option value="KP">Korea, Democratic People's Republic of</option>
+            <option value="KR">Korea, Republic of</option>
+            <option value="KW">Kuwait</option>
+            <option value="KG">Kyrgyzstan</option>
+            <option value="LA">Lao People's Democratic Republic</option>
+            <option value="LV">Latvia</option>
+            <option value="LB">Lebanon</option>
+            <option value="LS">Lesotho</option>
+            <option value="LR">Liberia</option>
+            <option value="LY">Libyan Arab Jamahiriya</option>
+            <option value="LI">Liechtenstein</option>
+            <option value="LT">Lithuania</option>
+            <option value="LU">Luxembourg</option>
+            <option value="MO">Macau</option>
+            <option value="MK">
+              Macedonia, The Former Yugoslav Republic of
+            </option>
+            <option value="MG">Madagascar</option>
+            <option value="MW">Malawi</option>
+            <option value="MY">Malaysia</option>
+            <option value="MV">Maldives</option>
+            <option value="ML">Mali</option>
+            <option value="MT">Malta</option>
+            <option value="MH">Marshall Islands</option>
+            <option value="MQ">Martinique</option>
+            <option value="MR">Mauritania</option>
+            <option value="MU">Mauritius</option>
+            <option value="YT">Mayotte</option>
+            <option value="MX">Mexico</option>
+            <option value="FM">Micronesia, Federated States of</option>
+            <option value="MD">Moldova, Republic of</option>
+            <option value="MC">Monaco</option>
+            <option value="MN">Mongolia</option>
+            <option value="MS">Montserrat</option>
+            <option value="MA">Morocco</option>
+            <option value="MZ">Mozambique</option>
+            <option value="MM">Myanmar</option>
+            <option value="NA">Namibia</option>
+            <option value="NR">Nauru</option>
+            <option value="NP">Nepal</option>
+            <option value="NL">Netherlands</option>
+            <option value="AN">Netherlands Antilles</option>
+            <option value="NC">New Caledonia</option>
+            <option value="NZ">New Zealand</option>
+            <option value="NI">Nicaragua</option>
+            <option value="NE">Niger</option>
+            <option value="NG">Nigeria</option>
+            <option value="NU">Niue</option>
+            <option value="NF">Norfolk Island</option>
+            <option value="MP">Northern Mariana Islands</option>
+            <option value="NO">Norway</option>
+            <option value="OM">Oman</option>
+            <option value="PK">Pakistan</option>
+            <option value="PW">Palau</option>
+            <option value="PA">Panama</option>
+            <option value="PG">Papua New Guinea</option>
+            <option value="PY">Paraguay</option>
+            <option value="PE">Peru</option>
+            <option value="PH">Philippines</option>
+            <option value="PN">Pitcairn</option>
+            <option value="PL">Poland</option>
+            <option value="PT">Portugal</option>
+            <option value="PR">Puerto Rico</option>
+            <option value="QA">Qatar</option>
+            <option value="RE">Reunion</option>
+            <option value="RO">Romania</option>
+            <option value="RU">Russian Federation</option>
+            <option value="RW">Rwanda</option>
+            <option value="KN">Saint Kitts and Nevis</option>
+            <option value="LC">Saint LUCIA</option>
+            <option value="VC">Saint Vincent and the Grenadines</option>
+            <option value="WS">Samoa</option>
+            <option value="SM">San Marino</option>
+            <option value="ST">Sao Tome and Principe</option>
+            <option value="SA">Saudi Arabia</option>
+            <option value="SN">Senegal</option>
+            <option value="SC">Seychelles</option>
+            <option value="SL">Sierra Leone</option>
+            <option value="SG">Singapore</option>
+            <option value="SK">Slovakia (Slovak Republic)</option>
+            <option value="SI">Slovenia</option>
+            <option value="SB">Solomon Islands</option>
+            <option value="SO">Somalia</option>
+            <option value="ZA">South Africa</option>
+            <option value="GS">
+              South Georgia and the South Sandwich Islands
+            </option>
+            <option value="ES">Spain</option>
+            <option value="LK">Sri Lanka</option>
+            <option value="SH">St. Helena</option>
+            <option value="PM">St. Pierre and Miquelon</option>
+            <option value="SD">Sudan</option>
+            <option value="SR">Suriname</option>
+            <option value="SJ">Svalbard and Jan Mayen Islands</option>
+            <option value="SZ">Swaziland</option>
+            <option value="SE">Sweden</option>
+            <option value="CH">Switzerland</option>
+            <option value="SY">Syrian Arab Republic</option>
+            <option value="TW">Taiwan, Province of China</option>
+            <option value="TJ">Tajikistan</option>
+            <option value="TZ">Tanzania, United Republic of</option>
+            <option value="TH">Thailand</option>
+            <option value="TG">Togo</option>
+            <option value="TK">Tokelau</option>
+            <option value="TO">Tonga</option>
+            <option value="TT">Trinidad and Tobago</option>
+            <option value="TN">Tunisia</option>
+            <option value="TR">Turkey</option>
+            <option value="TM">Turkmenistan</option>
+            <option value="TC">Turks and Caicos Islands</option>
+            <option value="TV">Tuvalu</option>
+            <option value="UG">Uganda</option>
+            <option value="UA">Ukraine</option>
+            <option value="AE">United Arab Emirates</option>
+            <option value="GB">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="UM">United States Minor Outlying Islands</option>
+            <option value="UY">Uruguay</option>
+            <option value="UZ">Uzbekistan</option>
+            <option value="VU">Vanuatu</option>
+            <option value="VE">Venezuela</option>
+            <option value="VN">Viet Nam</option>
+            <option value="VG">Virgin Islands (British)</option>
+            <option value="VI">Virgin Islands (U.S.)</option>
+            <option value="WF">Wallis and Futuna Islands</option>
+            <option value="EH">Western Sahara</option>
+            <option value="YE">Yemen</option>
+            <option value="ZM">Zambia</option>
+            <option value="ZW">Zimbabwe</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.mobileNumber" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-mobile"></i>
+            <input class="form-control placeholder-no-fix" autocomplete="off" type="text"
+              placeholder="{{ 'SIGNUP.mobileNumber' | translate }}" id="mobileNumber" name="mobileNumber" maxlength="15"
+              [(ngModel)]="registerDetails.mobileNumber" required #mobileNumber="ngModel" [ngClass]="{
+                'is-invalid': registerForm.submitted && mobileNumber.invalid
+              }" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>{{ "SIGNUP.personalIdentifiant" | translate }}</p>
+
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.username" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-user"></i>
+            <input [ngClass]="{
+                'is-invalid': registerForm.submitted && userName.invalid
+              }" class="form-control placeholder-no-fix" type="text" autocomplete="off" id="userName" name="userName"
+              placeholder="{{ 'SIGNUP.username' | translate }}" maxlength="255" pattern="^[a-zA-Z\d@!$*]{3,20}$"
+              [(ngModel)]="registerDetails.userName" required #userName="ngModel"
+              (keypress)="blockInvalidCharacters($event)" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.password" | translate
+            }}</label>
+          <div class="input-icon">
+            <i class="fa fa-lock"></i>
+            <input [ngClass]="{
+                'is-invalid': registerForm.submitted && secretKey.invalid
+              }" class="form-control placeholder-no-fix" [type]="show ? 'text' : 'password'" autocomplete="off"
+              id="secretKey" name="secretKey" placeholder="{{ 'SIGNUP.password' | translate }}"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[@!$*]).{8,20}" maxlength="20" [(ngModel)]="registerDetails.secretKey"
+              required #secretKey="ngModel" />
+            <span style="
+                position: absolute;
+                right: 35px;
+                top: -1px;
+                cursor: pointer;
+              " (click)="onClick('regPassword')">
+              <i class="fa fa-eye" style="color: black" *ngIf="!show"></i>
+              <i class="fa fa-eye-slash" style="color: black" aria-hidden="true" *ngIf="show"></i>
+            </span>
+            <p *ngIf="secretKey.errors?.pattern" style="color: red">
+              {{ "ERRORS.PassValidation" | translate }}
+            </p>
+          </div>
+          <span style="color: mediumseagreen; font-size: 13px">{{ "PASSWORD.Your password" | translate }} <b>8-20</b>
+            {{ "PASSWORD.characters" | translate }} <b>(!, @, $, *)</b>,
+            {{
+            "PASSWORD.and must not
+            contain" | translate
+            }}</span><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label visible-ie8 visible-ie9">{{
+            "SIGNUP.reType" | translate
+            }}</label>
+          <div class="controls">
+            <div class="input-icon">
+              <i class="fa fa-check"></i>
+              <input [ngClass]="{
+                  'is-invalid': registerForm.submitted && rpassword.invalid
+                }" class="form-control placeholder-no-fix" [type]="reshow ? 'text' : 'password'" autocomplete="off"
+                placeholder="{{ 'SIGNUP.reType' | translate }}" required id="rpassword" name="rpassword" maxlength="20"
+                [(ngModel)]="registerDetails.rpassword" required #rpassword="ngModel" />
+              <span style="
+                  position: absolute;
+                  right: 35px;
+                  top: -1px;
+                  cursor: pointer;
+                " (click)="onClick('regRePassword')">
+                <i class="fa fa-eye" style="color: black" *ngIf="!reshow"></i>
+                <i class="fa fa-eye-slash" style="color: black" aria-hidden="true" *ngIf="reshow"></i>
+              </span>
+            </div>
+            <p *ngIf="
+                (rpassword.touched || rpassword.dirty) &&
+                rpassword.valid &&
+                registerDetails.rpassword != registerDetails.secretKey
+              " style="color: red">
+              {{ "ERRORS.Validate" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>
+            <input type="checkbox" name="tnc" (change)="onSelect($event)" />
+            {{ "LOGIN.Agree" | translate }}
+            <a href="javacript:;" (click)="termsConditions()">{{
+              "LOGIN.Terms of Service" | translate
+              }} {{ "LOGIN.and" | translate }} {{
+              "LOGIN.Privacy Policy" | translate
+              }}</a>
+          </label>
+          <div id="register_tnc_error"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions register">
+      <button type="submit" id="register-submit-btn" class="btn green pull-right" [disabled]="!check">
+        {{ "SIGNUP.signup" | translate }}
+        <i class="m-icon-swapright m-icon-white"></i>
+        <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+      </button>
+      <button id="register-back-btn" type="button" (click)="backToLogin('R')" class="btn pull-left">
+        <i class="m-icon-swapleft"></i> {{ "VISADETAILS.Back" | translate }}
+      </button>
+    </div>
+  </form>
+  <!-- END REGISTRATION FORM -->
+</div>
+
+<!-- <div class="termsCondition-content" >
+
+  <div class="logo">
+    <a href="landing.html"
+      ><img src="assets/img/faviconTypo.png" alt="" width="250px"
+    /></a>
+  </div>
+</div> -->
+
+<div class="termsCondition-content" *ngIf="isTermsConditions">
+
+  <div
+    style="background-color: #ffffff; padding: 2rem 4rem; font-size: 20px !important; font-family: Roboto !important;"
+    *ngIf="isTermsConditions && isFrenchInterface">
+    <p style="
+        line-height: 100%;
+        margin-top: 0.34in;
+        margin-bottom: 1.876rem;
+        background: #ffffff;
+      ">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 20pt"><span style="letter-spacing: 0.1pt"><i><b
+                  style="font-size: 48px;">Conditions générales d'utilisation</b></i></span></font>
+        </font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 18pt"><span style="letter-spacing: 0.1pt"><i>Date d'entrée en vigueur : 18
+                février 2018</i></span></font>
+        </font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 0.11in; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Généralités</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le présent site web est détenu et exploité par
+            la République de
+            Djibouti.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'accès et la navigation sur ce site web sont
+            volontaires et
+            gratuits et confèrent automatiquement à la personne intéressée le
+            statut<br />
+            d'« Utilisateur » (ci-après, «'Utilisateur », « vous »).</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Si l'Utilisateur décide de faire appel à nos
+            services, il se verra
+            automatiquement conférer le statut de « Client »<br />
+            (ci-après, le « Client » ou « vous »).</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le statut d'« Utilisateur » et / ou de « Client
+            » implique
+            l'acceptation pleine et entière des présentes Conditions Générales
+            d'Utilisation (CGU), en particulier pour le « Client » qui aura à y
+            faire des transactions. Par conséquent, nous vous recommandons de
+            lire attentivement les CGU suivantes avant d'utiliser ce site web.
+            Dans le cas où vous n'acceptez pas d'être lié par ces CGU, vous ne
+            pourrez pas créer de compte et bénéficier des services offerts par
+            le présent site web.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Les CGU peuvent être mises à jour, à tout moment
+            et sans préavis à
+            l'utilisateur/client, afin de se conformer aux lois et
+            réglementations applicables au Djibouti. Les mises à jour peuvent
+            intervenir en fonction de l'évolution des services ou des
+            fonctionnalités offerts par le présent site web. En cas de mise à
+            jour, les nouvelles CGU sont applicables dès leur publication sur le
+            site. Par conséquent, le Client reconnaît et accepte qu'il est de sa
+            responsabilité de revoir périodiquement les présentes CGU.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le Client accepte d'utiliser et de naviguer sur
+            ce site web en
+            respectant toutes les lois et réglementations applicables en
+            vigueur, ainsi que les présentes CGU.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Si une partie ou une clause des présentes CGU
+            est déclarée nulle et
+            non avenue par une décision judiciaire, la partie et/ou les clauses
+            restantes resteront valables.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Informations et services fournis
+              par le présent site web.</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le présent site ne peut être utilisé que par des
+            personnes majeures
+            ayant la capacité juridique. Par conséquent, si vous n'avez pas
+            l'âge légal requis en vertu des lois et réglementations applicables
+            de votre pays, veuillez ne pas visiter ou utiliser ce site web. En
+            ce sens, l'Etat se réserve le droit de bloquer l'accès à ce site
+            web, sans préavis, aux Utilisateurs ne respectant pas cette
+            exigence.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le présent site web fournit des informations sur
+            les conditions
+            générales d'entrée et de sortie du territoire Djiboutien. Il informe
+            les ressortissants de tout pays étranger dont l'entrée en république
+            de Djibouti est soumise à l'obtention de visa sur le processus de
+            demande d'un visa, les pièces à fournir, la durée de traitement, les
+            types de visas et leurs prix. Ces informations sont basées sur des
+            sources officielles fournies par les administrations
+            compétentes.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le présent site web offre au visiteur la
+            possibilité d'effectuer en
+            ligne ses demandes de visa et la prolongation de son séjour une fois
+            sur place.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le client peut aussi payer en ligne les frais
+            liés à l'ensemble de
+            ces formalités.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Règles de conduite</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">De manière générale, l'Utilisateur et le Client
+            doivent utiliser ce
+            site web, son contenu et ses services conformément aux présentes
+            CGU, aux lois et réglementations en vigueur, aux bonnes mœurs et à
+            l'ordre public, et ce, à tout moment.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Plus spécifiquement, et sans limitation aux
+            points ci-après
+            énumérés, l'utilisateur ne doit pas :</span></font>
+      </font>
+    </p>
+    <ul>
+      <li>
+        <p style="
+            line-height: 100%;
+            margin-top: 0.19in;
+            margin-bottom: 0in;
+            background: #ffffff;
+          ">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">se payer les services d'une tierce personne
+                si vous n'avez pas
+                l'âge légal requis et n'avez pas la capacité légale de
+                contracter conformément aux lois et réglementations applicables
+                de votre pays ;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">faire un usage inapproprié ou illicite du
+                contenu du site web,
+                ainsi que des informations sur les services proposés et/ou les
+                utiliser pour se livrer à des activités illégales ou
+                préjudiciables aux intérêts ou aux droits de tiers ;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">faire usage du contenu et des informations
+                du présent site à
+                des fins illégales pour porter atteinte à des tiers ou à la
+                réputation de l'Etat ;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">restreindre ou empêcher tout autre
+                Utilisateur d'utiliser et de
+                profiter de ce site web ;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">copier, distribuer ou modifier toute partie
+                de ce site web à
+                des fins commerciales sans autorisation écrite préalable de
+                l'Etat Djiboutien ;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">contourner, désactiver ou interférer de
+                quelque manière que ce
+                soit avec les fonctionnalités liées à la sécurité du site web ou
+                les fonctionnalités qui empêchent ou restreignent l'utilisation
+                ou la copie de tout contenu ou qui imposent des limitations à
+                l'utilisation du site web ;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">envoyer ou diffuser des informations, des
+                codes ou du contenu
+                qui pourraient réduire, nuire, perturber ou entraver l'accès ou
+                l'utilisation normale de tout Utilisateur de ce site web et / ou
+                endommager les infrastructures hébergeant le présent site web ou
+                encore les équipements des autres utilisateurs. Les codes ou
+                informations concernés par la présente interdiction incluent,
+                mais sans s'y limiter, les logiciels malveillants, les virus,
+                les bombes logiques, etc.</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0.19in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">enfreindre les droits de propriété
+                intellectuelle de l'Etat
+                Djiboutien. Cela inclut, sans s'y limiter, à l'utilisation, la
+                modification, la créationd'œuvres dérivées, le transfert (par
+                vente, revente, licence, sous-licence, téléchargement ou
+                autre),</span></font>
+          </font>
+        </p>
+      </li>
+    </ul>
+
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'Utilisateur qui ne respecte pas les présentes
+            CGU peut à tout
+            moment se voir bloquer et sans préavis l'accès au présent site web
+            afin d'en maintenir la qualité, la sécurité et la
+            disponibilité.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Limitation des garanties et de la
+              responsabilité</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'utilisation du présent site web se fait sous
+            la responsabilité et
+            aux risques de l'Utilisateur. L'Etat Djiboutien fait ses meilleurs
+            efforts pour assurer la disponibilité du site et la navigation
+            sécurisée de l'Utilisateur.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Cependant, l'Utilisateur est encouragé à
+            contacter le centre de
+            support et de gestion du présent site web et de l'à avertir de toute
+            inexactitude.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'Etat Djiboutien ne peut être tenu responsable
+            si le contenu et
+            les informations de ce site sont utilisés par un Utilisateur ou un
+            tiers à des fins illégales et/ou pour porter atteinte à des
+            tiers.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'Etat Djiboutien ne peut pas non plus garantir
+            les dommages
+            éventuels pouvant être causés par des tiers par le biais d'une
+            intrusion illégitime indépendante de sa volonté.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'Etat Djiboutien s'assurera de maintenir à jour
+            les informations
+            et les conditions d'éligibilité concernant la demande en ligne du
+            visa électronique.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Cependant, l'Utilisateur est encouragé à
+            contacter le centre de
+            support et de gestion du présent site web et de l'à avertir de toute
+            inexactitude.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'Etat Djiboutien ne peut être tenu responsable
+            si le contenu et
+            les informations de ce site sont utilisés par un Utilisateur ou un
+            tiers à des fins illégales et/ou pour porter atteinte à des
+            tiers.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">De la même manière, l'Etat Djiboutien n'assumera
+            aucune
+            responsabilité pour l'accès à ce site web par les Utilisateurs
+            n'ayant pas l'âge légal requis selon les lois et règlements
+            applicables de leur pays. Il ressort de la responsabilité des
+            parents et / ou tuteurs légaux d'exercer un contrôle adéquat sur
+            l'activité et / ou l'utilisation d'Internet par leurs enfants à
+            charge ou mineurs ; d'empêcher leur accès à ce site web, ainsi que
+            l'envoi de données personnelles sans leur autorisation
+            préalable.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'Etat Djiboutien sera exonéré de toute
+            responsabilité pouvant
+            découler de la violation des présentes CGU par l'Utilisateur et / ou
+            le Client.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Droits de propriété
+              intellectuelle</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">La totalité des éléments contenus sur ce site,
+            qu'il s'agisse de
+            textes, articles, descriptions, images, graphismes, sons, vidéos,
+            marques, logos, fonctionnalités interactives ou tout autre élément,
+            sa structure et sa conception, la sélection et la présentation du
+            contenu et éléments qui y sont inclus, ainsi que les logiciels
+            nécessaires à son fonctionnement, son accès et son utilisation sont
+            la propriété de l'Etat Djiboutien ou des partenaires avec lesquels
+            l'Etat a soumis les licences correspondantes. Tous les éléments du
+            présent site sont protégés par des droits de propriété industrielle
+            et intellectuelle qui doivent être respectés par l'Utilisateur et/ou
+            le Client. Cette question est également signalée par un avis de
+            droit d'auteur sur la page d'accueil de ce site web.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">La reproduction, la copie, la distribution, la
+            transformation ou,
+            d'une manière générale, toute utilisation des éléments protégés de
+            ce site à des fins commerciales ou non, sans l'accord écrit
+            préalable des autorités compétentes de la République de Djibouti
+            sont expressément et totalement interdites.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'accès et l'utilisation de ce site ne
+            transfèrent en aucun cas les
+            droits de propriété intellectuelle de la République de Djibouti à
+            l'Utilisateur<br />
+            et / ou au Client, ni l'octroi d'une licence ou d'une
+            autorisation.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Par ailleurs, il est important de noter que
+            l'Etat se réserve tous
+            les droits de propriété intellectuelle qui ne sont pas expressément
+            indiqués dans les présentes CGU et qui sont conformes aux lois et
+            règlements en vigueur.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Informations générales sur les
+              frais</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Tous les demandeurs de visa, y compris les
+            enfants, sont tenus de
+            payer des frais pour faire leur demande de visa (Transit et court
+            séjour). Ces frais sont non remboursables et non transférables. Le
+            paiement des frais de demande de visa est nécessaire que la demande
+            aboutisse ou non à la délivrance d'un visa djiboutien.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Conditions générales des frais pour une
+              demande de visa</b></span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Les frais pour une demande de visa djiboutien
+            sont les
+            suivants&nbsp;:</span></font>
+      </font>
+    </p>
+    <ul>
+      <li>
+        <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Non remboursable</b></span></font>
+          </font>
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">&nbsp;- La Direction Générale de
+                l'Immigration ne rembourse pas
+                les frais pour une demande de visa.</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Non transférables</b></span></font>
+          </font>
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">&nbsp;- Les frais de demande de visa ne
+                peuvent pas être
+                revendus ou transférés à un autre demandeur.</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Bon pour une seule demande</b></span>
+            </font>
+          </font>
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">&nbsp;- Les frais de demande de visa peuvent
+                être utilisés pour
+                une seule demande. Si la demande de visa est refusée, une
+                nouvelle demande de visa devra être faite et de nouveaux frais
+                devront être payés à nouveau.</span></font>
+          </font>
+        </p>
+      </li>
+    </ul>
+    <font color="#266486">
+      <font face="Poppins, serif">
+        <font id="politique_confidentialite" size="5" style="font-size: 20pt"><span style="letter-spacing: 0.1pt"><i><b
+                style="font-size: 48px;">Politique de confidentialité</b></i></span></font>
+      </font>
+    </font>
+    <br> <br>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Collecte et sécurité des données à
+              caractère personnel</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Collecte de données personnelles</b></span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Aucune information personnelle n'est
+            automatiquement collectée pour
+            tout utilisateur qui visite simplement ce site Web ou pour toute
+            personne qui télécharge à des fins d'information.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Les données personnelles collectées pour la
+            fourniture des services
+            proposés via ce site Web et les données obtenues lors de la
+            navigation et de l'utilisation de ce site Web seront traitées
+            conformément à la politique de confidentialité et à la politique en
+            matière de cookies.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">L'État Djiboutien peut utiliser ces informations
+            pour connaître le
+            nombre d'utilisateurs du site Web, où se trouvent ces utilisateurs,
+            quelles parties du site Web les intéressent le plus et d'autres
+            faits qui contribueront à améliorer le site Web et les services
+            offerts.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Sécurité des données personnelles</b></span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Des mesures techniques appropriées ont été
+            adoptées pour garantir
+            la confidentialité, l'intégrité, la disponibilité et la sécurité des
+            données personnelles collectées.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Aucune information individuelle (nom, adresse,
+            numéro de téléphone,
+            etc.) ne sera vendue ou louée à un tiers à des fins de marketing ou
+            de liste de diffusion sans votre permission.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Juridiction et lois applicables</b></span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Les présentes conditions d'utilisation sont
+            régies par le droit
+            Djiboutien.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">En cas de controverse ou de désaccord entre
+            l'Utilisateur et l'Etat
+            Djiboutien découlant des présentes CGU, les deux parties conviennent
+            de soumettre leur résolution, à leur libre choix et renoncent
+            expressément à toute autre juridiction à laquelle elles pourraient
+            prétendre, aux Cours et Tribunaux compétents du lieu de résidence de
+            l'Utilisateur et, le cas échéant, du Client.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le non-exercice par la République Djiboutien de
+            tout droit prévu ou
+            dérivé des présentes CGU ne doit en aucun cas être interprété comme
+            une renonciation audit droit, sauf renonciation expresse et écrite
+            ou prescription légale de l'action qui dans chaque cas correspond à
+            la loi ou à la réglementation en vigueur.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 108%; margin-bottom: 0.11in">
+      <br />
+      <br />
+    </p>
+  </div>
+  <div
+    style="background-color: #ffffff; padding: 2rem 4rem; font-size: 20px !important; font-family: Roboto !important;"
+    *ngIf="isTermsConditions && isEnglishInterface">
+    <p style="
+      line-height: 100%;
+      margin-top: 0.34in;
+      margin-bottom: 1.876rem;
+      background: #ffffff;
+    ">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 20pt"><span style="letter-spacing: 0.1pt"><i><b
+                  style="font-size: 48px;">Terms and conditions of use</b></i></span></font>
+        </font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 18pt"><span style="letter-spacing: 0.1pt"><i>Effective date: February 18,
+                2018</i></span></font>
+        </font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 0.11in; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">General</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">This website is owned and operated by the
+            Republic of Djibouti.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Access to and browsing of this website is
+            voluntary and free of charge and automatically confers on the interested party the status <br />
+            of "User" (hereinafter, "User", "you").</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">If the User decides to use our services, he or
+            she will automatically be granted the status of "Customer" <br />
+            (hereinafter, the "Customer" or "you").</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The status of "User" and / or "Customer" implies
+            full acceptance of these General Terms and Conditions of Use (GCU), in particular for the "Customer" who
+            will have to make transactions. We therefore recommend that you read the following T&Cs carefully before
+            using this website. If you do not agree to be bound by these GCU, you will not be able to create an account
+            and benefit from the services offered by this website.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The GCU may be updated at any time and without
+            notice to the user/customer, in order to comply with laws and regulations applicable in Djibouti. Updates
+            may be made to reflect changes in the services or features offered by this website. In the event of an
+            update, the new GCU shall apply as soon as they are published on the site. Consequently, the Customer
+            acknowledges and accepts that it is his/her responsibility to periodically review these GCU.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The Customer agrees to use and browse this
+            website in compliance with all applicable laws and regulations in force, as well as with these GCU.</span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">If any part or clause of these GCU is declared
+            null and void by a court decision, the remaining part and/or clauses shall remain valid.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Information and services provided
+              by this website.</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Le présent site ne peut être utilisé que par des
+            personnes majeuresThis website may only be used by persons of legal age. Therefore, if you are not of legal
+            age under the applicable laws and regulations of your country, please do not visit or use this website. In
+            this regard, the State reserves the right to block access to this website, without prior notice, to Users
+            who do not comply with this requirement.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">This website provides information on the general
+            conditions for entering and leaving Djibouti. It informs nationals of any foreign country whose entry into
+            the Republic of Djibouti is subject to obtaining a visa about the process of applying for a visa, the
+            documents to be provided, the processing time, the types of visas and their prices. This information is
+            based on official sources provided by the relevant authorities.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">This website enables visitors to apply online
+            for visas and extend their stay in France.
+          </span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The customer can also pay the fees associated
+            with all these formalities online.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Rules of conduct</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">In general, the User and the Customer must use
+            this website, its content and its services in accordance with these GCU, with the laws and regulations in
+            force, with good morals and with public order, at all times.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">More specifically, and without limitation to the
+            points listed below, the user must not :</span></font>
+      </font>
+    </p>
+    <ul>
+      <li>
+        <p style="
+          line-height: 100%;
+          margin-top: 0.19in;
+          margin-bottom: 0in;
+          background: #ffffff;
+        ">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• pay for the services of a third party if
+                you are not of legal age and do not have the legal capacity to contract in accordance with the
+                applicable laws and regulations of your country;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• make inappropriate or illicit use of the
+                website content and information on the services offered and/or use them to engage in activities that are
+                illegal or prejudicial to the interests or rights of third parties;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• use the content and information of this
+                website for illegal purposes, in order to harm third parties or the reputation of the State;</span>
+            </font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• restrict or inhibit any other User from
+                using and enjoying this website;
+              </span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• bypass, disable or interfere in any way
+                with the security features of the website or features that prevent or restrict the use or copying of any
+                content or that impose limitations on the use of the website;</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• send or disseminate any information, code
+                or content that could reduce, harm, disrupt or interfere with any User's normal access to or use of this
+                website and/or damage the infrastructure hosting this website or other Users' equipment. Codes or
+                information covered by this prohibition include, but are not limited to, malware, viruses, logic bombs,
+                etc.</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• infringe the intellectual property rights
+                of the State of Djibouti. This includes, but is not limited to, use, modification, creation of
+                derivative works, transfer (by sale, resale, license, sublicense, download or otherwise),</span></font>
+          </font>
+        </p>
+      </li>
+
+      <li>
+        <p style="line-height: 100%; margin-bottom: 0.19in; background: #ffffff">
+          <font color="#000000">
+            <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">• copy, distribute or modify any part of
+                this website for commercial purposes without the prior written permission of the Djibouti State,</span>
+            </font>
+          </font>
+        </p>
+      </li>
+    </ul>
+
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Users who fail to comply with these GCU may have
+            their access to this website blocked at any time without notice in order to maintain its quality, security
+            and availability.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Limitation of warranties and
+              liability</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Use of this website is at the User's own risk
+            and responsibility. The State of Djibouti makes its best efforts to ensure the availability of the site and
+            secure browsing for the User.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">However, the User is encouraged to contact the
+            support and management center of this website and to notify it of any inaccuracies.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The State of Djibouti cannot be held responsible
+            if the content and information of this site is used by a User or a third party for illegal purposes and/or
+            to harm third parties.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Nor can the Djiboutian State guarantee any
+            damage that may be caused by third parties through illegitimate intrusion beyond its control.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The State of Djibouti will ensure that the
+            information and conditions of eligibility concerning the online application for an electronic visa are kept
+            up to date.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">However, the User is encouraged to contact the
+            support and management center of this website and notify it of any inaccuracies.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The State of Djibouti cannot be held responsible
+            if the content and information of this site is used by a User or a third party for illegal purposes and/or
+            to harm third parties.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Similarly, the State of Djibouti assumes no
+            responsibility for access to this website by Users under the legal age required by the applicable laws and
+            regulations of their country. It is the responsibility of parents and/or legal guardians to exercise
+            adequate control over the activity and/or use of the Internet by their dependent children or minors; to
+            prevent their access to this website, as well as the sending of personal data without their prior
+            authorization.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The State of Djibouti shall be exonerated from
+            any liability that may arise from the User's and/or the Customer's breach of these GCU..</span></font>
+      </font>
+    </p>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Intellectual property rights</span>
+          </font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">All elements contained on this site, whether
+            texts, articles, descriptions, images, graphics, sounds, videos, brands, logos, interactive functionalities
+            or any other element, its structure and design, the selection and presentation of the content and elements
+            included therein, as well as the software necessary for its operation, access and use, are the property of
+            the State of Djibouti or of partners with whom the State has submitted the corresponding licenses. All
+            elements of this site are protected by industrial and intellectual property rights which must be respected
+            by the User and/or Customer. This is also indicated by a copyright notice on the home page of this
+            website.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The reproduction, copying, distribution,
+            transformation or, in general, any use of the protected elements of this site for commercial or
+            non-commercial purposes, without the prior written consent of the competent authorities of the Republic of
+            Djibouti, is expressly and totally prohibited.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Access to and use of this site in no way
+            transfers the intellectual property rights of the Republic of Djibouti to the User<br />
+            and/or the Customer, nor the granting of any license or authorization.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Furthermore, it is important to note that the
+            State reserves all intellectual property rights that are not expressly indicated in these GCU and that
+            comply with the laws and regulations in force.</span></font>
+      </font>
+    </p>
+
+    <font color="#266486">
+      <font face="Poppins, serif">
+        <font id="politique_confidentialite" size="5" style="font-size: 20pt"><span style="letter-spacing: 0.1pt"><i><b
+                style="font-size: 48px;">Privacy policy</b></i></span></font>
+      </font>
+    </font>
+    <br> <br>
+    <p style="line-height: 100%; margin-bottom: 1rem; background: #ffffff">
+      <font color="#266486">
+        <font face="Poppins, serif">
+          <font size="5" style="font-size: 24pt"><span style="letter-spacing: 0.1pt">Collection and security of personal
+              data</span></font>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Collection of personal data</b></span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">No personal information is automatically
+            collected for any user who simply visits this website or for any person who downloads for information
+            purposes.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Personal data collected for the provision of
+            services offered via this website and data obtained during browsing and use of this website will be
+            processed in accordance with the Privacy Policy and the Cookie Policy.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The State of Djibouti may use this information
+            to find out the number of users of the website, where these users are located, which parts of the website
+            are of most interest to them and other facts that will help to improve the website and the services
+            offered.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Security of personal data</b></span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">Appropriate technical measures have been adopted
+            to guarantee the confidentiality, integrity, availability and security of the personal data
+            collected.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">No individual information (name, address,
+            telephone number, etc.) will be sold or rented to a third party for marketing or mailing list purposes
+            without your permission.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt"><b>Jurisdiction and applicable law</b></span>
+        </font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">These terms of use are governed by Djiboutian
+            law.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">In the event of any controversy or disagreement
+            between the User and the State of Djibouti arising out of these GCU, both parties agree to submit their
+            resolution, at their free choice and expressly waive any other jurisdiction to which they may be entitled,
+            to the competent Courts and Tribunals of the place of residence of the User and, where applicable, the
+            Customer.</span></font>
+      </font>
+    </p>
+    <p align="justify" style="line-height: 100%; margin-bottom: 0.21in; background: #ffffff">
+      <font color="#000000">
+        <font face="Poppins, serif"><span style="letter-spacing: 0.3pt">The non-exercise by the Republic of Djibouti of
+            any right provided for or derived from the present GTU shall in no case be construed as a waiver of said
+            right, except in the case of an express written waiver or legal prescription of the action which in each
+            case corresponds to the law or regulation in force.</span></font>
+      </font>
+    </p>
+    <p style="line-height: 108%; margin-bottom: 0.11in">
+      <br />
+      <br />
+    </p>
+  </div>
+  <div class="form-actions">
+    <button id="register-back-btn" type="button" (click)="backToRegister()" class="btn pull-left">
+      <i class="m-icon-swapleft"></i> {{ "VISADETAILS.Back" | translate }}
+    </button>
+  </div>
+</div>
+
+<ngx-ui-loader hasProgressBar="false" fgsType="three-strings"></ngx-ui-loader>

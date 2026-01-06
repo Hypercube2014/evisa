@@ -1,0 +1,223 @@
+<!--START SCROLL TOP BUTTON -->
+
+<body class="no-page-top">
+  <!-- END SCROLL TOP BUTTON -->
+
+  <!-- Start header  -->
+  <header class="header1" data-bg-color="rgba(9, 103, 139, 0.36)" data-font-color="#fff">
+    <div class="">
+
+      <!--Site Logo-->
+
+      <!--<a href="landing.html"> <img src="assets/img/evisa.png" alt="" style="width: 100px; margin-top: 55px; " /> </a>-->
+      <!--<img src="assets/img/faviconTypo.png" alt="" style="width: 320px" />-->
+
+
+      <!--End Site Logo-->
+      <div class="navbar-collapse nav-main-collapse collapse" id="nav-centrer">
+
+
+
+        <div id="nav-wrapper">
+
+          <!--Main Menu-->
+          <nav class="nav-main mega-menu one-page-menu" style="  font-family: 'Open Sans';">
+            <div>
+              <a href="index.html">
+                <!-- <a href="index.html" class="lo">
+                <span>e</span>Visa<span id="gou">.gouv.dj</span>
+              </a> -->
+                <span><img src="assets/img/evisa.png" alt="" class="lo" width="200px"></span>
+              </a>
+            </div>
+            <ul class="nav nav-pills nav-main" id="mainMenu" style="display: flex;
+          align-items: center; margin: auto; ">
+              <li class="active">
+                <a data-hash href="#home">{{'HOME.Home'|translate}}</a>
+              </li>
+              <li>
+                <a data-hash href="#features">{{'HOME.Apply visa'|translate}}</a>
+              </li>
+
+              <li>
+                <a data-hash href="#services">{{'HOME.Information'|translate}}</a>
+              </li>
+              <li>
+                <a data-hash href="#screenshots">{{'HOME.Tourist'|translate}}</a>
+              </li>
+              <li>
+                <a data-hash href="#contact-us">{{'HOME.Contact us'|translate}}</a>
+              </li>
+              <li><a href="javascript:;" (click)="launchApplication('L')">{{'HOME.Login'|translate}}</a></li>
+              <li><a href="javascript:;" (click)="launchApplication('S')">{{'HOME.Signup'|translate}}</a></li>
+              <li>
+                <select (change)="translate.use(homeInfo.lang);translateLanguage(homeInfo.lang)" class="form-control"
+                  id="lang" name="lang" required maxlength="25" [(ngModel)]="homeInfo.lang" #lang="ngModel">
+                  <option value="en">English</option>
+                  <option value="fr">Français</option>
+                </select>
+              </li>
+
+            </ul>
+          </nav>
+        </div>
+
+        <!--End Main Menu-->
+      </div>
+      <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+  </header>
+  <!-- End header  -->
+
+
+
+  <br><br><br><br><br><br>
+  &nbsp;&nbsp;
+  <section id="mu-slider">
+    <div class="container ">
+      <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12 faqTitle">
+        <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h3>{{'FAQ.Frequently'|translate}}</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  &nbsp;&nbsp;&nbsp;
+
+  <section id="mu-slider">
+
+
+    <!--/panel-group-->
+    <div class="container ">
+      <div class="panel-group" id="faqAccordion">
+        <div class="panel panel-default " *ngFor="let data of FaqList;let i=index;">
+          <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse"
+            data-parent="#faqAccordion" attr.data-target="#question{{i}}">
+            <h4 class="panel-title">
+              <!-- <a href="javascript:;" class="ing">Q: {{data?.Question}}</a> -->
+              <p *ngIf="this.getToken('Language') === 'en'" class="ing" style="cursor: pointer;">Q:
+                {{data?.faqQuestion}}</p>
+              <p *ngIf="this.getToken('Language') === 'fr'" class="ing" style="cursor: pointer;">Q:
+                {{data?.faqQuestionOther}}</p>
+            </h4>
+
+          </div>
+          <div id="question{{i}}" class="panel-collapse collapse" style="height: 0px;">
+            <div class="panel-body">
+              <h3><label class="label label-primary">{{'FAQ.Answer'|translate}}</label></h3>
+
+              <p *ngIf="this.getToken('Language') === 'en'" style="font-family: Verdana, sans-serif;">
+                {{data?.faqAnswer}}</p>
+              <p *ngIf="this.getToken('Language') === 'fr'" style="font-family: Verdana, sans-serif;">
+                {{data?.faqAnswerOther}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/panel-group-->
+    </div>
+  </section>
+
+</body>
+
+<br /><br /><br /><br /><br /><br />
+<!-- Start footer -->
+
+
+<!--Footer-Wrap-->
+<div class="footer-wrap">
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <section class="widget">
+            <div class="logo">
+              <!-- <div class="lo">
+                <span>e</span>-Visa<span id="gou">.gouv.dj</span>
+              </div> -->
+              <img src="assets/img/evisa.png" alt="" class="lo" style="width: 200px;">
+
+
+            </div>
+
+            <br>
+            <!-- <p class="pull-bottom-small">
+              <B>{{'HOME.REPUBLIQUE DE DJIBOUTI'|translate}}</B> <br>
+              <B>{{'HOME.MINISTRY OF THE INTERIOR'|translate}}</B> <br>
+              <B>{{'HOME.GENERAL DIRECTORATE OF POLICE'|translate}}</B>
+            </p>-->
+
+          </section>
+        </div>
+        <!-- <div class="col-sm-4">
+          <section class="widget">
+            <div class="logo">
+               <div class="lo">
+                <span>e</span>-Visa<span id="gou">.gouv.dj</span>
+              </div> 
+              <img src="assets/img/police-footer.png" alt="" class="lo" style="width: 300px;">
+            </div>
+            <br>
+             <p class="pull-bottom-small">
+              <B>{{'HOME.REPUBLIQUE DE DJIBOUTI'|translate}}</B> <br>
+              <B>{{'HOME.MINISTRY OF THE INTERIOR'|translate}}</B> <br>
+              <B>{{'HOME.GENERAL DIRECTORATE OF POLICE'|translate}}</B>
+            </p>
+
+          </section>
+        </div>
+         <div class="col-sm-4">
+          <section class="widget" style="text-align: right">
+            <div class="widget-heading" >
+              <h4 style="text-align: center;">{{'HOME.PARTNER'|translate}}</h4>
+            </div>
+            <ul class="portfolio-grid">
+              <li>
+                <img src="assets/img/partners/UE.png" />
+              </li>
+              <li>
+                <img src="assets/img/partners/OIM2.png" />
+              </li>
+              <li>
+
+                <img src="assets/img/partners/partner2.jpg" />
+              </li>
+
+            </ul>
+          </section>
+        </div> -->
+        <div class="col-sm-8">
+          <section class="widget">
+            <div class="widget-heading" style="text-align: right">
+              <h4>{{ "HOME.Frequently" | translate }}</h4>
+
+              <div class="footer-contact-info">
+                <ul style="padding: 0 !important;">
+                  <li>
+                    <p><strong><i class="fa fa-question"></i><a href="javascript:;"
+                          [routerLink]="['/faq']">{{'HOME.FAQ'|translate}}</a></strong></p>
+                  </li><br>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="copyright">
+    <div class="container">
+      <p>&copy; 2024 E-visa Djibouti &nbsp; &bull; &nbsp; <a rel="nofollow" target="_parent"
+          href="https://www.hypercube.dj" class="tm-text-link">Hypercube</a></p>
+
+    </div>
+  </div>
+</div>
+<!--End Footer-Wrap-->
+
+
+<div id="back-to-top" class="animate-top"><i class="fa fa-angle-up"></i></div>

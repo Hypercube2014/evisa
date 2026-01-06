@@ -1,0 +1,247 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'EXTENSIONVISA.Apply Visa Extension'|translate}}
+            <!-- <small> {{'APPLICATIONSPAGE.Applications' | translate }}</small> -->
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'APPLICATIONSPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li> {{'EXTENSIONVISA.Apply Visa Extension'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">Visa Extension</div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse" tooltip="Collapse"></a> -->
+                    <a href="javascript:;" style="position: relative; top: -5px; color: #e5e5e5;" tooltip="Refresh"><i
+                            (click)="refreshPage()" class="fa fa-refresh"></i></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <button id="sample_editable_1_new" class="btn green" (click)="showModal(template);">
+                            {{'EXTENSIONVISA.Apply for extension'|translate}}<i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div class="table-scrollable">
+                    <table class="styled-table"
+                        id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>{{'EXTENSIONVISA.Visa Extension Number'|translate}}</th>
+                                <th>{{'DASHBOARDPAGE.Application Number'|translate}}</th>
+                                <th>{{'EXTENSIONVISA.Daysofextension'|translate}}</th>
+                                <th>{{'EXTENSIONVISA.Total Amount'|translate}}</th>
+                                <th>{{'EXTENSIONVISA.Extension status'|translate}}</th>
+                                <th>{{'DASHBOARDPAGE.Action'|translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="odd gradeX" *ngFor="let data of serchVisa">
+                                <td>{{data?.visaExtensionId}}</td>
+                                <td>{{data?.applicationNumber}}</td>
+                                <td>{{data?.daysOfExtension}}</td>
+                                <td>{{data?.totalAmount}}</td>
+                                <td *ngIf="data?.extensionStatus=='UP'"><span class="label label-sm label-info">{{'Result.UnderProcessing'|translate}}</span></td>
+                                <td *ngIf="data?.extensionStatus==='APR'"><span
+                                        class="label label-sm label-success">{{'Result.Granted'|translate}}</span></td>
+                                <td *ngIf="data?.extensionStatus==='REJ'"><span
+                                        class="label label-sm label-danger">{{'Result.Rejected'|translate}}</span></td>
+                                <td> <a href="javascript:;" tooltip="View"
+                                        [routerLink]="['/main/evisa-extension/apply-visa-view/',data?.visaExtensionId]"
+                                        routerLinkActive="active"><i class="fa fa-eye"></i></a>
+                                    &nbsp;&nbsp;
+                                    <a *ngIf="data?.extensionStatus === 'APR'" (click)="downloadApplication(data?.applicationNumber, data?.visaExtensionId)"
+                                        href="javascript:;" style="cursor: pointer;"
+                                        tooltip="Download">{{'Content.download'|translate}}
+                                        <!-- <i class="fa fa-download"></i> -->
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr class="odd" *ngIf="(!serchVisa.length) &&(!loading)">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty">
+                                    <b>{{'EXTENSIONVISA.noVisaEligible'|translate}}</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- <tbody *ngIf="loading">
+                            <div class="loading">Loading&#8230;</div>
+                        </tbody> -->
+                    </table>
+
+                </div>
+                <div class="row" *ngIf="totalElements>0">
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="btn-group">
+                            <ng-select (change)="rangeChanged(pagesize)" [items]="rangeList" bindLabel="name"
+                                bindValue="id" placeholder="Select" [(ngModel)]="pagesize"
+                                [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                [dropdownPosition]="'top'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info">{{'PAGINATION.Showing'|translate}}
+                            {{(number*size) + 1}} {{'PAGINATION.to'|translate}}
+                            {{(number*size) + noofelements}} {{'PAGINATION.of'|translate}} {{totalElements}}
+                            {{'PAGINATION.entries'|translate}}
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                [itemsPerPage]='pagesize' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                                [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<ngx-ui-loader hasProgressBar=true fgsType="three-strings"></ngx-ui-loader>
+
+
+<ng-template #template>
+    <div class="modal-body view-incident-modal-body">
+
+        <div class="portlet box">
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <h3 class="form-section" style="text-align: center;">{{'EXTENSIONVISA.SelectExtension'|translate}}
+                        </h3>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="dataTables_filter" id="sample_editable_1_filter"><label class="col-md">{{'EXTENSIONVISA.Search'|translate}}:
+                                    <input class="form-control input-medium pull-right" type="text" id="search-text"
+                                        aria-describedby="search-text" placeholder="Application No" autofocus
+                                        (keyup)="onSearch($event)">
+                                </label>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class=" table-scrollable">
+
+                            <table class="styled-table"
+                                id="sample_editable_1">
+                                <thead>
+                                    <tr>
+                                        <th>{{'DASHBOARDPAGE.Application Number'|translate}}</th>
+                                        <th>{{'EXTENSIONVISA.File Number'|translate}}</th>
+                                        <th>{{'TRAVELINFO.Passport Number'|translate}}</th>
+                                        <th>{{'EXTENSIONVISA.Given Name'|translate}}</th>
+                                        <th>{{'EXTENSIONVISA.Visa Valid Date'|translate}}</th>
+                                        <th>{{'DASHBOARDPAGE.Action'|translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr class="odd gradeX"
+                                        *ngFor="let data of visaExtensionfilters == null ? modalVisaExtensionDetails : visaExtensionfilters">
+                                        <td>
+                                            {{data?.applicationNumber}}
+                                        </td>
+                                        <td>{{data?.fileNumber}}</td>
+                                        <td>{{data?.passportNo}}</td>
+                                        <td>{{data?.givenName}}</td>
+                                        <td>{{data?.visaExpiry|date:'dd/MM/yyyy'}}</td>
+                                        <td><a href='javascript:;'
+                                                [routerLink]="['/main/evisa-extension/apply-visa-edit',data.applicationNumber]"
+                                                (click)="onClose(data?.applicationNumber,data?.fileNumber,data?.givenName, data?.emailAddress, data?.passportNo, data?.visaExpiry)">
+                                                Apply</a>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td style="text-align: left" colspan="10" class="dataTables_empty">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div *ngIf="(visaExtensionfilters==null?false:!visaExtensionfilters.length) &&(!loading)">
+                            <p>{{'Content.applNum'|translate}}</p>
+                            <p>* {{'Content.territory'|translate}}</p>
+                            <p>* {{'Content.remaining validity'|translate}}</p>
+                            <b>{{'Content.contact'|translate}}</b>
+                        </div>
+                        <div class="row" *ngIf="totalElements>0">
+
+                            <div class="col-md-4 col-sm-12">
+                                <div class="btn-group">
+                                    <ng-select (change)="rangeChange(pagesized)" [items]="rangelists" bindLabel="name"
+                                        bindValue="id" placeholder="Select" [(ngModel)]="pagesized"
+                                        [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                        [dropdownPosition]="'top'">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="dataTables_info" id="sample_editable_1_info">
+                                    {{'PAGINATION.Showing'|translate}}
+                                    {{(numbers*sizes) + 1}} {{'PAGINATION.to'|translate}}
+                                    {{(numbers*sizes) + numofelements}} {{'PAGINATION.of'|translate}} {{totalElements}}
+                                    {{'PAGINATION.entries'|translate}}
+                                </div>
+
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="dataTables_paginate paging_bootstrap">
+                                    <pagination class="pages" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                        [itemsPerPage]='pagesized' name="currentPage" ngDefaultControl
+                                        [totalItems]="totalitem" [maxSize]="5" [(ngModel)]="currentPage"
+                                        [ngModelOptions]="{standalone: true}" (pageChanged)="pageChange($event)"
+                                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                                        lastText="&raquo;">
+                                    </pagination>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-offset-5 col-md-9">
+                                        <button type="button" class="btn default" (click)="modalRef.hide()"
+                                            style="text-align: center;">Close</button>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- END FORM-->
+        </div>
+    </div>
+</ng-template>

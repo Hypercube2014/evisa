@@ -1,0 +1,251 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'EXTENSIONVISA.Apply Visa Extension'|translate}}
+            <!-- <small> {{'APPLICATIONSPAGE.Applications' | translate }}</small> -->
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'APPLICATIONSPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li> {{'EXTENSIONVISA.Apply Visa Extension'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption">{{'EXTENSIONVISA.Renewal Of Visa'|translate}}
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+
+                <form #visaExtensionForm='ngForm' (ngSubmit)='submitForm(visaExtensionForm,extensionVisa)'
+                    class="form-horizontal">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Applicant Number'|translate}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="applicantNo" [(ngModel)]="applicantNo"
+                                    [disabled]="true" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Given Name'|translate}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="givenName" [(ngModel)]="givenName"
+                                    [disabled]="true" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.File Number'|translate}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" [(ngModel)]="fileNumber" name="fileNumber"
+                                    [disabled]="true" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Passport'|translate}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" [(ngModel)]="passport" name="passport"
+                                    [disabled]="true" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Email Id'|translate}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" [(ngModel)]="emailId" name="emailId"
+                                    [disabled]="true" />
+
+                            </div>
+                        </div>
+
+                        <!-- label for File Attached -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Previous Approval Date
+                                Visa'|translate}}</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" bsDatepicker id="previousApproval"
+                                    name="previousApproval" [disabled]="true" [(ngModel)]="VisaDate"
+                                    #previousApproval="ngModel" [bsConfig]="datePickerConfig" />
+
+                            </div>
+                        </div>
+
+
+                        <!-- label for period visa -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Period Visa'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="applyVisaTypes" class="chosen-select" (change)="selectVisa($event)"
+                                    placeholder="{{'EXTENSIONVISA.Period Visa'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="extensionVisa.daysOfExtension"
+                                    bindLabel="description" bindValue="code" [dropdownPosition]="'auto'"
+                                    name="daysOfExtension" id="daysOfExtension" #daysOfExtension="ngModel" required>
+                                </ng-select>
+                                <div class="error-block"
+                                    *ngIf="((submitted || daysOfExtension.touched) && daysOfExtension.invalid)">
+                                    {{'ERRORS.requiredField'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- label for Amount Penality -->
+                        <!-- <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Amount Penality'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="penalityAmount" name="penalityAmount"
+                                    [(ngModel)]="extensionVisa.penalityAmount" disabled #penalityAmount="ngModel"
+                                    required />
+                                <div class="error-block"
+                                    *ngIf="((submitted || penalityAmount.touched) && penalityAmount.invalid)">
+                                    {{'ERRORS.requiredField'|translate}}
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- label for Total Amount -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Total Amount'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" disabled id="totalAmount" name="totalAmount"
+                                    [(ngModel)]=extensionVisa.totalAmount #totalAmount="ngModel" required />
+                                <div class="error-block"
+                                    *ngIf="((submitted || totalAmount.touched) && totalAmount.invalid)">
+                                    {{'ERRORS.requiredField'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Motivates'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="extensionDetails" class="chosen-select"
+                                    (change)="selectReason($event)"
+                                    placeholder="{{'EXTENSIONVISA.Motivates'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="extensionVisa.reasonsForExtension"
+                                    bindLabel="description" bindValue="code" [dropdownPosition]="'auto'"
+                                    name="reasonsForExtension" id="reasonsForExtension" #reasonsForExtension="ngModel"
+                                    required>
+                                </ng-select>
+                                <div class="error-block"
+                                    *ngIf="((submitted || reasonsForExtension.touched) && reasonsForExtension.invalid)">
+                                    {{'ERRORS.requiredField'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for motivates -->
+                        <div class="form-group" *ngIf="isOther">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.MotivatesRemarks'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <textarea class="form-control"
+                                    placeholder="{{'EXTENSIONVISA.MotivatesRemarks'|translate}}" id="otherRemarks"
+                                    name="otherRemarks" [(ngModel)]=extensionVisa.otherRemarks #otherRemarks="ngModel"
+                                    rows="3" required>
+                                </textarea>
+                                <div class="error-block"
+                                    *ngIf="((submitted || otherRemarks.touched) && otherRemarks.invalid)">
+                                    {{'ERRORS.requiredField'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- label for Attachment -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'EXTENSIONVISA.Attachment'|translate}}</label>
+                            <div class="col-md-4">
+                                <span (click)="takeInput.click()" style="cursor: pointer;" class="btn btn-info ">
+                                    <i class="fa fa-plus"></i>
+                                    <span>&nbsp;Add</span>
+                                    <input [disabled]="AttachedFiles.length" hidden type="File" style="display: none;"
+                                        #takeInput name="fileattach" [(ngModel)]="fileInfo.fileattach"
+                                        placeholder="File" accept=".pdf,.png,.jpg,.jpeg"
+                                        (change)="payloadUpload($event)" id="fileattach" #fileattach="ngModel">
+                                </span>
+                                <br><br><b>Note :</b> {{"Max File Size = 2MB, Accepted File Type = jpg/jpeg/png/pdf"}}
+
+                            </div>
+                        </div>
+                        <!-- <div class="form-group" *ngIf="attachedFileSize">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="error-block col-md-9">
+                                {{"file size exceeds limit"}}
+                            </div>
+                        </div> -->
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            </label>
+                            <div class="col-md-5 col-sm-5 ">
+                                <div class="table-responsive" *ngIf="AttachedFiles.length">
+                                    <table  class="styled-table"
+                                        id="sample_editable_1">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Size (KB)</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of AttachedFiles;let i=index">
+                                                <td>{{data?.name}}</td>
+                                                <td>{{data?.size/1024 | number : '1.0-0' }}</td>
+                                                <td>
+                                                    <a href="javascript:;" (click)="deleteDoc(i)" tooltip="Delete">
+                                                        <i class="fa fa-trash-o delete"></i>
+                                                    </a>&nbsp;
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit"
+                                    class="btn blue">{{'EXTENSIONVISA.Submit'|translate}}</button>&nbsp;&nbsp;
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/evisa-extension/apply-visa-list']">{{'ManageApplication.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<ngx-ui-loader hasProgressBar=true fgsType="three-strings"></ngx-ui-loader>

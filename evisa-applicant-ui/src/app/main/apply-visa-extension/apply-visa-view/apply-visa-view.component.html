@@ -1,0 +1,208 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'EXTENSIONVISA.Apply Visa Extension'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a [routerLink]="['/main/dashboard']">{{'APPLICATIONSPAGE.Home'|translate}}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>
+                {{'EXTENSIONVISA.Apply Visa Extension'|translate}}
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li>{{'PAYMENT.View'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption">{{'PAYMENT.View' |translate}}</div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse"></a> -->
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Visa Extension
+                                        Number'|translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{visaExtension?.visaExtensionId}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'DASHBOARDPAGE.Application
+                                        Number'|translate}} :
+                                    </label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{visaExtension?.applicationNumber}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Daysofextension'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.daysOfExtension}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Total Amount'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.totalAmount}} USD</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Reasons For
+                                        Extension'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.reasonsForExtension}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Previous Approval DateVisa'|translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.previousExpiryDate |date:'dd/MM/yyyy' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Requested Date'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.requestedDate |
+                                            date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Extension status'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static" *ngIf="visaExtension?.extensionStatus =='UP'">
+                                            {{'Result.UnderProcessing'|translate}}</p>
+                                        <p class="form-control-static" *ngIf="visaExtension?.extensionStatus==='APR'">
+                                            {{'Result.Granted'|translate}}</p>
+                                        <p class="form-control-static" *ngIf="visaExtension?.extensionStatus==='REJ'">
+                                            {{'Result.Rejected'|translate}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.Approval Date'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.allocatedDate|
+                                            date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'APPLICATIONSPAGE.Visa Type'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static" *ngFor="let data of visaType">
+                                            {{data?.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" *ngI="visaExtension?.newExpiryDate">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'EXTENSIONVISA.New Expiry Date'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{visaExtension?.newExpiryDate|
+                                            date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button [routerLink]="['/main/evisa-extension']" routerLinkActive="active" type="button"
+                                    class="btn default">{{'PAYMENT.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

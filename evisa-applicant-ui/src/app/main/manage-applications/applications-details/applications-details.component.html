@@ -1,0 +1,276 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'SIDEBAR.NewRequest'|translate}}
+            <!--<small> &nbsp; {{'ManageApplication.Application'|translate}}</small>-->
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'DASHBOARDPAGE.Home' | translate }}</a>
+                <i class="fa fa-angle-right" style="padding: 0 1rem"></i>
+            </li>
+            <li style="margin-left: 0.5rem; margin-right: 0.5rem">{{'SIDEBAR.Manage Visa' |translate}}<i
+                    class="fa fa-angle-right" style="padding: 0 1rem"></i></li>
+            <li><a href="#"> {{'SIDEBAR.NewRequest'|translate}}</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption">{{'APPLICATIONSINFO.ApplicationHeader' | translate }}
+                </div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse"></a> -->
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+
+                <form #appHeaderForm='ngForm' *ngIf="!isFileCreated"
+                    (ngSubmit)='addHeader(appHeaderForm,appHeaderDetails)' class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.Is Express Visa' | translate}}</label>
+                            <div class="col-md-4">
+                                <input type="checkbox" [checked]="true"
+                                    (change)="isExpress(appHeaderDetails.expressVisa)" id="expressVisa"
+                                    name="expressVisa" [(ngModel)]="appHeaderDetails.expressVisa"
+                                    #expressVisa="ngModel" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.Apply For' | translate
+                                }}<span class="required">*</span></label>
+                            <div class="col-md-4">
+
+                                <ng-select [items]="applyForDetails" class="chosen-select"
+                                    placeholder="{{'PLACEHOLDERS.ApplyFor' | translate }}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="appHeaderDetails.applicantType" bindLabel="value"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="applicantType"
+                                    #applicantType="ngModel" required>
+                                </ng-select>
+                                <div class="error-block"
+                                    *ngIf="((submitted || applicantType.touched) && applicantType.invalid)">
+                                    {{'ERRORS.requiredField' | translate }}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.Visa Type' | translate
+                                }}<span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="visaTypes" class="chosen-select"
+                                    placeholder="{{'PLACEHOLDERS.visaType' | translate }}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="appHeaderDetails.visaType" bindLabel="description"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="visaType" #visaType="ngModel"
+                                    required>
+                                </ng-select>
+                                <div class="error-block" *ngIf="((submitted || visaType.touched) && visaType.invalid)">
+                                    {{'ERRORS.requiredField' | translate }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="showData">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.File Number' |
+                                translate
+                                }}</label>
+                            <div class="col-md-4">
+                                <p class="form-control-static" *ngIf="this.isNew">{{generatedFile}}</p>
+                                <p class="form-control-static" *ngIf="!this.isNew">{{fileNumber}}</p>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" *ngIf="!isedit"
+                                    class="btn blue">{{'ManageApplication.Save&Continue'|translate}} &nbsp;<i
+                                        class="m-icon-swapright m-icon-white"></i></button>&nbsp;&nbsp;
+                                <button type="submit" *ngIf="isedit"
+                                    class="btn blue">{{'ManageApplication.Update&Continue'|translate}} &nbsp;<i
+                                        class="m-icon-swapright m-icon-white"></i></button>&nbsp;&nbsp;
+                                <button type="button" [routerLink]="['/main/manage-applications/apps-list']"
+                                    class="btn default">{{'ManageApplication.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+
+
+                <!-- BEGIN FORM-->
+                <form #appHeaderForm='ngForm' class="form-horizontal" *ngIf="isFileCreated">
+                    <!-- <a href="javascript:;" tooltip="Edit" (click)="editHeader()" class="pull-right"
+                        style="cursor: pointer;" toolTip="Edit">
+                        <i style="margin-right: 13px;" class="fa  fa-pencil-square red"></i>
+                    </a> -->
+                    <button id="sample_editable_1_new" class="btn green pull-right" (click)="editHeader()"
+                        style="margin-right: 10px; margin-top: 5px;">
+                        {{'MYPROFILE.Edit'|translate}}
+                    </button>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.Is Express Visa' | translate }}
+                                :</label>
+                            <div class="col-md-4">
+                                <p class="form-control-static">{{successData?.expressVisa === true? 'YES' : 'NO'}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.Apply For' | translate
+                                }}
+                                :</label>
+
+                            <div class="col-md-4">
+                                <p class="form-control-static">{{successData?.applicantType === 'I'? 'Individual' :
+                                    'Group'}}</p>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.Visa Type' | translate
+                                }}
+                                :</label>
+                            <div class="col-md-4">
+                                <p class="form-control-static">{{visaDescription}}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label labelbold">{{'APPLICATIONHEADER.File Number' |
+                                translate }}
+                                :</label>
+                            <div class="col-md-4">
+                                <p class="form-control-static">{{generatedFile}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                Widget settings form goes here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue">{{'ManageApplication.Savechanges'|translate}}</button>
+                <button type="button" class="btn default"
+                    data-dismiss="modal">{{'ManageApplication.Close'|translate}}</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="row" *ngIf="showData">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption">{{'APPLICATIONSINFO.ApplicationDetails' | translate }}
+                </div>
+                <div class="tools">
+                    <!-- <a href="javascript:;" class="collapse"></a> -->
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <button id="sample_editable_1_new" class="btn green" [disabled]="disableButton"
+                            [routerLink]="['/main/manage-applications/visa-details/','new']">
+                            {{'APPLICATIONSPAGE.Add New' | translate }}&nbsp;<i class="fa fa-plus"></i>
+                        </button> <br> <br>
+                        <span *ngIf="disableButton">{{'APPLICATIONSPAGE.Disablebutt' | translate }}</span>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <!-- <div class="loading" *ngIf="loading">Loading&#8230;</div> -->
+                    <table class="styled-table" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>{{'APPLICATIONSINFO.Application No' | translate }}</th>
+                                <th>{{'APPLICATIONSINFO.Applicant Name' | translate }}</th>
+                                <th>{{'APPLICATIONSINFO.Email' | translate }}</th>
+                                <th>{{'APPLICATIONSINFO.Action' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="odd gradeX" *ngFor="let data of fileApplications">
+                                <td>{{data?.applicationNumber}}</td>
+                                <td>{{data?.givenName}}</td>
+                                <td>{{data?.emailAddress}}</td>
+
+                                <td><i style="cursor:pointer" tooltip="Edit"
+                                        [routerLink]="['/main/manage-applications/visa-details',data?.applicationNumber]"
+                                        class="fa fa-pen"></i>&nbsp;&nbsp;
+                                    <!-- <i style="cursor:pointer;" tooltip="Delete" class="fa fa-trash"></i> -->
+                                </td>
+
+                            </tr>
+                            <tr class="odd" *ngIf="(!fileApplications.length)&&(!loading)">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty">
+                                    <b>{{'RECORDS.NoFound' | translate }}</b>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <!-- END FORM-->
+                <div class="form-actions fluid">
+                    &nbsp;
+                    <input type="checkbox" required [disabled]="!fileApplications.length"
+                        (change)="clickCheckBox($event)">
+                    &nbsp;{{'ManageApplication.Disclaimer'|translate}}
+                    <br><br>
+                    <div class="col-md-offset-4 col-md-8">
+
+                        <!-- <button [routerLink]="['/main/manage-applications/visa-details']" type="button"
+                            class="btn blue">Add Application</button> &nbsp; &nbsp; -->
+                        <button (click)="submitApplications()" [disabled]="!submitCheckBox" type="button"
+                            class="btn blue">{{'ManageApplication.SubmitApplications'|translate}}</button>
+                        &nbsp;
+                        &nbsp;
+                        <button [routerLink]="['/main/manage-applications/apps-list']" type="button"
+                            class="btn default">{{'ManageApplication.Cancel'|translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

@@ -1,0 +1,190 @@
+<!-- <div class="page-sidebar navbar-collapse collapse closed">
+	BEGIN SIDEBAR MENU
+
+	<div class='user-panel text-center'>
+		<div id='panel' style="display: flex;">
+			<div class='image' style="margin-right: 10px;">
+				<img src='assets/img/profile/sidebar-profile.png' class='img-circle' alt='User Image'>
+				<img alt='' style="width: 50px;"
+					[src]="(this.getToken('profilePic')?this.base64Image+this.getToken('profilePic'):'assets/img/profile/header-profile.png')" />&nbsp;
+			</div>
+			<div style="text-align: left;">
+				<p style='color:#ffffff; line-height: 1;'>{{this.getToken('username')}}</p>
+				<p style='color:#ffffff; font-size: 13px; line-height: 1;'><i class='fa fa-circle text-success'></i>
+					Applicant | Demandeur</p>
+			</div>
+		</div>
+	</div>
+
+	BEGIN SIDEBAR MENU
+	<ul class='page-sidebar-menu'>
+
+		<li routerLinkActive="active" class="main">
+			<a href='javascript:;' [routerLink]="['/main/dashboard']">
+				<i class='fa-solid fa-gauge'></i>
+				<span class='title'>{{'SIDEBAR.Dashboard' | translate }}</span>
+			</a>
+		</li>
+
+		<li routerLinkActive="active">
+			<a href='javascript:;' [routerLink]="['/main/manage-applications/']">
+				<i class='fa-solid fa-folder-open'></i>
+				<span class='title'>{{'SIDEBAR.Manage Applications' | translate }}</span>
+			</a>
+		</li>
+
+		<li>
+			<a href='javascript:;'>
+				<i class='fa-solid fa-hand-holding-dollar'></i>
+				<span class='title'>{{'SIDEBAR.PaymentInformation'|translate}}</span>
+				<span class='arrow'></span>
+			</a>
+			<ul class='sub-menu'>
+				<li routerLinkActive="active">
+					<a href='javascript:;' routerLink='/main/pending-payment'>
+						{{'SIDEBAR.PendingPayment'|translate}}</a>
+				</li>
+				<li routerLinkActive="active">
+					<a href='javascript:;' routerLink='/main/payment-completed'>
+						{{'SIDEBAR.PaymentCompleted'|translate}}</a>
+				</li>
+			</ul>
+		</li>
+
+		<li routerLinkActive="active">
+			<a href='javascript:;' routerLink='/main/evisa-extension'>
+				<i class='fa-solid fa-file-circle-plus'></i>
+				<span class='title'>{{'EXTENSIONVISA.Apply Visa Extension'|translate}}</span>
+			</a>
+		</li>
+
+		<li>
+			BEGIN SIDEBAR TOGGLER BUTTON
+			<div class='sidebar-toggler hidden-phone' id='click'></div>
+			BEGIN SIDEBAR TOGGLER BUTTON
+		</li>
+
+
+
+	</ul>
+	END SIDEBAR MENU
+
+
+	END SIDEBAR MENU
+</div> -->
+<div class="sidebarower">
+  <div class="logo-details">
+    <div class="logo_name">Evisa Djibouti</div>
+    <i class="ri-menu-2-fill" id="btn"></i>
+  </div>
+  <ul class="nav-list">
+    <li routerLinkActive="active">
+      <a href="javascript:;" [routerLink]="['/main/dashboard']">
+        <i class="ri-dashboard-fill"></i>
+        <span class="links_name">{{ "SIDEBAR.Dashboard" | translate }}</span>
+      </a>
+      <span class="tooltiper">{{ "SIDEBAR.Dashboard" | translate }}</span>
+    </li>
+    <li>
+      <a href="javascript:;" id="showVisa">
+        <i class="ri-arrow-down-s-line"></i>
+        <span class="links_name">{{ "SIDEBAR.Manage Visa" | translate }}</span>
+      </a>
+      <span class="tooltiper">{{ "SIDEBAR.PendingPayment" | translate }}</span>
+      <div id="toShow">
+        <li routerLinkActive="active" style="margin-left: 10px">
+          <a
+            href="javascript:;"
+            [routerLink]="['/main/manage-applications/apps-details/new']"
+          >
+            <i class=""></i>
+            <span class="links_name">{{
+              "SIDEBAR.NewRequest" | translate
+            }}</span>
+          </a>
+          <span class="tooltiper">{{
+            "SIDEBAR.NewRequest" | translate
+          }}</span>
+        </li>
+        <li routerLinkActive="active" style="margin-left: 10px">
+          <a
+            href="javascript:;"
+            [routerLink]="['/main/manage-applications/apps-list']"
+          >
+            <i class=""></i>
+            <span class="links_name">{{
+              "SIDEBAR.PendingRequest" | translate
+            }}</span>
+          </a>
+          <span class="tooltiper">{{
+            "SIDEBAR.PendingRequest" | translate
+          }}</span>
+        </li>
+        <li routerLinkActive="active" style="margin-left: 10px">
+          <a
+            href="javascript:;"
+            [routerLink]="['/main/pending-payment/pending-list']"
+          >
+            <i class=""></i>
+            <span class="links_name"
+              >{{
+                "SIDEBAR.PendingPayment" | translate
+              }}</span
+            >
+          </a>
+          <span class="tooltiper">{{
+            "SIDEBAR.PendingPayment" | translate
+          }}</span>
+        </li>
+      </div>
+    </li>
+    <!--<li routerLinkActive="active">
+      <a href='javascript:;' routerLink='/main/evisa-extension'>
+        <i class='ri-file-add-fill'></i>
+        <span class="links_name">Demander une extension</span>
+      </a>
+      <span class="tooltiper">Demander une extension</span>
+    </li>-->
+    <!--<li routerLinkActive="active">
+       <a href='javascript:;' [routerLink]="['/main/manage-applications/']">
+         <i class='ri-folder-open-fill' ></i>
+         <span class="links_name">{{'SIDEBAR.Manage Applications' | translate }}</span>
+       </a>
+       <span class="tooltiper">{{'SIDEBAR.Manage Applications' | translate }}</span>
+     </li>-->
+    <li routerLinkActive="active">
+      <a href="javascript:;" routerLink="/main/payment-completed">
+        <i class="ri-checkbox-multiple-fill"></i>
+        <span class="links_name">{{
+          "SIDEBAR.PaymentCompleted" | translate
+        }}</span>
+      </a>
+      <span class="tooltiper">{{
+        "SIDEBAR.PaymentCompleted" | translate
+      }}</span>
+    </li>
+    <!--<li routerLinkActive="active">
+      <a href='javascript:;' routerLink='/main/visa-overstay'>
+        <i class="fa fa-money"></i>
+        <span class="links_name">Penalité</span>
+      </a>
+      <span class="tooltiper">Penalité</span>
+    </li>-->
+    <li routerLinkActive="active">
+      <a href="javacsript:;" [routerLink]="['/main/my-profile']">
+        <i class="ri-user-fill"></i>
+        <span class="links_name">{{ "HEADER.myProfile" | translate }}</span>
+      </a>
+      <span class="tooltiper">{{ "HEADER.myProfile" | translate }}</span>
+    </li>
+    <li class="profile" (click)="logout()">
+      <div class="profile-details">
+        <div class="name_job">
+          <div class="name">{{ this.getToken("username") }}</div>
+          <div class="job">Applicant | Demandeur</div>
+        </div>
+      </div>
+      <i class="ri-logout-circle-r-line" id="log_out"></i>
+    </li>
+  </ul>
+</div>

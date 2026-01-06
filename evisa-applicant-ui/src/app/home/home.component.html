@@ -1,0 +1,781 @@
+`
+
+<body class="no-page-top">
+  <!--Header-->
+  <!--Set your own background color to the header-->
+  <header
+    class="header1"
+    data-bg-color="rgba(9, 103, 139, 0.36)"
+    data-font-color="#fff"
+  >
+    <div class="">
+      <!--Site Logo-->
+      <!-- <div class="logo">
+        <div style="display: flex; flex-direction: column; margin-top: 10px;">
+          <a href="index.html" class="lo">
+            <span>e</span>-Visa<span id="gou">.gouv.dj</span>
+          </a>
+          <div style="margin-top: 10px">
+            <span style="font-size: 8px; display: block; line-height: 0; font-weight: bold">{{'HOME.MINISTRY OF THE INTERIOR'|translate}}</span>
+            <span style="font-size: 8px;  line-height: 0; font-weight: bold">{{'HOME.GENERAL DIRECTORATE OF POLICE'|translate}}</span>
+          </div>
+        </div>
+      </div>-->
+      <!--End Site Logo-->
+
+      <div class="navbar-collapse nav-main-collapse collapse" id="nav-centrer">
+        <div id="nav-wrapper">
+          <!--Main Menu-->
+          <nav class="nav-main mega-menu one-page-menu">
+            <div>
+              <a href="index.html">
+                <!-- <a href="index.html" class="lo">
+                <span>e</span>Visa<span id="gou">.gouv.dj</span>
+              </a> -->
+                <span
+                  ><img
+                    src="assets/img/evisa.png"
+                    alt=""
+                    class="lo"
+                    width="200px"
+                /></span>
+              </a>
+            </div>
+            <ul
+              class="nav nav-pills nav-main"
+              id="mainMenu"
+              style="display: flex; align-items: center; margin: auto"
+            >
+              <li class="active" style="color: black !important">
+                <a data-hash href="#home">{{ "HOME.Home" | translate }}</a>
+              </li>
+              <li>
+                <a data-hash href="#features">{{
+                  "HOME.Apply visa" | translate
+                }}</a>
+              </li>
+
+              <li>
+                <a data-hash href="#services">{{
+                  "HOME.Information" | translate
+                }}</a>
+              </li>
+              <li>
+                <a data-hash href="#screenshots">{{
+                  "HOME.Tourist" | translate
+                }}</a>
+              </li>
+              <li>
+                <a data-hash href="#contact-us">{{
+                  "HOME.Contact us" | translate
+                }}</a>
+              </li>
+              <li>
+                <a href="javascript:;" (click)="launchApplication('L')">{{
+                  "HOME.Login" | translate
+                }}</a>
+              </li>
+              <li>
+                <a href="javascript:;" (click)="launchApplication('S')">{{
+                  "HOME.Signup" | translate
+                }}</a>
+              </li>
+              <li>
+                <select
+                  (change)="
+                    translate.use(homeInfo.lang);
+                    translateLanguage(homeInfo.lang)
+                  "
+                  class="form-control"
+                  id="lang"
+                  name="lang"
+                  required
+                  maxlength="25"
+                  [(ngModel)]="homeInfo.lang"
+                  #lang="ngModel"
+                >
+                  <option value="en">English</option>
+                  <option value="fr">Français</option>
+                </select>
+              </li>
+              <!-- <li style="padding-top: 8px;">
+              <span style="display: block; padding: 19px;  ">
+
+                <span style="font-size: 12px; display: block; line-height: 8px; font-weight: bold">{{'HOME.REPUBLIQUE DE
+                  DJIBOUTI'|translate}}</span>
+                <span style="font-size: 12px;  line-height: 8px; font-weight: bold">{{'HOME.MINISTRY OF THE
+                  INTERIOR'|translate}}</span>
+                <span style="font-size: 12px; display: block; line-height: 8px; font-weight: bold">{{'HOME.GENERAL
+                  DIRECTORATE OF POLICE'|translate}}</span>
+              </span>
+            </li>-->
+            </ul>
+          </nav>
+        </div>
+        <!--End Main Menu-->
+      </div>
+      <button
+        class="btn btn-responsive-nav btn-inverse"
+        data-toggle="collapse"
+        data-target=".nav-main-collapse"
+      >
+        <i class="fa fa-bars"></i>
+      </button>
+      <span
+        style="
+          display: block;
+          color: red;
+          text-align: center;
+          padding-bottom: 10px;
+        "
+        >{{ "HEADER.Message" | translate }} &nbsp;&nbsp;<a
+          href="mailto://immigration@evisa.dj"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ "HEADER.oldPlatform" | translate }}</a
+        ></span
+      >
+    </div>
+  </header>
+  <!--End Header-->
+  <div id="img-container">
+    <img
+      class="image"
+      src="assets/home/img/touris/_DOM5184.jpg"
+      style="font-weight: 600"
+    />
+    <!--Set your own slider options. Look at the v_RevolutionSlider() function in 'theme-core.js' file to see options-->
+    <div class="text">
+      <div>
+        <h1 id="img-head">{{ "HOME.Welcome To" | translate }} DJIBOUTI</h1>
+      </div>
+      <div>
+        <h1>
+          <p id="img-p">{{ "HOME.THIS IS YOUR EVISA WEBSITE" | translate }}</p>
+          <p id="img-p">{{ "HOME.GET YOUR VISA ELECTRONIC" | translate }}</p>
+        </h1>
+      </div>
+      <!--<div class="v-slider-overlay overlay-colored"></div>-->
+
+      <!-- <div class="shadow-right"></div> -->
+    </div>
+  </div>
+  <div id="container">
+    <div class="v-page-wrap no-bottom-spacing">
+      <div class="container">
+        <div class="v-spacer col-sm-12 v-height-small"></div>
+      </div>
+
+      <!--Features-->
+      <div class="container" id="features">
+        <div class="row center">
+          <div class="col-md-12">
+            <p class="v-smash-text-large-2x">
+              <span>{{ "HOME.STEP VISA" | translate }}</span>
+            </p>
+            <div class="horizontal-break"></div>
+            <p class="lead" style="color: #999">
+              {{ "HOME.steps to electronic visa" | translate }}
+            </p>
+          </div>
+          <div class="v-spacer col-sm-12 v-height-standard"></div>
+        </div>
+
+        <div class="row features">
+          <div class="col-md-4 col-sm-4">
+            <div
+              class="feature-box left-icon v-animation pull-top"
+              data-animation="fade-from-left"
+              data-delay="300"
+            >
+              <div class="feature-box-icon small">
+                <div class="num">1</div>
+              </div>
+              <div class="feature-box-text">
+                <h3>{{ "HOME.SIGN UP" | translate }}</h3>
+                <div class="feature-box-text-inner">
+                  {{ "HOME.Take a few seconds" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4">
+            <div
+              class="feature-box left-icon v-animation"
+              data-animation="fade-from-left"
+              data-delay="600"
+            >
+              <div class="feature-box-icon small">
+                <div class="num">2</div>
+              </div>
+              <div class="feature-box-text">
+                <h3>{{ "HOME.application" | translate }}</h3>
+                <div class="feature-box-text-inner">
+                  {{ "HOME.Make Payment" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4">
+            <div
+              class="feature-box left-icon v-animation pull-top"
+              data-animation="fade-from-right"
+              data-delay="300"
+            >
+              <div class="feature-box-icon small">
+                <div class="num">3</div>
+              </div>
+              <div class="feature-box-text">
+                <h3>{{ "HOME.GetYourVisa" | translate }}</h3>
+                <div class="feature-box-text-inner">
+                  {{ "HOME.Download" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="v-spacer col-sm-12 v-height-standard"></div>
+
+        <div class="row">
+          <div class="col-sm-3 col-md-3"></div>
+          <div class="col-md-6 col-sm-6">
+            <button
+              class="b img-responsive v-animation"
+              (click)="launchApplication('S')"
+              data-animation="fade-from-right"
+              data-delay="200"
+            >
+              <span>{{ "HOME.Apply visa" | translate }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End Features-->
+
+    <div class="container">
+      <div class="v-spacer col-sm-12 v-height-standard"></div>
+    </div>
+    <!--Services-->
+
+    <div class="container">
+      <div class="row center">
+        <div class="col-sm-12">
+          <p class="v-smash-text-large-2x">
+            <span>{{ "HOME.VISA INFORMATION" | translate }}</span>
+          </p>
+          <div class="horizontal-break"></div>
+          <p class="lead" style="color: #999">
+            {{ "HOME.Frequently" | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="v-parallax v-parallax-video v-bg-stylish"
+      id="services"
+      style="background-image: url(assets/home/img/air-djibouti-cargo4.jpg)"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <div
+              class="feature-box feature-box-secundary-one v-animation"
+              data-animation="grow"
+              data-delay="0"
+            >
+              <div class="feature-box-icon small">
+                <div class="num1">1</div>
+              </div>
+              <div class="feature-box-text clearfix">
+                <h3>{{ "HOME.What is the eVisa" | translate }} ?</h3>
+                <div class="feature-box-text-inner">
+                  <p>
+                    {{ "HOME.evisa document" | translate }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div
+              class="feature-box feature-box-secundary-one v-animation"
+              data-animation="grow"
+              data-delay="200"
+            >
+              <div class="feature-box-icon small">
+                <div class="num1">2</div>
+              </div>
+              <div class="feature-box-text">
+                <h3>{{ "HOME.What do I need to apply" | translate }} ?</h3>
+                <div class="feature-box-text-inner">
+                  <p>{{ "HOME.need to apply" | translate }}.<br /></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div
+              class="feature-box feature-box-secundary-one v-animation"
+              data-animation="grow"
+              data-delay="400"
+            >
+              <div class="feature-box-icon small">
+                <div class="num1">3</div>
+              </div>
+              <div class="feature-box-text">
+                <h3>{{ "HOME.advantages of the eVisa" | translate }} ?</h3>
+                <div class="feature-box-text-inner">
+                  <p>
+                    {{ "HOME.You can easily get your eVisa" | translate }}<br />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="v-bg-overlay overlay-colored"></div>
+          <div class="container">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+              <div
+                class="feature-box feature-box-secundary-one v-animation"
+                data-animation="grow"
+                data-delay="200"
+              >
+                <button
+                  class="b"
+                  style="
+                    align-content: center;
+                    align-items: center;
+                    width: 100%;
+                  "
+                  [routerLink]="['/faq']"
+                >
+                  {{
+                    "HOME.Read
+                  more" | translate
+                  }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--End Services-->
+  <!--Screenshots-->
+  <div
+    class="v-parallax v-bg-stylish v-bg-stylish-v4 no-shadow"
+    id="screenshots"
+  >
+    <div class="container-fluid">
+      <div class="row center">
+        <div class="col-sm-12">
+          <p class="v-smash-text-large-2x">
+            <span>{{ "HOME.TOURIST" | translate }}</span>
+          </p>
+          <div class="horizontal-break"></div>
+          <p class="lead" style="color: #999">
+            <a class="visiblity" href="https://guide.visitdjibouti.dj/">{{
+              "HOME.more information" | translate
+            }}</a>
+          </p>
+        </div>
+        <div class="v-spacer col-sm-12 v-height-standard"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators" id="carousel-center">
+              <li
+                data-target="#myCarousel"
+                data-slide-to="0"
+                class="active"
+              ></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+              <div class="item active">
+                <img
+                  src="assets/home/img/touris/touris1.jpg"
+                  alt="Chania"
+                  width="100%"
+                />
+              </div>
+
+              <div class="item">
+                <img
+                  src="assets/home/img/touris/touris2.jpg"
+                  alt="Chania"
+                  width="100%"
+                />
+              </div>
+
+              <div class="item">
+                <img
+                  src="assets/home/img/touris/touris3.jpg"
+                  alt="Flower"
+                  width="100%"
+                />
+              </div>
+
+              <div class="item">
+                <img
+                  src="assets/home/img/touris/touris4.jpg"
+                  alt="Flower"
+                  width="100%"
+                />
+              </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a
+              class="left carousel-control"
+              href="#myCarousel"
+              role="button"
+              data-slide="prev"
+            >
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="right carousel-control"
+              href="#myCarousel"
+              role="button"
+              data-slide="next"
+            >
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--End Screenshots-->
+
+  <!--Call Us-->
+  <div class="v-parallax v-bg-stylish" id="contact-us">
+    <div class="container">
+      <div class="row center">
+        <div class="col-sm-8 col-sm-offset-2">
+          <p class="v-smash-text-large-2x">
+            <span>{{ "HOME.CONTACT US" | translate }}</span>
+          </p>
+          <br />
+
+          <div class="horizontal-break"></div>
+
+          <div class="v-spacer col-sm-12 v-height-small"></div>
+
+          <form
+            class="form-horizontal"
+            #sendMessageForm="ngForm"
+            (ngSubmit)="submitForm(sendMessageForm, sendMessage)"
+          >
+            <div class="row">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <label
+                    >{{ "HOME.Subject" | translate }}
+                    <span class="required">*</span></label
+                  >
+                  <select
+                    class="form-control"
+                    name="subject"
+                    id="subject"
+                    [(ngModel)]="sendMessage.subject"
+                    #subject="ngModel"
+                    [ngStyle]="{
+                      border:
+                        submitted == true && subject.invalid
+                          ? '1px solid #b94a48'
+                          : ''
+                    }"
+                    required
+                  >
+                    <option [ngValue]="undefined" disabled selected>
+                      --{{ "HOME.Select the subject" | translate }}--
+                    </option>
+                    <option value="S">Support</option>
+                    <option value="R">Renseignement | Information</option>
+                  </select>
+                </div>
+
+                <div class="col-sm-12">
+                  <label
+                    >{{ "HOME.Your name" | translate }}
+                    <span class="required">*</span></label
+                  >
+                  <input
+                    type="text"
+                    maxlength="100"
+                    class="form-control"
+                    name="contactName"
+                    id="contactName"
+                    [ngStyle]="{
+                      border:
+                        submitted == true && contactName.invalid
+                          ? '1px solid #b94a48'
+                          : ''
+                    }"
+                    [(ngModel)]="sendMessage.contactName"
+                    #contactName="ngModel"
+                    (input)="validateInput($event, 'string')"
+                    required
+                  />
+                </div>
+
+                <div class="col-sm-12">
+                  <label
+                    >{{ "HOME.Your email address" | translate }}
+                    <span class="required">*</span></label
+                  >
+                  <input
+                    type="email"
+                    maxlength="100"
+                    class="form-control"
+                    name="contactEmail"
+                    id="contactEmail"
+                    pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$"
+                    [ngStyle]="{
+                      border:
+                        submitted == true && contactEmail.invalid
+                          ? '1px solid #b94a48'
+                          : ''
+                    }"
+                    [(ngModel)]="sendMessage.contactEmail"
+                    #contactEmail="ngModel"
+                    required
+                  />
+                  <p
+                    *ngIf="contactEmail.errors?.pattern"
+                    style="color: #b94a48"
+                  >
+                    {{ "ERRORS.emailValidate" | translate }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <label
+                    >{{ "HOME.Comment" | translate }}
+                    <span class="required">*</span></label
+                  >
+                  <textarea
+                    maxlength="5000"
+                    rows="10"
+                    class="form-control"
+                    name="contactComment"
+                    id="contactComment"
+                    [ngStyle]="{
+                      border:
+                        submitted && contactComment.invalid
+                          ? '1px solid #b94a48'
+                          : '',
+                      resize: 'none'
+                    }"
+                    [(ngModel)]="sendMessage.contactComment"
+                    (input)="validateInput($event, 'string')"
+                    #contactComment="ngModel"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <br />
+                <button type="submit" class="btn v-btn no-three-d">
+                  {{
+                    "HOME.Send
+                  Message" | translate
+                  }}
+                </button>
+
+                <!-- <button type="submit" class="btn blue">{{'HOME.Send Message'|translate}} </button>&nbsp; -->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <br />
+                <p>
+                  <span style="font-weight: bold"
+                    >{{ "HOME.Number support" | translate }}&nbsp;&nbsp;</span
+                  >
+                  <a
+                    href="tel:0025377722124"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >+253 77 72 21 24</a
+                  >
+                  |
+                  <a
+                    href="tel:0025377722123"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >+253 77 79 88 93</a
+                  >
+                  &nbsp; &nbsp;
+                  <span style="font-weight: bold"
+                    ><a
+                      href="https://wa.me/0025377722124"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style="display: inline-flex; align-items: center"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                      >
+                        <path
+                          d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"
+                        /></svg
+                      >&nbsp;&nbsp;{{
+                        "HOME.Disponible sur Whatsapp" | translate
+                      }}</a
+                    >
+                  </span>
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Call Us-->
+
+  <!--Footer-Wrap-->
+  <div class="footer-wrap">
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <section class="widget">
+              <div class="logo">
+                <!-- <div class="lo">
+                  <span>e</span>-Visa<span id="gou">.gouv.dj</span>
+                </div> -->
+                <img
+                  src="assets/img/evisa.png"
+                  alt=""
+                  class="lo"
+                  style="width: 200px"
+                />
+              </div>
+              <!-- <a href="https://wa.me/0025377722124">
+                <img
+                  src="/assets/img/whatsapp.png"
+                  alt=""
+                  class=""
+                  style="width: 60px"
+              /></a> -->
+              <br />
+              <!-- <p class="pull-bottom-small">
+                <B>{{'HOME.REPUBLIQUE DE DJIBOUTI'|translate}}</B> <br>
+                <B>{{'HOME.MINISTRY OF THE INTERIOR'|translate}}</B> <br>
+                <B>{{'HOME.GENERAL DIRECTORATE OF POLICE'|translate}}</B>
+              </p>-->
+            </section>
+          </div>
+          <!-- <div class="col-sm-4">
+            <section class="widget">
+              <div class="logo">
+                 <div class="lo">
+                  <span>e</span>-Visa<span id="gou">.gouv.dj</span>
+                </div> 
+                <img src="assets/img/police-footer.png" alt="" class="lo" style="width: 300px;">
+              </div>
+              <br>
+               <p class="pull-bottom-small">
+                <B>{{'HOME.REPUBLIQUE DE DJIBOUTI'|translate}}</B> <br>
+                <B>{{'HOME.MINISTRY OF THE INTERIOR'|translate}}</B> <br>
+                <B>{{'HOME.GENERAL DIRECTORATE OF POLICE'|translate}}</B>
+              </p>
+
+            </section>
+          </div> -->
+          <!-- <div class="col-sm-4">
+            <section class="widget">
+              <div class="widget-heading">
+                <h4 style="text-align: center">
+                  {{ "HOME.PARTNER" | translate }}
+                </h4>
+              </div>
+              <ul class="portfolio-grid">
+                <li>
+                  <img src="assets/img/partners/UE.png" />
+                </li>
+                <li>
+                  <img src="assets/img/partners/OIM2.png" />
+                </li>
+                <li>
+                  <img src="assets/img/partners/partner2.jpg" />
+                </li>
+              </ul>
+            </section>
+          </div> -->
+          <div class="col-sm-8">
+            <section class="widget">
+              <div class="widget-heading" style="text-align: right">
+                <h4>{{ "HOME.Frequently" | translate }}</h4>
+
+                <div class="footer-contact-info">
+                  <ul>
+                    <li>
+                      <p>
+                        <strong
+                          ><a href="javascript:;" [routerLink]="['/faq']"
+                            >{{ "HOME.FAQ" | translate }}
+                            <i class="fa fa-question"></i></a
+                        ></strong>
+                      </p>
+                    </li>
+                    <br />
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="copyright">
+      <div class="container">
+        <p>
+          &copy; 2024 E-visa Djibouti &nbsp; &bull; &nbsp;
+          <a
+            rel="nofollow"
+            target="_parent"
+            href="https://www.hypercube.dj/"
+            class="tm-text-link"
+            >Hypercube</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  <!--End Footer-Wrap-->
+
+  <!--// BACK TO TOP //-->
+  <div id="back-to-top" class="animate-top"><i class="fa fa-angle-up"></i></div>
+</body>
