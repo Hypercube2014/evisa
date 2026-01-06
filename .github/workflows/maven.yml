@@ -16,6 +16,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js 14 (build frontend)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Install and build frontend
+        working-directory: ./evisa-applicant-ui
+        run: |
+          npm ci
+          npm run build
+
       - name: Set up JDK 8
         uses: actions/setup-java@v4
         with:
@@ -24,9 +35,8 @@ jobs:
           cache: 'maven'
 
       - name: Build and test (Maven)
-        working-directory: ./evisa-applicant-api
         run: |
-          mvn -B clean package
+          mvn -B -pl evisa-applicant-api -am clean package
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4

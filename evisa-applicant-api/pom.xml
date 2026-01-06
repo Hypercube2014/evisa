@@ -130,13 +130,12 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-                            <!-- <outputDirectory>${project.build.outputDirectory}/static</outputDirectory> -->
-                             <outputDirectory>C:/Users/medsa/OneDrive/Desktop/evisav2 med khaire/evisa-deploiement-final-07-12-2025/evisa-deploiement-final-07-12-2025/evisa-applicant-api/target/classes/static</outputDirectory>
-                             <resources>
-                                 <resource>
-                                      <directory>C:/Users/medsa/OneDrive/Desktop/evisav2 med khaire/evisa-deploiement-final-07-12-2025/evisa-deploiement-final-07-12-2025/evisa-applicant-ui/dist</directory>
-                                     <!-- <directory>${project.basedir}/../evisa-applicant-ui/dist/</directory> -->
-
+                            <!-- Use relative paths so CI runners (Linux) can find the built UI -->
+                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- relative directory to the frontend build output -->
+                                    <directory>${project.basedir}/../evisa-applicant-ui/dist</directory>
                                 </resource>
                             </resources>
                         </configuration>
