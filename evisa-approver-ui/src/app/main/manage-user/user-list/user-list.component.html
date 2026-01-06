@@ -1,0 +1,108 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}}<small> &nbsp; {{'MANAGEUSER.ManageUser'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'COMMON.ManagementCentre'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li><a>{{'MANAGEUSER.ManageUser'|translate}}</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-edit"></i>{{'MANAGEUSER.ManageUser'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <a [routerLink]="['/main/manage-user/user-detail','new']"><button class="btn green">
+                                {{'COMMON.AddNew'|translate}} <i class="fa fa-plus"></i>
+                            </button></a>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="dataTables_filter" id="sample_editable_1_filter"><label
+                                class="col-md">{{'MANAGEUSER.Search'|translate}} :
+                                <input class="form-control input-medium pull-right" type="text" id="search-text"
+                                    aria-describedby="search-text" [(ngModel)]="searchText"
+                                    placeholder="{{'MANAGEUSER.UserName'|translate}}" autofocus>
+                            </label>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                    <thead>
+                        <tr>
+                            <th>{{'MANAGEUSER.UserName'|translate}}</th>
+                            <th>{{'MANAGEUSER.EmailId'|translate}}</th>
+                            <th>{{'MANAGEUSER.AccountActivateDeactivate'|translate}}</th>
+                            <th>{{'MANAGEUSER.ResetPassword'|translate}}</th>
+                            <th>{{'COMMON.Action'|translate}}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>640</td>
+                            <td>Alex@gmail.com</td>
+                            <td><a href="javascript:;" (click)="onAcivate()">Activate</a></td>
+                            <td><a href="javascript:;" (click)="onResetPassword()">Reset Password</a></td>
+                            <td><a href="javascript:;" [routerLink]="['/main/manage-user/user-detail/',1]"><i
+                                        class="fa fa-pen"></i></a>&nbsp;&nbsp;
+                                <a href="javascript:;" [routerLink]="['/main/manage-user/user-view/',1]"><i
+                                        class="fa fa-eye"></i></a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" *ngIf='totalItem>0'>
+                <div class="col-md-4 col-sm-12">
+                    <div class="btn-group">
+                        <ng-select (change)="rangeChanged(pagesize)" [items]="rangeList" bindLabel="name" bindValue="id"
+                            placeholder="Select" [(ngModel)]="pagesize" [ngModelOptions]="{standalone: true}"
+                            [clearable]='false' [searchable]='false' [dropdownPosition]="'top'">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="dataTables_info" id="sample_editable_1_info">{{'PAGINATION.Showing'|translate}}
+                        {{(number*size) + 1}} {{'PAGINATION.to'|translate}}
+                        {{(number*size) + noofelements}} {{'PAGINATION.of'|translate}} {{totalElements}}
+                        {{'PAGINATION.entries'|translate}}
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="dataTables_paginate paging_bootstrap">
+                        <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                            [itemsPerPage]='pagesize' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                            [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                            (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                            firstText="&laquo;" lastText="&raquo;">
+                        </pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE -->

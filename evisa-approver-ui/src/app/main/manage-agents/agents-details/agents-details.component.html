@@ -1,0 +1,119 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'MANAGEAGENT.Add Agent'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'MANAGEAGENT.User Management'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'MANAGEAGENT.Add Agent'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'MANAGEAGENT.Add Agent'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" #employeeDetailForm="ngForm"
+                    (ngSubmit)='submitForm(employeeDetailForm,employeeDetails)'>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEAGENT.Agent Name'|translate}} <span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+
+                                <input type="text" class="form-control" name="name"
+                                    placeholder="{{'MANAGEAGENT.Agent Name'|translate}}" id="name"
+                                    [(ngModel)]="employeeDetails.name" #name="ngModel" maxlength="100" required>
+                                <div class="error-block" *ngIf="((submitted || name.touched) && name.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEAGENT.Agent Employee Id'|translate}}<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+
+                                <input type="text" class="form-control" name="employeeId"
+                                    placeholder="{{'MANAGEAGENT.Agent Employee Id'|translate}}" id="employeeId"
+                                    [(ngModel)]="employeeDetails.employeeId" #employeeId="ngModel" maxlength="100"
+                                    required>
+                                <div class="error-block"
+                                    *ngIf="((submitted || employeeId.touched) && employeeId.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group last">
+                            <label class="col-md-3 control-label">{{'MANAGEAGENT.Email-Id'|translate}}<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+
+                                <input class='form-control text' autocomplete="off" type="email" name="emailId"
+                                    [(ngModel)]="employeeDetails.emailId"
+                                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                    placeholder="{{'MANAGEAGENT.Email-Id'|translate}}" id="emailId" #emailId="ngModel"
+                                    required />
+                                <div class="error-block" *ngIf="((submitted || emailId.touched) && emailId.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                                <div class="error-block" *ngIf="emailId.invalid && emailId.errors?.pattern">
+                                    {{'EMPLOYEE.ERRORMESSSAGE.EmailValidation'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEAGENT.Role'|translate}} <span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+                                <ng-select [items]="rolesList" class="chosen-select"
+                                    placeholder="{{'MANAGEAGENT.Role'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="employeeDetails.role" bindLabel="roleDesc"
+                                    bindValue="roleCode" [dropdownPosition]="'auto'" name="role" #role="ngModel"
+                                    required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || role.touched) && role.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button class="btn blue" type="submit">{{'MANAGEAGENT.Submit & Generate
+                                    Credentials'|translate}}</button>&nbsp;
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/manage/agent-list']">{{'COMMON.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+
+            </div>
+        </div>
+    </div>
+
+</div>

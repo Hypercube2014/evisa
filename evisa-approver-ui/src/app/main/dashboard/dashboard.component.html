@@ -1,0 +1,1165 @@
+<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<div
+  class="modal fade"
+  id="portlet-config"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        ></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">Widget settings form goes here</div>
+      <div class="modal-footer">
+        <button type="button" class="btn blue">Save changes</button>
+        <button type="button" class="btn default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<!-- BEGIN PAGE HEADER-->
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      {{ "DASHBOARD.Dashboard" | translate }}
+      <!-- <small>{{ "DASHBOARD.Statistics" | translate }}</small> -->
+    </h3>
+    <!-- <ul class="page-breadcrumb breadcrumb" style="height: 50px">
+      <li>
+        <i class="fa fa-home"></i>
+        <a [routerLink]="['/main/dashboard']">{{
+          "COMMON.Home" | translate
+        }}</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>{{ "DASHBOARD.Dashboard" | translate }}</li>
+
+      <div class="col-md pull-right">
+        <div class="form-group">
+          <div
+            class="col-md-12"
+            *ngIf="
+              this.getToken('Role') == 'SBCO' || this.getToken('Role') == 'BCO'
+            "
+          >
+            <ng-select
+              [items]="periodDetails"
+              class="chosen-select"
+              placeholder="{{ 'PERFOMANCEREPORTS.Period' | translate }}"
+              [clearable]="true"
+              [searchable]="false"
+              bindLabel="desc"
+              bindValue="code"
+              [dropdownPosition]="'auto'"
+              name="period"
+              [(ngModel)]="borderDashboard.period"
+              #period="ngModel"
+              (change)="dashboardPeriod($event)"
+            >
+            </ng-select>
+          </div>
+
+          <div class="col-md-12" *ngIf="this.getToken('Role') == 'DM'">
+            <ng-select
+              [items]="periodDetails"
+              class="chosen-select"
+              placeholder="{{ 'PERFOMANCEREPORTS.Period' | translate }}"
+              [clearable]="true"
+              [searchable]="false"
+              bindLabel="desc"
+              bindValue="code"
+              [dropdownPosition]="'auto'"
+              name="period"
+              [(ngModel)]="dmDashboard.period"
+              #period="ngModel"
+              (change)="dmDashboardPeriod($event)"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </ul> -->
+    <div
+      style="display: flex; align-items: center; justify-content: space-between"
+    >
+      <div class="breadcrumbs">
+        <a
+          href="javascript:;"
+          [routerLink]="['/main/dashboard']"
+          class="breadcrumbs__item"
+          >{{ "COMMON.Home" | translate }}</a
+        >
+        <a href="javascript:;" class="breadcrumbs__item is-active">{{
+          "DASHBOARD.Dashboard" | translate
+        }}</a>
+      </div>
+      <div class="col-md pull-right">
+        <div class="form-group">
+          <div
+            class="col-md-12"
+            *ngIf="
+              this.getToken('Role') == 'SBCO' || this.getToken('Role') == 'BCO'
+            "
+            style="padding-right: 0 !important"
+          >
+            <ng-select
+              [items]="periodDetails"
+              class="chosen-select"
+              placeholder="{{ 'PERFOMANCEREPORTS.Period' | translate }}"
+              [clearable]="true"
+              [searchable]="false"
+              bindLabel="desc"
+              bindValue="code"
+              [dropdownPosition]="'auto'"
+              name="period"
+              [(ngModel)]="borderDashboard.period"
+              #period="ngModel"
+              (change)="dashboardPeriod($event)"
+            >
+            </ng-select>
+          </div>
+
+          <div class="col-md-12" *ngIf="this.getToken('Role') == 'DM'">
+            <ng-select
+              [items]="periodDetails"
+              class="chosen-select"
+              placeholder="{{ 'PERFOMANCEREPORTS.Period' | translate }}"
+              [clearable]="true"
+              [searchable]="false"
+              bindLabel="desc"
+              bindValue="code"
+              [dropdownPosition]="'auto'"
+              name="period"
+              [(ngModel)]="dmDashboard.period"
+              #period="ngModel"
+              (change)="dmDashboardPeriod($event)"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+
+<!-- BEGIN DASHBOARD STATS -->
+<!-- <div
+  class="row"
+  *ngIf="this.getToken('Role') === 'DM'"
+  style="flex: auto; display: flex; flex-wrap: wrap"
+>
+  <div
+    class="col col-xs-6 col-sm-6 col-md-3"
+    style="margin-left: 15px; margin-right: 15px; width: auto"
+  >
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fa fa-arrow-down fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "DASHBOARD.Total Allocated" | translate }}</p>
+        <div style="display: flex; flex-wrap: nowrap">
+          <button
+            class="button-39"
+            (click)="viewMoreDetails('PEN')"
+            role="button"
+          >
+            <span
+              style="
+                position: absolute;
+                left: 0;
+                border-right: 1px solid black;
+                top: 0;
+                bottom: 0;
+                padding: 1rem;
+                padding-top: 0.875rem;
+              "
+              >{{ allocationDetails.totalAllocated }}</span
+            >
+            Visa Ordinaire
+          </button>
+          <button
+            class="button-39"
+            (click)="viewMoreExtensionDetails('ALL')"
+            role="button"
+          >
+            <span
+              style="
+                position: absolute;
+                left: 0;
+                border-right: 1px solid black;
+                top: 0;
+                bottom: 0;
+                padding: 1rem;
+                padding-top: 0.875rem;
+              "
+              >{{ extensionStatistics?.totalAllocated }}</span
+            >
+            Visa Extension
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="col col-xs-6 col-sm-6 col-md-3"
+    style="margin-left: 15px; margin-right: 15px; width: auto"
+  >
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fa fa-folder fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "DASHBOARD.Closed" | translate }}</p>
+        <button
+          class="button-39"
+          (click)="viewMoreDetails('CLS')"
+          role="button"
+        >
+          <span
+            style="
+              position: absolute;
+              left: 0;
+              border-right: 1px solid black;
+              top: 0;
+              bottom: 0;
+              padding: 1rem;
+              padding-top: 0.875rem;
+            "
+            >{{ allocationDetails.closed }}</span
+          >
+          Visa Ordinaire
+        </button>
+        <button
+          class="button-39"
+          (click)="viewMoreExtensionDetails('CLS')"
+          role="button"
+        >
+          <span
+            style="
+              position: absolute;
+              left: 0;
+              border-right: 1px solid black;
+              top: 0;
+              bottom: 0;
+              padding: 1rem;
+              padding-top: 0.875rem;
+            "
+            >{{ extensionStatistics.closed }}</span
+          >
+          Visa Extension
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="col col-xs-6 col-sm-6 col-md-3"
+    style="margin-left: 15px; margin-right: 15px; width: auto"
+  >
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fa fa-folder-open fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "DASHBOARD.Pending Approval" | translate }}</p>
+        <div style="display: flex; flex-wrap: nowrap">
+          <button
+            class="button-39"
+            (click)="viewMoreDetails('CLS')"
+            role="button"
+          >
+            <span
+              style="
+                position: absolute;
+                left: 0;
+                border-right: 1px solid black;
+                top: 0;
+                bottom: 0;
+                padding: 1rem;
+                padding-top: 0.875rem;
+              "
+              >{{ allocationDetails.pending }}</span
+            >
+            Visa Ordinaire
+          </button>
+          <button
+            class="button-39"
+            (click)="viewMoreExtensionDetails('VAL')"
+            role="button"
+          >
+            <span
+              style="
+                position: absolute;
+                left: 0;
+                border-right: 1px solid black;
+                top: 0;
+                bottom: 0;
+                padding: 1rem;
+                padding-top: 0.875rem;
+              "
+              >{{ extensionStatistics?.pending }}</span
+            >
+            Visa Extension
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="col col-xs-6 col-sm-6 col-md-3"
+    style="margin-left: 15px; margin-right: 15px; width: auto"
+  >
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fa fa-times-circle fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "EVISAPROCESSING.RejectVisa" | translate }}</p>
+        <div style="display: flex; flex-wrap: nowrap">
+          <button
+            class="button-39"
+            (click)="viewMoreDetails('REJ')"
+            role="button"
+          >
+            <span
+              style="
+                position: absolute;
+                left: 0;
+                border-right: 1px solid black;
+                top: 0;
+                bottom: 0;
+                padding: 1rem;
+                padding-top: 0.875rem;
+              "
+              >{{ allocationDetails.rejected }}</span
+            >
+            Visa Ordinaire
+          </button>
+          <button
+            class="button-39"
+            (click)="viewMoreExtensionDetails('REJ')"
+            role="button"
+          >
+            <span
+              style="
+                position: absolute;
+                left: 0;
+                border-right: 1px solid black;
+                top: 0;
+                bottom: 0;
+                padding: 1rem;
+                padding-top: 0.875rem;
+              "
+              >{{ extensionStatistics.rejected }}</span
+            >
+            Visa Extension
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div
+  style="
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #f0f8ff;
+    background-clip: border-box;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  "
+  *ngIf="this.getToken('Role') === 'DM'"
+>
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      border-bottom-width: 1px;
+      padding: 3rem 2rem;
+      height: 3.5rem;
+      border-bottom: 1px solid #dee2e6;
+    "
+  >
+    <h2
+      style="
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        font-weight: 400;
+        font-size: 26px;
+        color: rgba(31, 10, 6, 0.6);
+      "
+    >
+      Statut de visa(s)
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-3 col-xl-3">
+      <div
+        class="bg-light rounded d-flex align-items-center"
+        style="padding: 2rem"
+      >
+        <i class="fa fa-arrow-down fa-3x text-primary"></i>
+        <div style="margin-left: 3rem; margin-right: 3rem">
+          <h5
+            class="mb-2"
+            style="
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #495057;
+            "
+          >
+            {{ "DASHBOARD.Total Allocation" | translate }}
+          </h5>
+          <h2
+            class="mb-0"
+            style="
+              font-weight: 700;
+              font-size: 32px !important;
+              display: block;
+              line-height: 1;
+              margin: 1rem auto;
+            "
+          >
+            {{
+              allocationDetails?.totalAllocated +
+                extensionStatistics?.totalAllocated
+            }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3 col-xl-3">
+      <div
+        class="bg-light rounded d-flex align-items-center"
+        style="padding: 2rem"
+      >
+        <i class="fa fa-folder-open fa-3x text-primary"></i>
+        <div style="margin-left: 3rem; margin-right: 3rem">
+          <h5
+            class="mb-2"
+            style="
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #495057;
+            "
+          >
+            {{ "DASHBOARD.PendingApproval" | translate }}
+          </h5>
+          <h2
+            class="mb-0"
+            style="
+              font-weight: 700;
+              font-size: 32px !important;
+              display: block;
+              line-height: 1;
+              margin: 1rem auto;
+            "
+          >
+            {{ allocationDetails?.pending + extensionStatistics?.rejected }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3 col-xl-3">
+      <div
+        class="bg-light rounded d-flex align-items-center"
+        style="padding: 2rem"
+      >
+        <i class="fa fa-check-circle fa-3x text-primary"></i>
+        <div style="margin-left: 3rem; margin-right: 3rem">
+          <h5
+            class="mb-2"
+            style="
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #495057;
+            "
+          >
+            {{ "DASHBOARD.Total Closed" | translate }}
+          </h5>
+          <h2
+            class="mb-0"
+            style="
+              font-weight: 700;
+              font-size: 32px !important;
+              display: block;
+              line-height: 1;
+              margin: 1rem auto;
+            "
+          >
+            {{ allocationDetails?.approved + extensionStatistics.closed }}
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-3 col-xl-3">
+      <div
+        class="bg-light rounded d-flex align-items-center"
+        style="padding: 2rem"
+      >
+        <i class="fa fa-times-circle fa-3x text-primary"></i>
+        <div style="margin-left: 3rem; margin-right: 3rem">
+          <h5
+            class="mb-2"
+            style="
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #495057;
+            "
+          >
+            {{ "DASHBOARD.RejectVisa" | translate }}
+          </h5>
+          <h2
+            class="mb-0"
+            style="
+              font-weight: 700;
+              font-size: 32px !important;
+              display: block;
+              line-height: 1;
+              margin: 1rem auto;
+            "
+          >
+            {{ allocationDetails?.rejected + extensionStatistics?.rejected }}
+          </h2>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm-6 col-md-6 col-xl-6">
+      <div
+        class="bg-light rounded d-flex align-items-center"
+        style="padding: 2rem"
+      >
+        <i class="fa fa-clock fa-3x text-primary"></i>
+        <div style="margin-left: 3rem; margin-right: 3rem">
+          <h5
+            class="mb-2"
+            style="
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #495057;
+            "
+          >
+            {{ "DASHBOARD.ValidationVisa" | translate }}
+          </h5>
+          <h2
+            class="mb-0"
+            style="
+              font-weight: 700;
+              font-size: 32px !important;
+              display: block;
+              line-height: 1;
+              margin: 1rem auto;
+            "
+          >
+            {{ allocationDetails?.validation + extensionStatistics?.rejected }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div
+  class="row"
+  *ngIf="this.getToken('Role') === 'SBCO' || this.getToken('Role') == 'BCO'"
+>
+  <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4" style="width: 100%">
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fas fa-folder-open fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "AGENTTRACKER.Total Processed" | translate }}</p>
+        <h6 class="mb-0 pull-right">{{ dmmAllocateDetails.totalAllocated }}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fas fa-plane-arrival fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "DASHBOARD.Total Arrival" | translate }}</p>
+        <h6 class="mb-0 pull-right">{{ dmmAllocateDetails.arrival }}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col col-xs-6 col-sm-6 col-md-3 col-lg-4">
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fas fa-plane-departure fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "DASHBOARD.TotalDeparture" | translate }}</p>
+        <h6 class="mb-0 pull-right">{{ dmmAllocateDetails.departure }}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col col-xs-6 col-sm-6 col-md-3 col-lg-4">
+    <div
+      class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+    >
+      <i class="fas fa-times-circle fa-3x text-primary"></i>
+      <div class="ms-3">
+        <p class="mb-2">{{ "DASHBOARD.PendingValidation" | translate }}</p>
+        <h6 class="mb-0 pull-right">{{ dmmAllocateDetails.pending }}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col col-xs-6 col-sm-6 col-md-3 col-lg-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+            <i class="fas fa-stopwatch fa-3x text-primary"></i>
+            <div class="ms-3">
+                <p class="mb-2">{{'DASHBOARD.Overstay Application'|translate}}</p>
+                <h6 class="mb-0 pull-right">{{dmmAllocateDetails.pending}}</h6>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="row">
+  <div class="col-sm-12 col-md-9 col-xl-9">
+    <div
+      style="
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #f0f8ff;
+        background-clip: border-box;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      "
+      *ngIf="this.getToken('Role') === 'SBCO' || this.getToken('Role') == 'BCO'"
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          border-bottom-width: 1px;
+          padding: 3rem 2rem;
+          height: 3.5rem;
+          border-bottom: 1px solid #dee2e6;
+        "
+      >
+        <h2
+          style="
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-weight: 400;
+            font-size: 26px;
+            color: rgba(31, 10, 6, 0.6);
+          "
+        >
+          Statut de traitement de visa(s)
+          <span *ngIf="this.getToken('Role') === 'SBCO'"
+            >&nbsp;de vos agent(s)</span
+          >
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-4 col-xl-4">
+          <div
+            class="bg-light rounded d-flex align-items-center"
+            style="padding: 2rem"
+          >
+            <i class="fas fa-folder-open fa-3x text-primary"></i>
+            <div style="margin-left: 3rem; margin-right: 3rem">
+              <h5
+                class="mb-2"
+                style="
+                  font-size: 20px;
+                  font-weight: 400;
+                  line-height: 1.5;
+                  color: #495057;
+                  white-space: nowrap;
+                "
+              >
+                {{ "AGENTTRACKER.Total Processed" | translate }}
+              </h5>
+              <h2
+                class="mb-0"
+                style="
+                  font-weight: 700;
+                  font-size: 32px !important;
+                  display: block;
+                  line-height: 1;
+                  margin: 1rem auto;
+                "
+              >
+                {{ dmmAllocateDetails.totalAllocated }}
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-xl-4">
+          <div
+            class="bg-light rounded d-flex align-items-center"
+            style="padding: 2rem"
+          >
+            <i class="fas fa-plane-arrival fa-3x text-primary"></i>
+            <div style="margin-left: 3rem; margin-right: 3rem">
+              <h5
+                class="mb-2"
+                style="
+                  font-size: 20px;
+                  font-weight: 400;
+                  line-height: 1.5;
+                  color: #495057;
+                  white-space: nowrap;
+                "
+              >
+                {{ "DASHBOARD.Total Arrival" | translate }}
+              </h5>
+              <h2
+                class="mb-0"
+                style="
+                  font-weight: 700;
+                  font-size: 32px !important;
+                  display: block;
+                  line-height: 1;
+                  margin: 1rem auto;
+                "
+              >
+                {{ dmmAllocateDetails.arrival }}
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-xl-4">
+          <div
+            class="bg-light rounded d-flex align-items-center"
+            style="padding: 2rem"
+          >
+            <i class="fas fa-plane-departure fa-3x text-primary"></i>
+            <div style="margin-left: 3rem; margin-right: 3rem">
+              <h5
+                class="mb-2"
+                style="
+                  font-size: 20px;
+                  font-weight: 400;
+                  line-height: 1.5;
+                  color: #495057;
+                  white-space: nowrap;
+                "
+              >
+                {{ "DASHBOARD.TotalDeparture" | translate }}
+              </h5>
+              <h2
+                class="mb-0"
+                style="
+                  font-weight: 700;
+                  font-size: 32px !important;
+                  display: block;
+                  line-height: 1;
+                  margin: 1rem auto;
+                "
+              >
+                {{ dmmAllocateDetails.departure }}
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-3 col-xl-3">
+    <div
+      style="
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        word-wrap: break-word;
+        background-color: #FDECEA;
+        background-clip: border-box;
+        border: 1px solid #FDECEA;
+        border-radius: 0.25rem;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      "
+      *ngIf="this.getToken('Role') === 'SBCO' || this.getToken('Role') == 'BCO'"
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          border-bottom-width: 1px;
+          padding: 3rem 2rem;
+          height: 3.5rem;
+          border-bottom: 1px solid #FDECEA;
+        "
+      >
+        <h2
+          style="
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-weight: 400;
+            font-size: 24px;
+            color: rgba(31, 10, 6, 0.6);
+          "
+        >
+          Visa(s) en besoin de validation(s)
+        </h2>
+      </div>
+      <div
+        class="rounded d-flex align-items-center"
+        style="padding: 2rem; background-color: #FDECEA;"
+      >
+        <i class="fas fa-clock-o fa-3x text-danger"></i>
+        <div style="margin-left: 3rem; margin-right: 3rem">
+          <h5
+            class="mb-2"
+            style="
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 1.5;
+              color: #495057;
+              white-space: nowrap;
+            "
+          >
+            {{ "DASHBOARD.PendingApproval" | translate }}
+          </h5>
+          <h2
+            class="mb-0"
+            style="
+              font-weight: 700;
+              font-size: 32px !important;
+              display: block;
+              line-height: 1;
+              margin: 1rem auto;
+            "
+          >
+            {{ ArrNeedValidation.length }}
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-6 col-xl-6">
+    <div
+      style="
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #f0f8ff;
+        background-clip: border-box;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        margin-bottom: 20px;
+        margin-top: 20px;
+      "
+      *ngIf="this.getToken('Role') === 'SBCO'"
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          border-bottom-width: 1px;
+          padding: 3rem 2rem;
+          height: 3.5rem;
+          border-bottom: 1px solid #dee2e6;
+        "
+      >
+        <h2
+          style="
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-weight: 400;
+            font-size: 24px;
+            color: rgba(31, 10, 6, 0.6);
+          "
+        >
+          Status de traitement de visa(s) par vous
+        </h2>
+      </div>
+      <div style="position: relative; display: flex; justify-content: space-between;">
+        <div
+          class="bg-light rounded d-flex align-items-center"
+          style="padding: 2rem"
+        >
+          <i class="fas fa-check-circle fa-3x text-primary"></i>
+          <div style="margin-left: 3rem; margin-right: 3rem">
+            <h5
+              class="mb-2"
+              style="
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #495057;
+                white-space: nowrap;
+              "
+            >
+              {{ "EVISAPROCESSING.TotalGranted" | translate }}
+            </h5>
+            <h2
+              class="mb-0"
+              style="
+                font-weight: 700;
+                font-size: 32px !important;
+                display: block;
+                line-height: 1;
+                margin: 1rem auto;
+              "
+            >
+            {{ SBCOTracker?.approved }}
+            </h2>
+          </div>
+        </div>
+        <div
+          class="bg-light rounded d-flex align-items-center"
+          style="padding: 2rem"
+        >
+          <i class="fas fa-times-circle fa-3x text-primary"></i>
+          <div style="margin-left: 3rem; margin-right: 3rem">
+            <h5
+              class="mb-2"
+              style="
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #495057;
+                white-space: nowrap;
+              "
+            >
+              {{ "EVISAPROCESSING.TotalRejected" | translate }}
+            </h5>
+            <h2
+              class="mb-0"
+              style="
+                font-weight: 700;
+                font-size: 32px !important;
+                display: block;
+                line-height: 1;
+                margin: 1rem auto;
+              "
+            >
+            {{ SBCOTracker?.rejected }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END DASHBOARD STATS -->
+
+<br /><br />
+<!--
+<ul class="page-breadcrumb breadcrumb" style="height: 50px;" *ngIf="this.getToken('Role')=='DM'">
+    <li>{{'EVISASEARCH.extensioneVisa'|translate}}</li>
+
+    <div class="col-md pull-right">
+        <div class="form-group">
+            <label class="col-md-4 control-label">{{'PERFOMANCEREPORTS.Period'|translate}}:</label>
+            <div class="col-md-8">
+                <ng-select [items]="periodDetails" class="chosen-select"
+                    placeholder="{{'PERFOMANCEREPORTS.Period'|translate}}" [clearable]='true' [searchable]='false'
+                    bindLabel="desc" bindValue="code" [dropdownPosition]="'auto'" name="datePeriod"
+                    [(ngModel)]="extensiondashboard.datePeriod" #datePeriod="ngModel"
+                    (change)="ExtensionVisaPeriod($event)">
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    &lt;!&ndash; END PAGE TITLE & BREADCRUMB&ndash;&gt;
+</ul>
+
+<br>
+<div class="row" *ngIf="this.getToken('Role')==='DM'">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue">
+            <div class="visual">
+                <i class="fa fa-signal"></i>
+            </div>
+            <div class="details">
+                <div class="number">{{extensionStatistics?.totalAllocated}}</div>
+                <div class="desc">{{'DASHBOARD.Total Allocated'|translate}}</div>
+            </div>
+            <a href='javascript:;' class="more" (click)="viewMoreExtensionDetails('ALL')">
+                {{'DASHBOARD.View more'|translate}} <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green">
+            <div class="visual">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="details">
+                <div class="number">{{extensionStatistics.rejected}}</div>
+                <div class="desc">{{'EVISAPROCESSING.Reject'|translate}}</div>
+            </div>
+            <a href='javascript:;' class="more" (click)="viewMoreExtensionDetails('REJ')">
+                {{'DASHBOARD.View more'|translate}} <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow">
+            <div class="visual">
+                <i class="fa fa-envelope"></i>
+            </div>
+            <div class="details">
+                <div class="number">{{extensionStatistics?.pending}}</div>
+                <div class="desc">{{'DASHBOARD.Pending Approval'|translate}}</div>
+            </div>
+            <a href='javascript:;' class="more" (click)="viewMoreExtensionDetails('PEN')">
+                {{'DASHBOARD.View more'|translate}} <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple">
+            <div class="visual">
+                <i class="fa fa-envelope"></i>
+            </div>
+            <div class="details">
+                <div class="number">{{extensionStatistics.validation}}</div>
+                <div class="desc">{{'DASHBOARD.PendingValidation'|translate}}</div>
+            </div>
+            <a href='javascript:;' class="more" (click)="viewMoreExtensionDetails('VAL')">
+                {{'DASHBOARD.View more'|translate}} <i class="m-icon-swapright m-icon-white"></i>
+            </a>
+        </div>
+    </div>
+    &lt;!&ndash; <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="cursor: pointer;">
+        <div class="dashboard-stat purple" (click)="nextSetOfExtensions()" style="height: 115px;">
+            <div class="visual">
+                <i class="fa fa-briefcase"></i>
+            </div>
+            <div class="details">
+                <br><br><br><br>
+                <div class="desc">Get Next Set of Extension Files</div>
+            </div>
+
+        </div>
+    </div> &ndash;&gt;
+</div>-->
+
+<div *ngIf="this.getToken('Role') === 'SECRE'">
+  <form>
+    <div class="row">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <label for="start-date"
+            >{{ "VISAPENALITY.StartDate" | translate }}:</label
+          >
+          <input
+            type="date"
+            class="form-control"
+            id="start-date"
+            name="start-date"
+            [(ngModel)]="startDate"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <label for="end-date"
+            >{{ "VISAPENALITY.EndDate" | translate }}:</label
+          >
+          <input
+            type="date"
+            class="form-control"
+            id="end-date"
+            name="end-date"
+            [(ngModel)]="endDate"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+          <br />
+          <button
+            type="submit"
+            class="btn btn-primary"
+            *ngIf="startDate && endDate"
+            (click)="statistiqueSum(startDate, endDate)"
+          >
+            Soumettre
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <span style="color: red">{{ message }}</span>
+  <br /><br />
+  <div class="row">
+    <div class="col col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <div
+        class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+      >
+        <i class="fa fa-exchange-alt text-primary"></i>
+        <div class="ms-3">
+          <p class="mb-2">{{ "VISAPENALITY.total transaction" | translate }}</p>
+          <a href="javascript:;" class="more"
+            ><h6 class="mb-0 pull-right">{{ this.statistiquecountData }}</h6></a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col col-xs-6 col-sm-6 col-md-3 col-lg-3"></div>
+    <div class="col col-xs-6 col-sm-6 col-md-3 col-lg-3">
+      <div
+        class="bg-light rounded d-flex align-items-center justify-content-between p-4"
+      >
+        <i class="fa fa-money text-primary"></i>
+        <div class="ms-3">
+          <p class="mb-2">{{ "VISAPENALITY.total amount" | translate }}</p>
+          <a href="javascript:;" class="more"
+            ><h6 class="mb-0 pull-right">{{ this.statistiquesumData }} $</h6></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-ui-loader hasProgressBar="false" fgsType="three-strings"></ngx-ui-loader>

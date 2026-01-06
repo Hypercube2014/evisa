@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  lang="en"
+  xml:lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <!--[if gte mso 9
+      ]><xml
+        ><o:OfficeDocumentSettings
+          ><o:AllowPNG /><o:PixelsPerInch
+            >96</o:PixelsPerInch
+          ></o:OfficeDocumentSettings
+        ></xml
+      ><!
+    [endif]-->
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width" name="viewport" />
+    <!--[if !mso]><!-->
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <!--<![endif]-->
+    <title>[[${title}]]</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <!--[if !mso]><!-->
+    <!--<![endif]-->
+  </head>
+  <body class="clean-body body-main">
+    <span th:id="${redirection}"></span>
+    <script>
+      function myFunction() {
+        if (document.getElementById("true").getAttribute("id") == "true") {
+          //window.location.href = "https://evisav2.gouv.dj/applicant-api";
+          window.location.href = "https://www.evisa.gouv.dj/applicant-api";
+<!--           window.location.href = "http://localhost:8081/applicant-api";-->
+        }
+        ////console.log(document.getElementById("true").getAttribute("id"));
+      }
+      myFunction();
+    </script>
+    <!--[if IE]><div class="ie-browser"><![endif]-->
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      class="nl-container main-table"
+      role="presentation"
+      valign="top"
+      width="100%"
+    >
+      <tbody>
+        <tr class="tr-baseline" valign="baseline">
+          <td class="td-baseline" valign="baseline">
+            <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color:#091548"><![endif]-->
+            <div class="outer-div">
+              <div class="block-grid main-block-grid">
+                <div class="table-wrapper">
+                  <div class="col num12 col-main">
+                    <div class="col_cont col-cont-main">
+                      <!--[if (!mso)&(!IE)]><!-->
+                      <div class="content-block">
+                        <!--<![endif]-->
+                        <table border="0" cellpadding="0" cellspacing="0" class="divider divider-main" role="presentation" valign="top" width="100%">
+                          <tbody>
+                            <tr class="tr-top" valign="top">
+                              <td class="divider_inner divider-inner-main" valign="top">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content divider-content-main" height="8" role="presentation" valign="top" width="100%">
+                                  <tbody>
+                                    <tr class="tr-top" valign="top">
+                                      <td height="8" class="td-top" valign="top">
+                                        <span></span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="title-block">
+                          <div class="txtTinyMce-wrapper title-wrapper">
+                            <p class="title-text">
+                              <span class="title-span">Account Confirmation <br /> Confirmation du compte</span>
+                            </p>
+                          </div>
+                        </div>
+                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="td-mso"><![endif]-->
+                        <div class="subtitle-block">
+                          <div class="txtTinyMce-wrapper subtitle-wrapper">
+                            <p class="subtitle-text">
+                              <span class="subtitle-span">[[${title}]]</span>
+                            </p>
+                          </div>
+                        </div>
+                        <!--[if mso]></td></tr></table><![endif]-->
+                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="td-mso"><![endif]-->
+                        <div class="message-block">
+                          <div class="txtTinyMce-wrapper message-wrapper">
+                            <p class="message-title">Dear Applicant <br /> Cher demandeur,</p>
+                            <p class="message-content">[[${message}]]</p>
+                          </div>
+                        </div>
+                        <!--[if mso]></td></tr></table><![endif]-->
+                        <div align="center" class="button-container button-container-main">
+                          <!--[if mso]>
+																	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+																		<tr>
+																			<td style="padding-top: 20px; padding-right: 15px; padding-bottom: 20px; padding-left: 15px" align="center">
+																				<v:roundrect
+																					xmlns:v="urn:schemas-microsoft-com:vml"
+																					xmlns:w="urn:schemas-microsoft-com:office:word" href="${placeconfirmurl}" style="height:31.5pt;width:258.75pt;v-text-anchor:middle;" arcsize="58%" stroke="false" fillcolor="#ffffff">
+																					<w:anchorlock/>
+																					<v:textbox inset="0,0,0,0">
+																						<center style="color:#091548; font-family:sans-serif; font-size:15px">
+																							<![endif]-->
+                          <a
+                            ##th:href="${placeconfirmurl}"
+                            href="https://www.evisa.gouv.dj/applicant-api"
+                            class="main-btn"
+                            target="_blank"
+                            ><span class="main-btn-span"><span class="main-btn-span2"><span class="main-btn-span3"><strong> Please click here to access application <br /> </strong></span></span></span></a>
+                          <a
+                            ##th:href="${placeconfirmurl}"
+                            href="https://www.evisa.gouv.dj/applicant-api"
+                            class="main-btn"
+                            target="_blank"
+                            ><span class="main-btn-span"><span class="main-btn-span2"><span class="main-btn-span3"><strong>Veuillez cliquer ici pour accéder à l'applicantion <br /> </strong></span></span></span></a>
+                          <!--[if mso]>
+																						</center>
+																					</v:textbox>
+																				</v:roundrect>
+																			</td>
+																		</tr>
+																	</table>
+																	<![endif]-->
+                        </div>
+                        <table border="0" cellpadding="0" cellspacing="0" class="divider divider-main2" role="presentation" valign="top" width="100%">
+                          <tbody>
+                            <tr class="tr-top" valign="top">
+                              <td class="divider_inner divider-inner-main2" valign="top">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content divider-content-main2" role="presentation" valign="top" width="60%">
+                                  <tbody>
+                                    <tr class="tr-top" valign="top">
+                                      <td class="td-top" valign="top">
+                                        <span></span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td class="td-mso"><![endif]-->
+                        <div class="signature-block">
+                          <div class="txtTinyMce-wrapper signature-wrapper">
+                            <p class="signature-text"><strong>Warm Regards | Meilleur Salutations,</strong></p>
+                            <p class="signature-text"><strong>Djibouti E-Visa Support Team</strong></p>
+                          </div>
+                        </div>
+                        <!--[if mso]></td></tr></table><![endif]-->
+                        <table border="0" cellpadding="0" cellspacing="0" class="divider divider-main3" role="presentation" valign="top" width="100%">
+                          <tbody>
+                            <tr class="tr-top" valign="top">
+                              <td class="divider_inner divider-inner-main3" valign="top">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content divider-content-main3" height="30" role="presentation" valign="top" width="60%">
+                                  <tbody>
+                                    <tr class="tr-top" valign="top">
+                                      <td height="30" class="td-top" valign="top">
+                                        <span></span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <!--[if (!mso)&(!IE)]><!-->
+                      </div>
+                      <!--<![endif]-->
+                    </div>
+                  </div>
+                  <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+                  <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+                </div>
+              </div>
+            </div>
+            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--[if (IE)]></div><![endif]-->
+  </body>
+</html>

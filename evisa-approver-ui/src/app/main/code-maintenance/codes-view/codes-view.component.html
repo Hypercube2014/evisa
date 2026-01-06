@@ -1,0 +1,145 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}}<small> &nbsp; {{'CODES.CodeMaintenance'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'COMMON.ManagementCentre'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'CODES.CodeDetails'|translate}}
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'CODES.CodeDetails'|translate}} </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'CODES.Code'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static"> {{countryDetails?.code}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'CODES.Description'|translate}}
+                                        :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{countryDetails?.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'CODES.DescriptionInFrench'|translate}}
+                                        :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{countryDetails?.descriptionOther}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.createdBy'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{countryDetails?.createdBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.createdDate'|translate}}
+                                        :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{countryDetails?.createdDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row" *ngIf="countryDetails?.updatedBy">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.updatedBy'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{countryDetails?.updatedBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row" *ngIf="countryDetails?.updatedDate">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.updatedDate'|translate}}
+                                        :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{countryDetails?.updatedDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.Status'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">
+                                            {{countryDetails?.active=='Y'?'Active':'InActive'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/code-maintenance']">{{'COMMON.Close'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

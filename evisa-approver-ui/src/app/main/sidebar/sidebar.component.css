@@ -1,0 +1,16 @@
+a .router-link-active {
+	color: #000;
+	font-weight: bold;
+}
+
+.nav-list .menu .active {
+	background-color: none;
+}
+
+ul.page-sidebar-menu>li>ul.sub-menu li.open>.active {
+	background: #1b8fd3 !important;
+}
+
+ul.page-sidebar-menu>li>ul.sub-menu li.open>a {
+	background: none !important;
+}

@@ -1,0 +1,322 @@
+/* Styles spécifiques pour le composant de téléchargement de visa */
+
+.visa-download-container {
+  padding: 20px 0;
+}
+
+/* Animations pour les messages */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Messages d'alerte avec animations */
+.alert {
+  animation: fadeInDown 0.5s ease-out;
+  border-radius: 6px;
+  border-left: 4px solid;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-left-color: #28a745;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-left-color: #dc3545;
+  color: #721c24;
+  animation: fadeInDown 0.5s ease-out, shake 0.5s ease-out 0.2s;
+}
+
+/* Styles pour les champs de saisie */
+.form-control {
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-control.is-valid {
+  border-color: #28a745;
+  background-image: none;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-image: none;
+  animation: shake 0.3s ease-out;
+}
+
+/* Indicateurs de validation */
+.input-icon {
+  position: relative;
+}
+
+.input-icon .fa-check,
+.input-icon .fa-times {
+  z-index: 10;
+  font-size: 14px;
+}
+
+/* Styles des boutons */
+.btn-download {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-download:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  background: linear-gradient(45deg, #0056b3, #004085);
+}
+
+.btn-download:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animation du spinner */
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Barre de progression */
+.progress {
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.progress-bar {
+  transition: width 0.3s ease;
+  background: linear-gradient(45deg, #007bff, #0056b3);
+}
+
+@keyframes progress-bar-stripes {
+  0% { background-position: 1rem 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Panel d'instructions */
+.note.note-info {
+  background-color: #e1f5fe;
+  border-left: 4px solid #0288d1;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.note.note-info h4 {
+  color: #0277bd;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Exemple de format */
+code {
+  background-color: #f8f9fa;
+  color: #e83e8c;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Panel des codes d'erreur */
+.panel {
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.panel-heading {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 12px;
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  color: #495057;
+}
+
+.panel-body ul li {
+  padding: 2px 0;
+  color: #6c757d;
+}
+
+/* Messages d'aide */
+.help-block {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.help-block small {
+  font-size: 11px;
+}
+
+/* Styles pour l'accès refusé */
+.portlet.box.red .portlet-title {
+  background-color: #dc3545;
+  color: white;
+}
+
+.portlet.box.red .portlet-title .caption {
+  font-weight: 600;
+}
+
+/* États de chargement */
+.loading-state {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading-overlay {
+  position: relative;
+}
+
+.loading-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .form-group .col-md-3,
+  .form-group .col-md-6,
+  .form-group .col-md-3 {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .btn-lg {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn-default {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .note.note-info {
+    margin-top: 20px;
+  }
+
+  .panel {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .portlet-body {
+    padding: 15px;
+  }
+
+  .form-horizontal .control-label {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .input-icon input {
+    padding-right: 35px;
+  }
+
+  .help-block {
+    font-size: 12px;
+  }
+}
+
+/* Améliorations d'accessibilité */
+.btn:focus,
+.form-control:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Animation d'entrée pour la page */
+.visa-download-page {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Styles pour les icônes de statut */
+.status-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.status-success {
+  color: #28a745;
+}
+
+.status-error {
+  color: #dc3545;
+}
+
+.status-warning {
+  color: #ffc107;
+}
+
+.status-info {
+  color: #17a2b8;
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type"
+	content="text/html; charset=windows-1252"></meta>
+<style>
+pre {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+p.normal {
+	font-style: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding-top: 70px;
+}
+
+tr.spaceUnder>td, tr {
+	padding-bottom: 3em;
+}
+
+.spaceUnderpara {
+	padding-bottom: 2px;
+}
+
+tr.space1>td, tr {
+	padding-bottom: 2em;
+}
+
+body {
+	height: 600px;
+	width: 680px;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url('watermark.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center 65px;
+}
+
+table, td, th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	cellpadding: 5;
+}
+
+table.space {
+	margin-top: 2px;
+	padding-top: 3px;
+	width: 100%;
+}
+
+.tablemargin {
+	margin-top: 10px;
+	padding-top: 10px;
+	width: 100%;
+	padding-bottom: 2px;
+	margin-bottom: 6px;
+}
+
+#table2 {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th {
+	font-size: 22px;
+	height: 40px;
+}
+
+.border {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+	<table style="font-size: 12px; width: 100%">
+		<tr>
+			<td align="left" valign="top"
+				style="width: 35%; font-weight: bold; font-size: 13px;">MINISTRE
+				DE'LINTERIEUR POLICE NATIONALE DIRECTION DES RENSEIGNEMENTS GENERAUX</td>
+			<td align="center"><img
+				th:src="@{classpath:images/police_logo.png}" width="100"
+				height="100"></img></td>
+			<td align="center" valign="top"
+				style="font-weight: bold; font-size: 13px; width: 27%;">REPUBLIQUE
+				DE DJIBOUTI UNITE-EGALITE-PAIX</td>
+		</tr>
+	</table>
+	<table style="width: 100%" id="table2">
+		<tr class="spaceUnder">
+			<th><center>AUTORISATION D'ACCES EN REPUBLIQUE DE
+					DJIBOUTI</center></th>
+		</tr>
+	</table>
+
+	<table style="width: 100%" class="tablemargin">
+		<tr>
+			<td style="width: 65%;"></td>
+			<td align="right">
+				<table>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+			<td align="right">&nbsp;&nbsp;&nbsp;</td>
+			<td align="left">
+				<table>
+					<tr>
+						<td>REF NO: [[${applicationNumber}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+
+	<table style="width: 100%" class="spaceUnderpara" id="table2">
+		<tr>
+			<td><b>Est accord&eacute; &agrave; compter de la date de son
+					arriv&eacute;e en faveur de la personne dont le d&eacute;tail est
+					ci-apr&egrave;s mentionn&eacute;e</b></td>
+		</tr>
+	</table>
+	<table style="width: 100%;" id="table3">
+		<tr>
+			<td><b><p>
+						Une Copie de ce document portant autorisation d'acces en
+						r&egrave;publique de Djibouti doit etre obligation
+						pr&eacute;sent&eacute;e au guichet de la police d'immigration a
+						l'aeroport international de Djibouti ville dans<span
+							style="color: red;">&nbsp; [[${visaMonths}]]</span> a compter de
+						la date d'emission du visa
+					</p></b></td>
+		</tr>
+	</table>
+	<table style="width: 100%" class="space">
+		<tr class="spaceUnder">
+			<td width="5%"></td>
+			<td align="left" width="15%">
+				<table width="100%" border="1">
+					<tr>
+						<td
+							style="padding-left: 10px; padding-right: 10px; text-align: center;">
+							[[${visaEntry}]]</td>
+					</tr>
+				</table>
+			</td>
+			<td align="right">DJIBOUTI,Le</td>
+			<td align="right" width="15%">
+				<table border="1">
+					<tr>
+						<td style="padding-left: 10px; padding-right: 10px;">[[${approvedDate}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<td style="white-space: pre;">NOM ET PRENOM</td>
+			<td>
+				<table class="border" style="width: 188%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${firstName}]] [[${lastName}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>DATE DE NAISSANCE</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${dateOfBirth}]]</td>
+					</tr>
+				</table>
+			</td>
+			<td style="white-space: pre;">LIEU DE NAISSANCE</td>
+			<td>
+				<table class="border" style="width: 88px;">
+					<tr>
+						<td style="text-align: center; padding-bottom: 4px">[[${birthPlace}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>NATIONALITE</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${nationality}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>PROFESSION OU QUALIFICATION</td>
+			<td>
+				<table class="border" style="width: 188%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${profession}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>ADRESSE PERMANENTE</td>
+			<td>
+				<table class="border" style="width: 188%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${address}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>NUMERO DE PASSEPORT</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${passportNo}]]</td>
+					</tr>
+				</table>
+			</td>
+			<td>DELIVRE LE</td>
+			<td>
+				<table class="border" style="width: 88px;">
+					<tr>
+						<td style="text-align: center;padding-bottom: 4px">[[${issueDate}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>A /AU</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${issueCountry}]]</td>
+					</tr>
+				</table>
+			</td>
+			<td>EXPIRE LE</td>
+			<td>
+				<table class="border" style="width: 88px;">
+					<tr>
+						<td style="text-align: center;padding-bottom: 4px">[[${expiryDate}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>ARRIVEE PREVUE LE</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${arrivalDate}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>POSTE FRONTALIER DE</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${arrivalPlace}]]</td>
+					</tr>
+				</table>
+			</td>
+			<td style="white-space: pre;">PAYS DE PROVENANCE</td>
+			<td>
+				<table class="border" style="width: 88px;">
+					<tr>
+						<td style="text-align: center;padding-bottom: 4px">[[${countryOfProvenance}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>MOTIF DU VOYAGE</td>
+			<td>
+				<table class="border" style="width: 90%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${reasonsForTravel}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="white-space: pre;">DUREE DU SEJOUR</td>
+			<td>
+				<table class="border" style="width: 188%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${durationStay}]]</td>
+						<td style="padding-bottom: 4px">[[${entryType}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="white-space: pre;">LIEU D'HEBERGMENT</td>
+			<td>
+				<table class="border" style="width: 188%;">
+					<tr>
+						<td style="padding-bottom: 4px">[[${djiboutiAddress}]]</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="white-space: pre;">ADRESSE DU GARANT</td>
+			<td>
+				<table class="border" style="width: 188%;">
+					<tr style="text-align: center;">
+						<td style="padding-bottom: 4px">AUTORITE DES PORTS ET DES ZONES FRANCHES</td>
+					</tr>
+					<tr style="text-align: center;">
+						<td style="padding-bottom: 4px">TELEPHONE: 00 253 21 35 90 70 FAX: 00 253 21 35 90 59
+							BP:197</td>
+					</tr>
+					<tr style="text-align: left;">
+						<td class="border" style="padding-bottom: 4px"><PRE>E-MAIL : noreply_v2@evisa.dj</PRE></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+	<br /><br /><br /><br />
+	
+	<table style="width: 100%">
+		<tr>
+			<td><div id="logo" class="media" data-src="QRCode.png"
+					style="width: 155px; height: 155px; margin: 0 auto; padding-bottom: 5px" />
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
+

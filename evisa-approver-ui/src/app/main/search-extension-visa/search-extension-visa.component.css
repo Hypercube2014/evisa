@@ -1,0 +1,20 @@
+.dashboard-stat .visual i {
+    font-size: 20px;
+    line-height: 14px;
+    color: #fff;
+}
+
+.dashboard-stat .visual {
+    width: 80px;
+    height: 33px;
+    display: block;
+    float: left;
+    padding-top: 10px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+@media (min-width: 1200px) {
+    .col-lg-3 {
+        width: 18%;
+    }
+}

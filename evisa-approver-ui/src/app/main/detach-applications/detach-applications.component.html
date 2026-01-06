@@ -1,0 +1,96 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'DETACHAPPLICATION.User Management'|translate}} <small> &nbsp; {{'DETACHAPPLICATION.Detach
+                Applications'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="javascript:;" *ngIf="this.getToken('Role')!='DMM'"
+                    [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <a href="javascript:;" *ngIf="this.getToken('Role')==='DMM'"
+                    [routerLink]="['/main/dashboardimo']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'DETACHAPPLICATION.User Management'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'DETACHAPPLICATION.Detach Applications'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+
+<div class="col-md-6" *ngIf="this.getToken('Role')==='DMM'">
+    <div class="form-group">
+        <label class="col-md-4 control-label">{{'AGENTTRACKER.AgentsRole'|translate}}<span
+                class="required">*</span></label>
+        <div class="col-md-8">
+            <ng-select [items]="agentsList" class="chosen-select" placeholder="{{'AGENTTRACKER.SelectRole'|translate}}"
+                [clearable]='false' [searchable]='true' [(ngModel)]="agentDetails.role" name="role" #role="ngModel"
+                bindLabel="name" bindValue="code" required (change)="onChangeRole($event)">
+            </ng-select>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+<div class="row" *ngIf="isList">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'DETACHAPPLICATION.Detach Applications'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <!-- BEGIN FORM-->
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <thead>
+                            <tr>
+
+                                <th *ngIf="applicationList?.length"><input type="checkbox" (change)="selectAll()"
+                                        [(ngModel)]="allSelected" name="websitecheck"></th>
+                                <th>{{'DETACHAPPLICATION.Application Number'|translate}}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX" *ngFor="let data of applicationList">
+
+                                <td><input type="checkbox" name="websitecheck" [checked]="data.isSelected"
+                                        (change)="rowSelected(data)"></td>
+                                <td>{{data.appNo}}</td>
+
+
+                            </tr>
+                            <tr class="odd" *ngIf="(!applicationList?.length) ">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty"><b>
+                                        {{'RECORDS.NoRecords'|translate}}</b>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-actions fluid" *ngIf="applicationList?.length">
+                    <div class="col-md-offset-5 col-md-6">
+                        <button type="button" class="btn blue" (click)="detachAll('A')">{{'DETACHAPPLICATION.Detach All
+                            Applications'|translate}}</button>&nbsp;&nbsp;
+                        <button type="button" class="btn default" (click)="detachAll('S')">{{'DETACHAPPLICATION.Detach
+                            Selected'|translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

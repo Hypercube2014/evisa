@@ -1,0 +1,95 @@
+document.write("<!-- BEGIN SIDEBAR -->");
+document.write("		<div class='page-sidebar navbar-collapse collapse'>");
+
+document.write("                    <div class='user-panel text-center'>");
+document.write("                        <div class='image'>");
+document.write("                            <img src='assets/img/avatar1_small.jpg' class='img-circle' alt='User Image'>");
+document.write("                        </div>");
+document.write("                        <div class='info'>");
+document.write("                           <p>Bob Nilson</p>");
+document.write("                            <a href='index.html' style='color:#ffffff;'><i class='fa fa-circle text-success'></i>");
+document.write("                            Admin</a>");
+document.write("                        </div>");
+document.write("                    </div> ");
+
+
+document.write("			<!-- BEGIN SIDEBAR MENU -->        ");     
+document.write("			<ul class='page-sidebar-menu'>");
+
+document.write("				<li class='start active '>");
+document.write("					<a href='index.html'>");
+document.write("					<i class='fa fa-home'></i> ");
+document.write("					<span class='title'>Dashboard</span>");
+document.write("					</a>");
+document.write("				</li>");
+
+document.write("				<li class=''>");
+document.write("					<a href='javascript:;'>");
+document.write("					<i class='fa fa-cogs'></i> ");
+document.write("					<span class='title'>Management Centre</span>");
+document.write("					<span class='arrow '></span>");
+document.write("					</a>");
+document.write("					<ul class='sub-menu'>");						
+document.write("						<li >");
+document.write("							<a href='codeMaintenance.html'>");
+document.write("							Code Maintenance</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='viewProductConfig.html'>");
+document.write("							View Product Configuration</a>");
+document.write("						</li>");	
+document.write("						<li >");
+document.write("							<a href='manageUser.html'>");
+document.write("							Manage User Account</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='roleManagement.html'>");
+document.write("							Role Management</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='transferManager.html'>");
+document.write("							Transfer Agent</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='assignManager.html'>");
+document.write("							Assign Agent</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='agentSuspensionAdmin.html'>");
+document.write("							Suspend Agent</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='ManageFAQ.html'>");
+document.write("							FAQ</a>");
+document.write("						</li>");					
+document.write("					</ul>");
+document.write("				</li>");
+
+document.write("				<li class=''>");
+document.write("					<a href='javascript:;'>");
+document.write("					<i class='fa fa-download'></i> ");
+document.write("					<span class='title'>Downloads</span>");
+document.write("					<span class='arrow '></span>");
+document.write("					</a>");
+document.write("					<ul class='sub-menu'>");						
+document.write("						<li >");
+document.write("							<a href='employeeDownloads.html'>");
+document.write("							Downloads List</a>");
+document.write("						</li>");
+document.write("						<li >");
+document.write("							<a href='addEmployeeDownloads.html'>");
+document.write("							Add Downloads</a>");
+document.write("						</li>");
+document.write("					</ul>");
+document.write("				</li>");
+
+document.write("				<li>");
+document.write("					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->");
+document.write("					<div class='sidebar-toggler hidden-phone'></div>");
+document.write("					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->");
+document.write("				</li>");
+
+document.write("			</ul>");
+document.write("			<!-- END SIDEBAR MENU -->");
+document.write("		</div>");
+document.write("		<!-- END SIDEBAR -->");

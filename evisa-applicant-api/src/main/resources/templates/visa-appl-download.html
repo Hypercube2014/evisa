@@ -1,0 +1,327 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <style>
+        .column {
+            float: left;
+            width: 50%
+        }
+
+        .container {
+            width: 100%;
+        }
+
+
+        .imagecolumn {
+            float: right;
+        }
+
+        .text {
+            text-align: center;
+            display: inline-block;
+        }
+
+        .avt {
+            float: right;
+
+        }
+
+        .details {
+            float: left;
+            width: 75%;
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 5px;
+            height: 110px;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .border {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 5px;
+            height: 140px;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .travelBorder {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 5px;
+            height: 45px;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .extensionBorder {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 5px;
+            height: 30px;
+            text-align: left;
+            padding: 8px;
+        }
+
+        h4 {
+            text-align: center;
+            color: #4e6fd3;
+        }
+
+        img {
+            height: 100px;
+        }
+
+        span {
+            font-weight: normal;
+            font-size: 15px;
+        }
+
+        .notes-border {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 10px;
+            height: 200px;
+            width: 666px;
+            padding-left: 8px;
+        }
+
+        body {
+            height: 600px;
+            width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .colheading {
+            float: left;
+            width: 25%
+        }
+
+        .spanheading {
+            text-align: center;
+            display: inline-block;
+            width: 40%;
+            margin-top: 22px;
+        }
+
+        .barcodeimage {
+            float: right;
+            width: 25%;
+        }
+
+        .imgAvatar {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 10px;
+            height: 150px;
+            width: 100%;
+            padding: 2px;
+        }
+
+        #avatar {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 10px;
+            width: 100%;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" style="font-size:13px;">
+
+        <div class="row">
+            <div class="colheading">
+                <img th:src="@{classpath:images/logo2.JPG}" style="width:130px; height:120px;" />
+            </div>
+            <div class="spanheading">
+                <strong><i>REPUBLIQUE DE DJIBOUTI</i></strong>
+                <p style="margin-top: -1px;"> MINISTERE DE L&rsquo;INTERIEUR </p>
+                <p style="margin-top: -16px;"> DIRECTION GENERALE DE LA POLICE ET DE</p>
+                <p style="margin-top: -16px;">L&rsquo;IMMIGRATION </p>
+            </div>
+            <div class="barcodeimage">
+                <div style="height: 40px;"></div>
+                <div id="barcode" class="media" data-src="barcode.png" style="width:160px; height:80px; float: right;">
+                </div>
+            </div>
+            <br />
+            <div></div>
+            <h4>Visa Information / Information sur le Visa</h4>
+            <div class="row">
+                <div class="border">
+                    <div class="column">
+                        <table style="width:97%">
+                            <tr>
+                                <th>Visa valid From / Visa valide du : <span>[[${visaValidFrom}]]</span></th>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <th>Visa type / type visa : <span>[[${visaEntry}]]</span></th>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <th>Purpose of entries / Motif du s&eacute;jour : <span>[[${reasonsForTravel}]]</span>
+                                </th>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <th>Group request / Demande de groupe : <span>[[${group}]]</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <table style="width:97%; float:right">
+                            <tr>
+                                <th>Visa valid Until / Visa valable jusqu&rsquo;au : <span>[[${visaValidTo}]]</span>
+                                </th>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <th>Number of Entries / Nombre d&rsquo;entr&eacute;es : <span>[[${entryType}]]</span>
+                                </th>
+                            </tr>
+                            <tr></tr>                            
+                            <tr></tr>
+                            <!--<tr>
+                                <th>Duration of stay / Dur&eacute;e du sejour : <span>[[${durationStay}]]</span></th>
+                            </tr>-->
+                            <tr></tr>
+                            <tr>
+                                <th>File number / Num&eacute;ro de dossier : <span>[[${fileNumber}]]</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <div class="column1">
+                        <table style="height:0px">
+                            <tr>
+                            </tr><br /><br /><br /><br /><br /><br /><br />
+                            <tr th:if="${warningMessage != ''}">
+                                <td colspan="2" style= " font-weight: bold; font-size: 12px;">
+                                    [[${warningMessage}]]
+                                </td>
+                            </tr>
+                        </table>
+                    </div> -->
+                </div>
+            </div>
+            <br />
+            <h4>Personal Information / Information Personnel</h4>
+            <div class="row">
+                <div class="details">
+                    <table style="width:102%">
+                        <tr>
+                            <th style="width:40%">Surnamee / Nom de famille : <span>[[${lastName}]]</span></th>
+                        </tr>
+                        <tr>
+                            <th>Namee / Nom: <span>[[${firstName}]]</span></th>
+                        </tr>
+                        <tr>
+                            <th>Date Of Birth / Date de naissance : <span>[[${dateOfBirth}]]</span></th>
+                        </tr>
+                        <tr>
+                            <th>Nationality / Nationnalit&eacute; : <span>[[${nationality}]]</span></th>
+                        </tr>
+                        <tr>
+                            <th>Sex/ Genre :<span>[[${gender}]]</span></th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="avatar" class="media" data-src="avatar.png" style="width:135px; height:122px; float: right;">
+                    <br />
+                </div>
+            </div>
+
+            <br /><br />
+            <h4 style="margin-top: 130px;">Travel document information / Informations sur les documents de voyage</h4>
+            <div class="row">
+                <div class="travelBorder">
+                    <div class="column">
+                        <table style="width:100%">
+
+                            <tr>
+                                <th>Type / Type : <span>PASSEPORT</span></th>
+                            </tr>
+                            <tr>
+                                <th>Number / Num&eacute;ro : <span>[[${passportNo}]]</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <table style="width:100%; margin-left: -20%;float: right;">
+
+                            <tr>
+                                <th>Date of Issue / Date de d&eacute;livrance: <span>[[${issueDate}]]</span></th>
+                            </tr>
+                            <tr>
+                                <th>Date of Expiry / Date d&rsquo;expiration: <span>[[${expiryDate}]]</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <h4>Extension visa / Prolongement de visa</h4>
+            <div class="row">
+                <div class="extensionBorder">
+                    <div class="column">
+                        <table style="width:100%">
+                            <tr>
+                                <th>Visa Type / Type de visa :<span>[[${extensionType}]]</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="column">
+                        <table style="width:100%;margin-left: 0%;">
+                            <tr>
+                                <th>Date of expiry / Date d&rsquo;expiration : <span>[[${extensionExpiry}]]</span></th>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="notes-column">
+                    <div class="notes-border">
+                        <h4 style="text-align: left;">Notes</h4>
+                        <div class="column" style="width:69%">
+                            <div>- Le pr&eacute;sent visa ne constitue pas un droit d&rsquo;acc&egrave;s sur le
+                                territoire djiboutien.
+                            </div>
+                            <div>- Pour rester valide, le visa doit-&ecirc;tre accompagner du passeport soumis lors de
+                                la
+                                demande. Vous devez les pr&eacute;senter &agrave; la premi&egrave;re fronti&egrave;re
+                                d&rsquo;entr&eacute;e.
+                            </div>
+                            <div>- Vous &ecirc;tes responsable des informations que vous fournissez sur la plate-forme
+                                &eacute;lectronique. Toute information incorrecte constitue un motif d&rsquo;annulation
+                                de visa
+                                &eacute;lectronique.
+                            </div>
+
+                            <div>- Vous avez la possibilit&eacute; de demander une prolongation de votre visa au minimum
+                                48h
+                                avant son expiration.
+                            </div>
+                        </div>
+                        <div id="logo" class="media" data-src="QRCode.png"
+                            style="width:150px; height:150px; margin-left: 70%; margin-top: -30px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

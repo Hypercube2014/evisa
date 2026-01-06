@@ -1,0 +1,227 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'VISA.Manage Visa' | translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home' | translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'VISA.Visa Management' |translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'VISA.Visa View' |translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'VISA.Visa View' |translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Visa Type' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.visaType}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Visa Description' |translate}} :
+                                    </label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.visaDescription}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Visa Description in French'
+                                        |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{successData?.visaDescriptionOther}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Visa Fee' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{successData?.visaFee}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Currency' |translate}} :</label>
+                                    <div class="col-md-6">
+                                       
+                                        <p class="form-control-static"> {{currencyDetails}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Express Visa Allowed' |translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{successData?.expressVisaAllowed}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="successData?.expressVisaFee">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Express Visa Fee' |translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{successData?.expressVisaFee}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.EntryType' |translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static" *ngIf="successData?.entryType==='S'">Single Entry</p>
+                                        <p class="form-control-static" *ngIf="successData?.entryType==='M'">Multiple Entry</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'VISA.Visa Duration' |translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static"> {{successData?.visaDuration}} Days</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.Status' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.status=='Y'?'Active':'Inactive'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.createdBy' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.createdBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.createdDate' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.createdDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="successData?.updatedBy">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.updatedBy' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.updatedBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="successData?.updatedDate">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.updatedDate' |translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{successData?.updatedDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-actions fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+
+                                        <button type="button" class="btn default"
+                                            [routerLink]="['/main/visa/visa-list']">{{'COMMON.Close'
+                                            |translate}}</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

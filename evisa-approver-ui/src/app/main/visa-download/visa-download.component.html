@@ -1,0 +1,243 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      {{ "SIDEBAR.DownloadVisa" | translate }}
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a
+          href="javascript:;"
+          *ngIf="this.getToken('Role') != 'DM'"
+          [routerLink]="['/main/dashboard']"
+          >{{ "COMMON.Home" | translate }}</a
+        >
+        <a
+          href="javascript:;"
+          *ngIf="this.getToken('Role') === 'DM'"
+          [routerLink]="['/main/dashboardimo']"
+          >{{ "COMMON.Home" | translate }}</a
+        >
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        {{ "EVISASEARCH.eVisa" | translate }}<i class="fa fa-angle-right"></i>
+      </li>
+      <li>{{ "SIDEBAR.DownloadVisa" | translate }}</li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+
+<!-- SECTION TÉLÉCHARGEMENT DE VISA -->
+<div class="row" *ngIf="this.getToken('Role')==='DM' || this.getToken('Role')==='SECRE'">
+  <div class="col-md-12">
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-download"></i>{{ "SIDEBAR.DownloadVisa" | translate }}
+        </div>
+        <div class="tools"></div>
+      </div>
+      <div class="portlet-body">
+
+        <!-- Message de succès -->
+        <div class="alert alert-success" *ngIf="downloadSuccess" style="margin-bottom: 20px;">
+          <i class="fa fa-check-circle"></i>
+          <strong>{{ downloadSuccess }}</strong>
+        </div>
+
+        <!-- Message d'erreur -->
+        <div class="alert alert-danger" *ngIf="downloadError" style="margin-bottom: 20px;">
+          <i class="fa fa-exclamation-triangle"></i>
+          <strong>{{ downloadError }}</strong>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <form class="form-horizontal" (ngSubmit)="downloadApprovedVisa()">
+              <div class="form-group">
+                <label class="col-md-3 control-label">
+                  {{ "EVISASEARCH.Application Number" | translate }} <span class="required">*</span>
+                </label>
+                <div class="col-md-6">
+                  <div class="input-icon">
+                    <i class="fa fa-file-text"></i>
+                    <input
+                      class="form-control"
+                      [class.is-invalid]="formatError || downloadError"
+                      [class.is-valid]="downloadApplicationNumber && isValidFormat() && !downloadError"
+                      type="text"
+                      name="downloadApplicationNumber"
+                      [(ngModel)]="downloadApplicationNumber"
+                      placeholder="{{ 'EVISASEARCH.Enter Application Number' | translate }} (ex: A250911000012)"
+                      (input)="validateApplicationNumber($event)"
+                      [disabled]="isDownloading"
+                      maxlength="13"
+                      pattern="^[A-Z][0-9]{12}$"
+                      required
+                    />
+                    <!-- Icône de validation -->
+                    <i class="fa fa-check text-success"
+                       *ngIf="downloadApplicationNumber && isValidFormat() && !downloadError"
+                       style="position: absolute; right: 10px; top: 12px;"></i>
+                    <i class="fa fa-times text-danger"
+                       *ngIf="formatError || (downloadApplicationNumber && !isValidFormat())"
+                       style="position: absolute; right: 10px; top: 12px;"></i>
+                  </div>
+
+                  <!-- Messages d'aide -->
+                  <div class="help-block">
+                    <small class="text-muted">
+                      Format attendu: 1 lettre majuscule + 12 chiffres
+                    </small>
+                  </div>
+
+                  <!-- Validation en temps réel -->
+                  <div class="help-block text-danger" *ngIf="formatError">
+                    <small>
+                      <i class="fa fa-exclamation-circle"></i>
+                      Format invalide. Exemple correct: A250911000012
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    [disabled]="isDownloading || !downloadApplicationNumber || !isValidFormat()"
+                    style="min-width: 160px;"
+                  >
+                    <!-- États du bouton avec icônes animées -->
+                    <span *ngIf="!isDownloading">
+                      <i class="fa fa-download"></i>
+                      {{ "SIDEBAR.DownloadVisa" | translate }}
+                    </span>
+                    <span *ngIf="isDownloading">
+                      <i class="fa fa-spinner fa-spin"></i>
+                      {{ "COMMON.Loading" | translate }}...
+                    </span>
+                  </button>
+
+                  <!-- Bouton d'effacement -->
+                  <button
+                    type="button"
+                    class="btn btn-default"
+                    (click)="clearDownloadForm()"
+                    [disabled]="isDownloading"
+                    style="margin-left: 10px; min-width: 100px;"
+                    title="Effacer le formulaire"
+                  >
+                    <i class="fa fa-eraser"></i>
+                    {{ "COMMON.Clear" | translate }}
+                  </button>
+                </div>
+              </div>
+
+              <!-- Indicateur de progression -->
+              <div class="form-group" *ngIf="isDownloading">
+                <div class="col-md-12">
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-primary"
+                         style="width: 100%; animation: progress-bar-stripes 2s linear infinite;">
+                      <span class="sr-only">Téléchargement en cours...</span>
+                    </div>
+                  </div>
+                  <p class="text-center text-muted">
+                    <i class="fa fa-clock-o"></i>
+                    Vérification des autorisations et génération du PDF...
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Panel d'instructions amélioré -->
+          <div class="col-md-4">
+            <div class="note note-info">
+              <h4 class="block">
+                <i class="fa fa-info-circle"></i>
+                {{ "COMMON.Instructions" | translate }}
+              </h4>
+              <p>
+                {{ "EVISASEARCH.DownloadInstructions" | translate }}
+              </p>
+
+              <!-- Liste d'instructions détaillées -->
+              <ul class="list-unstyled">
+                <li style="margin-bottom: 8px;">
+                  <i class="fa fa-check text-success"></i>
+                  {{ "EVISASEARCH.EnterValidApplicationNumber" | translate }}
+                </li>
+                <li style="margin-bottom: 8px;">
+                  <i class="fa fa-check text-success"></i>
+                  {{ "EVISASEARCH.OnlyApprovedVisasDownloadable" | translate }}
+                </li>
+                <li style="margin-bottom: 8px;">
+                  <i class="fa fa-check text-success"></i>
+                  {{ "EVISASEARCH.PDFWillOpenNewTab" | translate }}
+                </li>
+              </ul>
+
+              <!-- Exemple de format -->
+              <div class="alert alert-warning" style="margin-top: 15px; padding: 10px;">
+                <strong>Exemple de format valide:</strong><br>
+                <code>A250911000012</code><br>
+                <small>1 lettre majuscule + 12 chiffres</small>
+              </div>
+
+              <!-- Codes d'erreur courants -->
+<!--              <div class="panel panel-default" style="margin-top: 15px;">-->
+<!--                <div class="panel-heading">-->
+<!--                  <h6 class="panel-title">-->
+<!--                    <i class="fa fa-question-circle"></i>-->
+<!--                    Problèmes courants-->
+<!--                  </h6>-->
+<!--                </div>-->
+<!--                <div class="panel-body" style="padding: 10px; font-size: 12px;">-->
+<!--                  <ul class="list-unstyled">-->
+<!--                    <li><strong>404:</strong> Dossier non trouvé</li>-->
+<!--                    <li><strong>403:</strong> Accès refusé (rôle)</li>-->
+<!--                    <li><strong>409:</strong> Visa non approuvé</li>-->
+<!--                    <li><strong>401:</strong> Session expirée</li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Message d'accès refusé pour les autres rôles -->
+<div class="row" *ngIf="this.getToken('Role')!=='DM' && this.getToken('Role')!=='SECRE'">
+  <div class="col-md-12">
+    <div class="portlet box red">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-exclamation-triangle"></i>
+          Accès Refusé
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="alert alert-danger">
+          <h4><i class="fa fa-ban"></i> Accès non autorisé</h4>
+          <p>
+            Vous n'avez pas les permissions nécessaires pour accéder à cette fonctionnalité.
+            <br>
+            <strong>Votre rôle:</strong> {{ getToken('Role') }}
+            <br>
+            <strong>Rôles autorisés:</strong> Decision Maker (DM), Secrétaire (SECRE)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-ui-loader hasProgressBar="false" fgsType="three-strings"></ngx-ui-loader>

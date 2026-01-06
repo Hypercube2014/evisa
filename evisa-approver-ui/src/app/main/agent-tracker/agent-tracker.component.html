@@ -1,0 +1,266 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'AGENTTRACKER.AgentsTracker'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="javascript:;" *ngIf="this.getToken('Role')!='DMM' "
+                    [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <a href="javascript:;" *ngIf="this.getToken('Role')==='DMM'"
+                    [routerLink]="['/main/dashboardimo']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'AGENTTRACKER.eVisa'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'AGENTTRACKER.Reports'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<form class="form-horizontal" #agentsDetailForm="ngForm" (ngSubmit)='applyFilter(agentsDetailForm,agentDetails)'>
+    <div class="row">
+        <div class="col-md-6" *ngIf="this.getToken('Role')==='DMM'">
+            <div class="form-group">
+                <label class="col-md-3 control-label">{{'AGENTTRACKER.AgentsRole'|translate}}<span
+                        class="required">*</span></label>
+                <div class="col-md-8">
+                    <ng-select [items]="rolesList" class="chosen-select"
+                        placeholder="{{'AGENTTRACKER.SelectRole'|translate}}" [clearable]='false' [searchable]='true'
+                        [(ngModel)]="agentDetails.role" name="role" #role="ngModel" bindLabel="name" bindValue="code"
+                        required (change)="onChangeRole($event)">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="col-md-2 control-label">{{'PERFOMANCEREPORTS.Period'|translate}}<span
+                        class="required">*</span></label>
+                <div class="col-md-8">
+                    <ng-select [items]="periodDetails" class="chosen-select"
+                        placeholder="{{'PERFOMANCEREPORTS.Period'|translate}}" [clearable]='true' [searchable]='false'
+                        bindLabel="desc" bindValue="code" [dropdownPosition]="'auto'" name="period"
+                        [(ngModel)]="agentDetails.period" #period="ngModel" required>
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row" style="margin-left: 3px;">
+        
+        <div class="col-md-6">
+            <button type="submit" class="btn blue">{{'EVISASEARCH.SEARCH'|translate}}</button> &nbsp;&nbsp;
+            <button type="button" class="btn default" (click)="clearFields()">{{'COMMON.Clear'|translate}}</button>
+            &nbsp;&nbsp;
+        </div>
+    </div>
+</form>
+<!-- END PAGE HEADER-->
+
+<br><br><br>
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row" *ngIf="isShow">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-download"></i>{{'AGENTTRACKER.AgentTracker'|translate}}</div>
+                <div class="tools">
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <div class="promo-page">
+                    <!-- BEGIN PAGE CONTENT-->
+                    <div class="carousel-inner">
+                        <div class="active item">
+                            <div class="row">
+                                <div class="col-md-3" *ngFor="let data of details">
+                                    <h4 class="block" style="text-align:start; margin-left: 20px;">{{roleCode}} -
+                                        {{data?.username}}</h4>
+
+                                    <div class="dropdown inline clearfix">
+                                        <!-- Link or button to toggle dropdown -->
+                                        <ul class="dropdown-menu" role="menu" *ngIf="roleCode==='DM'">
+
+                                            <li role="presentation"><a role="menuitem" tabindex="-1">{{'DASHBOARD.Total
+                                                    Allocated'|translate}}
+                                                    <span class="badge badge-info">{{data?.totalAllocated}}</span></a>
+                                            </li>
+                                            <li role="presentation"><a role="menuitem"
+                                                    tabindex="-1">{{'DASHBOARD.Closed'|translate}}
+                                                    <span class="badge badge-success">{{data?.closed}}</span></a>
+                                            </li>
+                                            <li role="presentation"><a role="menuitem"
+                                                    tabindex="-1">{{'DASHBOARD.Pending'|translate}}
+                                                    <span class="badge badge-warning">{{data?.pending}}</span></a>
+                                            </li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:;"
+                                                    (click)="callAgentDisplay(data?.username, roleCode)">{{'AGENTTRACKER.SeeMore'|translate}}
+                                                </a></li>
+                                        </ul>
+
+
+                                        <ul class="dropdown-menu" role="menu"
+                                            *ngIf="roleCode==='BCO'|| roleCode==='SBCO'">
+
+                                            <li role="presentation"><a role="menuitem"
+                                                    tabindex="-1">{{'AGENTTRACKER.Total Processed'|translate}}
+                                                    <span class="badge badge-info">{{data?.totalAllocated}}</span></a>
+                                            </li>
+                                            <li role="presentation"><a role="menuitem"
+                                                    tabindex="-1">{{'PERFOMANCEREPORTS.Arrival'|translate}}
+                                                    <span class="badge badge-success">{{data?.arrival}}</span></a>
+                                            </li>
+                                            <li role="presentation"><a role="menuitem"
+                                                    tabindex="-1">{{'PERFOMANCEREPORTS.Departure'|translate}}
+                                                    <span class="badge badge-warning">{{data?.departure}}</span></a>
+                                            </li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                    (click)="callAgentDisplaySbco(data?.username)"
+                                                    href="javascript:;">{{'AGENTTRACKER.SeeMore'|translate}}
+                                                </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="totalElements>0">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                [itemsPerPage]='pagesize' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                                [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="visaDetails" *ngIf="result">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>{{'EVISASEARCH.Visa Details'|translate}}</div>
+                <div class="tools">
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th scope="col" [appSort]="Applications" data-order="desc" data-name="applicationNumber"
+                                    style="cursor: pointer;"> {{'EVISASEARCH.Application No'|translate}} &nbsp;<i
+                                        class="fa fa-sort-up"></i><i class="fa fa-sort-down"></i></th>
+                                <th>{{'EVISASEARCH.Username'|translate}}</th>
+                                <th>{{'EVISASEARCH.Passport Number'|translate}}</th>
+                                <th>{{'EVISASEARCH.Is Express Visa'|translate}}</th>
+                                <th scope="col" [appSort]="Applications" data-order="desc" data-name="submittedDate"
+                                    data-type="date" style="cursor: pointer;">{{'EVISASEARCH.Date & Time
+                                    Submitted'|translate}} &nbsp;<i class="fa fa-sort-up"></i><i
+                                        class="fa fa-sort-down"></i></th>
+
+                                <th scope="col" [appSort]="Applications" data-order="desc" data-name="closedDate"
+                                    data-type="date" style="cursor: pointer;">{{'EVISASEARCH.Date & Time
+                                    Closed'|translate}} &nbsp;<i class="fa fa-sort-up"></i><i
+                                        class="fa fa-sort-down"></i></th>
+                                <th>{{'EVISASEARCH.Status'|translate}}</th>
+                                <th>{{'DASHBOARD.ApplicationOutcome'|translate}}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX" *ngFor="let data of Applications">
+                                <td><a href='javascript:;'
+                                        [routerLink]="['/main/evisaborderprocess',data.applicationNumber]">{{data?.applicationNumber}}</a>
+                                </td>
+                                <td>{{data?.username}}</td>
+                                <td>{{data?.passportNumber}}</td>
+                                <td>{{data?.expressVisa? 'OUI' : 'NON'}}</td>
+                                <td>{{data?.submittedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td>{{data?.closedDate | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                                <td *ngIf="data?.documentStatus === 'SUB'"><span
+                                        class="label label-sm label-success">Submitted</span></td>
+                                <!-- <td *ngIf="data?.documentStatus === 'PP'"><span
+                                        class="label label-sm label-success">PP</span></td> -->
+                                <td *ngIf="data?.documentStatus === 'PEN'"><span
+                                        class="label label-sm label-info">Pending</span></td>
+                                <td *ngIf="data?.documentStatus === 'CLS'"><span
+                                        class="label label-sm label-info">Closed</span></td>
+                                <td *ngIf="data?.documentStatus==='VAL'"><span
+                                        class="label label-sm label-default">Pending Validation</span></td>
+                                <td *ngIf="data?.documentStatus==='DRA'"><span
+                                        class="label label-sm label-info">Draft</span></td>
+                                <td *ngIf="data?.visaStatus==='APR'"><span
+                                        class="label label-sm label-success">Approved</span></td>
+                                <td *ngIf="data?.visaStatus==='REJ'"><span
+                                        class="label label-sm label-danger">Rejected</span></td>
+                                <td *ngIf="data?.visaStatus==='UP'"><span class="label label-sm label-default">Under
+                                        Processing</span></td>
+                                <!-- <td *ngIf="data?.visaStatus==='PP'"><span class="label label-sm label-default">PP
+                                        </span></td> -->
+
+                            </tr>
+                            <tr class="odd" *ngIf="(!Applications.length) &&(!load)">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty"><b>
+                                        {{'RECORDS.NoRecords'|translate}}</b></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row" *ngIf="totelements>0">
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="btn-group">
+                            <ng-select (change)="rangeChange(pagenumber)" [items]="rangelist" bindLabel="name"
+                                bindValue="id" placeholder="Select" [(ngModel)]="pagenumber"
+                                [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                [dropdownPosition]="'top'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info">{{'PAGINATION.Showing'|translate}}
+                            {{(numbers*sizes)+1}} {{'PAGINATION.to'|translate}}
+                            {{(numbers*sizes) + numofelements}} {{'PAGINATION.of'|translate}} {{totelements}}
+                            {{'PAGINATION.entries'|translate}}
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="pages" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                [itemsPerPage]='pagenumber' name="currentpage" ngDefaultControl [totalItems]="totalitem"
+                                [maxSize]="5" [(ngModel)]="currentpage" [ngModelOptions]="{standalone: true}"
+                                (pageChanged)="pageChange($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

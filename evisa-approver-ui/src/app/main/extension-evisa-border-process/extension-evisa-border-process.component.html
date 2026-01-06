@@ -1,0 +1,470 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title" *ngIf="this.getToken('Role')==='DM'||this.getToken('Role')==='DMM'">
+            {{'EVISASEARCH.extensionApprovalProcessing'|translate}}
+        </h3>
+
+        <ul class="page-breadcrumb breadcrumb">
+
+            <li class="pull-left">
+                <i class="fa fa-angle-left"></i>
+                <a [routerLink]="['/main/extensionevisasearch']"> {{'COMMON.Back'|translate}}</a>
+            </li>
+            <li>
+                <i class="fa fa-home"></i>
+                <a *ngIf="this.getToken('Role')==='DMM'" [routerLink]="['/main/dashboardimo']">
+                    {{'COMMON.Home'|translate}}</a>
+                <a *ngIf="this.getToken('Role')!='DMM'" [routerLink]="['/main/dashboard']">
+                    {{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                {{'EVISASEARCH.extensioneVisa'|translate}}
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'EVISAPROCESSING.Processing'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<!-- BEGIN PAGE CONTENT
+<div class="row"
+    *ngIf=" (this.getToken('Role')==='DM' && this.getToken('documentStatus')==='PEN') ||(this.getToken('Role')==='DMM' && (this.getToken('documentStatus')==='VAL'))">
+    <div class="col-md-12">
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" (click)="processApplication('APR',template)"
+                        class="btn btn-success">{{'EVISAPROCESSING.Granted'|translate}}</button>
+                    &nbsp;
+                    <button type="button" (click)="processApplication('REJ',template)"
+                        class="btn btn-danger">{{'EVISAPROCESSING.Reject'|translate}}</button>
+                    &nbsp;
+                    <button *ngIf="this.getToken('Role')==='DM'" type="button"
+                        (click)="processApplication('VAL',template)"
+                        class="btn default">{{'EVISAPROCESSING.NeedValidation'|translate}}</button>
+
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-download"></i>{{'EVISAPROCESSING.ExtensionEvisaInfo'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.visaExtensionId'|translate}}:</strong>
+                                        {{extensionDetails.applicantVisaExtension?.visaExtensionId}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.daysOfExtension'|translate}}:</strong>
+                                        {{extensionDetails.applicantVisaExtension?.daysOfExtension}}</li>
+
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.totalAmount'|translate}}:</strong>
+                                        {{extensionDetails.applicantVisaExtension?.totalAmount}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.reasonsForExtension'|translate}}:</strong>
+                                        {{extensionDetails.applicantVisaExtension?.reasonsForExtension}}</li>
+
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.previousExpiryDate'|translate}}:</strong>
+                                        {{extensionDetails.applicantVisaExtension?.previousExpiryDate|date:"dd-MM-yyyy"}}
+                                    </li>
+
+
+                                    <li *ngIf="extensionDetails.applicantVisaExtension?.documentStatus=='CLS'">
+                                        <p *ngIf="extensionDetails.applicantVisaExtension?.extensionStatus=='APR'">
+                                            <strong>{{'EVISASEARCH.Extension Status'|translate}}:</strong>
+                                            Approved
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-4">
+                                <ul class="list-unstyled">
+                                    <li *ngIf="extensionDetails.applicantVisaExtension?.documentStatus=='CLS'">
+                                        <strong>{{'SUSPENDAGENT.Remarks'|translate}}:</strong>
+                                       
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4"  *ngIf="this.getToken('Role')==='DMM'">
+                                <ul class="list-unstyled">
+                                    <li *ngIf="extensionDetails.applicantVisaExtension?.documentStatus=='CLS'">
+                                        <strong>Approvée par :</strong>
+                                        {{extensionDetails.applicantVisaExtension?.assignedTo}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4"  *ngIf="this.getToken('Role')==='DMM'">
+                                <ul class="list-unstyled">
+                                    <li *ngIf="extensionDetails.applicantVisaExtension?.documentStatus=='CLS'">
+                                        <strong>Date Décision</strong>
+                                        {{extensionDetails.applicantVisaExtension?.closedDate|date:"dd-MM-yyyy"}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-download"></i>{{'EVISAPROCESSING.ApplicantInformation'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <div class="row profile-account">
+                    <div class="col-md-3">
+                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+                            <li>
+                                <!-- <img src="assets/img/profile/profile-img.png" class="img-responsive" alt="" /> -->
+                                <img alt='' style="width: 150px;" [src]="Photograph" />
+                            </li>
+                            &nbsp;
+                            <li>
+                                <div class="dashboard-stat green">
+                                    <div class="visual">
+                                        &nbsp;
+                                    </div>
+                                    <div class="details">
+                                        <div class="desc">
+                                            {{'EVISAPROCESSING.Intelligence'|translate}}
+                                        </div>
+                                    </div>
+                                    <a class="more" href="javascript:;">
+                                        {{'DASHBOARD.View more'|translate}}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.PersonalInformation'|translate}}:</h4>
+
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.Title'|translate}}:</strong>{{extensionDetails.applicantPersonalDetails?.title}}
+                                    </li>
+                                    <li><strong>{{'EVISAPROCESSING.FullName'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.givenName}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Gender'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.gender === 'M'? 'Male' :
+                                        'Female'}}
+                                    </li>
+                                    <li><strong>{{'EVISAPROCESSING.DateofBirth'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.dateOfBirth |
+                                        date:'dd-MM-yyyy'}}
+                                    </li>
+                                    <li><strong>{{'EVISAPROCESSING.BirthPlace'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.birthPlace}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.BirthCountry'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.birthCountry}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Nationality'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.nationality}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CurrentNationality'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.currentNationality}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Email'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.emailAddress}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.PhoneNumber'|translate}}:</strong>{{extensionDetails.applicantPersonalDetails?.phoneNumber}}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.Passport & TravelDetails'|translate}}:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.PassportNumber'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.passportNumber}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfIssue'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.issuedDate |
+                                        date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfExpiry'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.expiryDate |
+                                        date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CountryofIssue'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.issuedCountry}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.PurposeofTravel'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.travelPurpose}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfArrivalinDjibouti'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.arrivalDate |
+                                        date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfDeparturefromDjibouti'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.departureDate |
+                                        date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.LastVistitedCountries'|translate}}:</strong>
+                                        {{extensionDetails.applicantPassportTravelDetails?.lastVisitedCountries}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.Addresses'|translate}}:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.ResidentialAddress'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.residentialAddress}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CityofResidence'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.residenceCity}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CountryOfResidence'|translate}}:</strong>
+                                        {{extensionDetails.applicantPersonalDetails?.residenceCountry}}</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.AddressInDjibouti'|translate}}:</strong>{{extensionDetails.applicantPersonalDetails?.djiboutiAddress}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-md-9-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption"><i
+                                class="fa fa-download"></i>{{'EVISAPROCESSING.AttchmentsList'|translate}}</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+                            <p *ngIf="imageType ==='PP'"><strong>{{'EVISAPROCESSING.Passport'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='TK'"><strong>{{'EVISAPROCESSING.Ticket'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='HI'"><strong>{{'EVISAPROCESSING.Hotel Booking'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='TS'"><strong>{{'EVISAPROCESSING.Transit'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='EX'"><strong>{{'EVISAPROCESSING.extension'|translate}}</strong></p>
+                        </div>
+
+                        <table class="table table-striped table-hover" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:right;">
+                                        <a href="javascript:;"><img src="assets/img/leftarrow.png" alt=""
+                                                (click)="prev()" /> </a>
+                                    </th>
+
+                                    <th width="60%" height="100">
+                                        <a href="javascript:;">
+                                            <ngx-imageviewer #imageContainer (click)="openImage(template1)"
+                                                [src]="imageSrc" width="350" height="300" [@rotatedState]='state'
+                                                [@rotatedState1]='state1'>
+                                            </ngx-imageviewer>
+                                        </a>
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-repeat" (click)="rotateLeft('LEFT')"
+                                            style="cursor: pointer;"></i>
+                                        <br>
+                                        <i class="fa fa-undo" (click)="rotateRight('RIGHT')"
+                                            style="cursor: pointer;"></i>
+                                        <br>
+
+                                        <a href="javascript:;"><img src="assets/img/rightarrow.png" alt=""
+                                                (click)="next()" /></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template1>
+    <div class="modal-dialog pull-left" style="width:500px; height: 630px;">
+        <pinch-zoom>
+            <div class="modal-content imageIcon">
+
+                <ngx-imageviewer [src]="imageSrc" width="700" height="660" [@rotatedState]='rotate'
+                    [@rotatedState1]='rotateright'>
+                </ngx-imageviewer>
+                <i class="fa fa-repeat" (click)="rotateLeft('L')" style="cursor: pointer;"></i>
+                <i class="fa fa-undo" (click)="rotateRight('R')" style="cursor: pointer;"></i>
+
+            </div>
+        </pinch-zoom>
+
+    </div>
+</ng-template>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue tabbable">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'EVISAPROCESSING.OtherInformations'|translate}}
+                </div>
+            </div>
+            <div class="portlet-body">
+                <tabset>
+                    <tab heading=" {{'EVISAPROCESSING.VisaApproval'|translate}}">
+                        &nbsp;&nbsp;
+                        <div class="tabbable portlet-tabs">&nbsp;&nbsp;
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{'EVISAPROCESSING.ActionRole'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionBy'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionDate'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Comments'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Action'|translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let data of approvalHistoryList">
+                                                <td>{{data?.approverRole}}</td>
+                                                <td>{{data?.approver}}</td>
+                                                <td>{{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                <td>{{data?.remarks}}</td>
+                                                <td>{{data?.status}}</td>
+                                            </tr>
+                                            <tr class="odd" *ngIf="(!approvalHistoryList?.length) && (!loading)">
+                                                <td style="text-align: center" colspan="10"
+                                                    class="dataTables_empty"><b>
+                                                    {{'RECORDS.NoRecords'|translate}}</b>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row"
+    *ngIf=" (this.getToken('Role')==='DM' && this.getToken('documentStatus')==='PEN') ||(this.getToken('Role')==='DMM' && (this.getToken('documentStatus')==='VAL'))">
+    <div class="col-md-12">
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" (click)="processApplication('APR',template)"
+                        class="btn btn-success">{{'EVISAPROCESSING.Granted'|translate}}</button>
+                    &nbsp;
+                    <button type="button" (click)="processApplication('REJ',template)"
+                        class="btn btn-danger">{{'EVISAPROCESSING.Reject'|translate}}</button>
+                    &nbsp;
+                    <button *ngIf="this.getToken('Role')==='DM'" type="button"
+                        (click)="processApplication('VAL',template)"
+                        class="btn default">{{'EVISAPROCESSING.NeedValidation'|translate}}</button>
+                    &nbsp;
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header" style="background-color: #5c99fe; height: 40px;">
+        <h4 class="modal-title pull-left" style="margin-top: -3px;">{{'EVISAPROCESSING.Add Remarks'|translate}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form class="form-horizontal" #activateForm="ngForm" (ngSubmit)='submitRemarks(activateForm,processingInfo)'>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" *ngIf="isStatus === 'REJ' || isStatus ==='VAL' ">
+                        <label class="control-label col-md-4">{{'SUSPENDAGENT.Remarks'|translate}}
+                            <span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <textarea type="text" cols="10" rows="5" class="form-control" id="remarks" name="remarks"
+                                placeholder="{{'SUSPENDAGENT.Remarks'|translate}}" [(ngModel)]="processingInfo.remarks"
+                                #remarks="ngModel" required maxlength="255"></textarea>
+                            <div class="error-block" *ngIf="((submitted || remarks.touched) && remarks.invalid)">
+                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group" *ngIf="isStatus === 'APR'">
+                        <label class="control-label col-md-4">{{'SUSPENDAGENT.Remarks'|translate}}
+                        </label>
+                        <div class="col-md-8">
+                            <textarea type="text" cols="10" rows="5" class="form-control" id="remarks" name="remarks"
+                                placeholder="{{'SUSPENDAGENT.Remarks'|translate}}" [(ngModel)]="processingInfo.remarks"
+                                #remarks="ngModel" maxlength="255"></textarea>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+                <button type="button" class="btn default"
+                    (click)="modalRef.hide()">{{'COMMON.Close'|translate}}</button>
+                <button type="submit" class="btn blue">{{'COMMON.Submit'|translate}}</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

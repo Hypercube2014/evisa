@@ -1,0 +1,715 @@
+<script src="../../../../../evisa-applicant-ui/src/app/common/common.service.ts"></script>
+<div
+  class="modal fade"
+  id="portlet-config"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-hidden="true"
+        ></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">Widget settings form goes here</div>
+      <div class="modal-footer">
+        <button type="button" class="btn blue">Save changes</button>
+        <button type="button" class="btn default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      {{ "DASHBOARD.Dashboard" | translate }}
+      <small>{{ "DASHBOARD.Statistics" | translate }}</small>
+    </h3>
+    <ul class="page-breadcrumb breadcrumb" style="height: 50px">
+      <!--    <li class="pull-left">
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/dashboardimo']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li class="pull-left">{{'DASHBOARD.Dashboard'|translate}}</li>-->
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-4 col-sm-4 col-md-3">
+          <ng-select
+            [items]="periodDetails"
+            class="chosen-select"
+            placeholder="{{ 'PERFOMANCEREPORTS.Period' | translate }}"
+            [clearable]="true"
+            [searchable]="false"
+            bindLabel="desc"
+            bindValue="code"
+            [dropdownPosition]="'auto'"
+            name="period"
+            [(ngModel)]="dmmDashboard.period"
+            #period="ngModel"
+            (change)="selectPeriod($event)"
+          >
+          </ng-select>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <ng-select
+            [items]="countryData"
+            class="chosen-select"
+            [maxSelectedItems]="4"
+            placeholder="{{ 'DASHBOARD.country' | translate }}"
+            [clearable]="true"
+            [multiple]="true"
+            [searchable]="true"
+            bindLabel="description"
+            bindValue="code"
+            [dropdownPosition]="'auto'"
+            name="countryList"
+            required
+            (change)="onKeySearchUser($event)"
+            id="countryList"
+            [(ngModel)]="dashboard.countryList"
+            #countryList="ngModel"
+          >
+          </ng-select>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-1">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="searchResults()"
+          >
+            Go
+          </button>
+        </div>
+      </div>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-calendar"></i
+          >{{ "DASHBOARD.Application Status" | translate }}
+        </div>
+      </div>
+      <!-- <div class="b-skills"> -->
+      <!-- <div class="portlet-body tileid">
+                <div class="row">
+                    <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fas fa-arrow-down fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.Pending Allocation'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{agentsDTO?.totalAllocated}}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a  href='javascript:;' class="more" (click)="viewMoreDetails('PEN')" class="col col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-signal fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.Total Allocated'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{allocationDetails.totalAllocated}}</h6>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-folder  fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.Closed'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{agentsDTO?.closed}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-clock fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.Average Turnaround'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{agentsDTO?.average !== null ? agentsDTO?.average : 0 }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fas fa-plane-departure fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.OverstayDeparted'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{this.counterOverstaydeparted}}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a  href='javascript:;' class="more" (click)="viewMoreDetails('PEN')" class="col col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-signal fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.Total Allocated'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{allocationDetails.totalAllocated}}</h6>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-arrow-up  fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.nonallouer'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{this.pendingaplication}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-times-circle fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{'DASHBOARD.Overstay Application'|translate}}</p>
+                                <h6 class="mb-0 pull-right">{{dmmAllocateD}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+      <div class="portlet-body tileid">
+        <div class="row">
+          <div class="col-sm-12 col-md-8 col-xl-8">
+            <div
+              style="
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                word-wrap: break-word;
+                background-color: #fdecea;
+                background-clip: border-box;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                margin-bottom: 20px;
+                margin-top: 20px;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  border-bottom-width: 1px;
+                  padding: 3rem 2rem;
+                  height: 3.5rem;
+                  border-bottom: 1px solid #dee2e6;
+                "
+              >
+                <h2
+                  style="
+                    display: flex;
+                    align-items: center;
+                    white-space: nowrap;
+                    font-weight: 400;
+                    font-size: 26px;
+                    color: rgba(31, 10, 6, 0.6);
+                  "
+                >
+                  Statut des demandes de visa(s)
+                </h2>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #fdecea"
+                  >
+                    <i class="fas fa-arrow-down fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total de(s) demande(s) non alloué(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ applicationDetails?.nonAllocated || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #fdecea"
+                  >
+                    <i class="fas fa-arrow-up fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total de(s) demande(s) alloué(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ applicationDetails?.allocated || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #fdecea"
+                  >
+                    <i class="fas fa-check-circle fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total de(s) demande(s) traité(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ applicationDetails?.closed || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #fdecea"
+                  >
+                    <i class="fas fa-times-circle fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total de(s) demande(s) non traité(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ applicationDetails?.nonClosed || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #fdecea"
+                  >
+                    <i class="fas fa-clock fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Délai moyen de traitement
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ this.agentsDTO.totalAverage == null ? '00:00:00' : this.agentsDTO?.totalAverage }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-xl-6">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #fdecea"
+                  >
+                    <i class="fas fa-clock fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total en besoin de validation
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ this.applicationDetails?.validation || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-4 col-xl-4">
+            <div
+              style="
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                word-wrap: break-word;
+                background-color: #f0f8ff;
+                background-clip: border-box;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                margin-bottom: 20px;
+                margin-top: 20px;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  border-bottom-width: 1px;
+                  padding: 3rem 2rem;
+                  height: 3.5rem;
+                  border-bottom: 1px solid #dee2e6;
+                "
+              >
+                <h2
+                  style="
+                    display: flex;
+                    align-items: center;
+                    white-space: nowrap;
+                    font-weight: 400;
+                    font-size: 26px;
+                    color: rgba(31, 10, 6, 0.6);
+                  "
+                >
+                  Statut d'arrivé(s) et de depart(s)
+                </h2>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-xl-12">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #f0f8ff"
+                  >
+                    <i class="fas fa-plane-arrival fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total arrivée(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 26px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ agentDTOs?.arrival || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-xl-12">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #f0f8ff"
+                  >
+                    <i class="fas fa-plane-departure fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total départ(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ agentDTOs?.departure || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-xl-12">
+                  <div
+                    class="rounded d-flex align-items-center"
+                    style="padding: 2rem; background-color: #f0f8ff"
+                  >
+                    <i class="fas fa-calendar fa-3x text-primary"></i>
+                    <div style="margin-left: 3rem; margin-right: 3rem">
+                      <h5
+                        class="mb-2"
+                        style="
+                          font-size: 20px;
+                          font-weight: 400;
+                          line-height: 1.5;
+                          color: #495057;
+                          white-space: nowrap;
+                        "
+                      >
+                        Total de visa(s) périmé(s)
+                      </h5>
+                      <h2
+                        class="mb-0"
+                        style="
+                          font-weight: 700;
+                          font-size: 32px !important;
+                          display: block;
+                          line-height: 1;
+                          margin: 1rem auto;
+                        "
+                      >
+                        {{ this.counterOverstaydeparted || 0 }}
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet box light-grey">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-list"></i>{{ "DASHBOARD.Visa Status" | translate }}
+        </div>
+        <div class="tools">
+          <i
+            class="fa fa-expand"
+            style="font-size: 20px; cursor: pointer"
+            (click)="onVisaType(template, 'C')"
+          ></i>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div id="container" class="chart" style="height: 250px"></div>
+      </div>
+    </div>
+    <!-- END PORTLET-->
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet box blue">
+      <div class="portlet-title border-0">
+        <div class="caption">
+          <i class="fa fa-list"></i>{{ "DASHBOARD.Visa Type" | translate }}
+        </div>
+        <div class="tools">
+          <i
+            class="fa fa-expand"
+            style="font-size: 20px; cursor: pointer"
+            (click)="onVisaType(template, 'D')"
+          ></i>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div id="donutPie" style="height: 250px"></div>
+      </div>
+    </div>
+    <!-- END PORTLET-->
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet box light-grey">
+      <div class="portlet-title border-0">
+        <div class="caption">
+          <i class="fa fa-map-marker"></i
+          >{{ "DASHBOARD.By Country" | translate }}
+        </div>
+        <div class="tools">
+          &nbsp;&nbsp;
+          <i
+            class="fa fa-expand"
+            style="font-size: 20px; cursor: pointer"
+            (click)="onVisaType(template, 'H')"
+          ></i>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div id="horizontalBar" style="height: 250px"></div>
+      </div>
+    </div>
+
+    <!-- END PORTLET-->
+  </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
+    <div class="portlet box blue">
+      <div class="portlet-title border-0">
+        <div class="caption">
+          <i class="fa fa-map-marker"></i>{{ "DASHBOARD.By Age" | translate }}
+        </div>
+        <div class="tools">
+          <i
+            class="fa fa-expand"
+            style="font-size: 20px; cursor: pointer"
+            (click)="onVisaType(template, 'A')"
+          ></i>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div id="ageCharts" style="height: 250px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body view-incident-modal-body">
+    <div class="portlet box">
+      <div class="portlet-title">
+        <div class="caption" style="color: rgb(0, 0, 0)">
+          Visa Type
+          <span style="margin-left: 413px">
+            <i
+              class="fa fa-times-circle"
+              (click)="modalRef.hide()"
+              style="font-size: 25px; cursor: pointer; margin-right: -4px"
+            ></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="portlet-body">
+        <div id="popupcontainer"></div>
+      </div>
+      <div class="portlet-body">
+        <div id="popupDonutPie"></div>
+      </div>
+      <div class="portlet-body">
+        <div id="popuphorizontalBar"></div>
+      </div>
+
+      <div class="portlet-body">
+        <div id="popupageCharts"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

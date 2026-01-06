@@ -1,0 +1,198 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'SIDEBAR.PerformanceReport'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="javascript:;" *ngIf="this.getToken('Role')!='DMM' "
+                    [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <a href="javascript:;" *ngIf="this.getToken('Role')==='DMM'"
+                    [routerLink]="['/main/dashboardimo']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'PERFOMANCEREPORTS.eVisa'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'PERFOMANCEREPORTS.Reports'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-download"></i>{{'PERFOMANCEREPORTS.StatisticalReport'|translate}}
+                </div>
+                <div class="tools">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="booking-search">
+                    <form class="form-horizontal" #statisticalReportForm="ngForm"
+                        (ngSubmit)='applyFilter(statisticalReportForm,reportDetails)'>
+                        <div class="row form-group">
+                            <div class="col-md-4">
+                                <label class="control-label">{{'PERFOMANCEREPORTS.RoleType'|translate}}</label>
+                                <div class="input-icon">
+                                    <input class='form-control text' autocomplete="off" type="text" name="reporterType"
+                                        [(ngModel)]="reportDetails.reporterType" [disabled]=true id="reporterType"
+                                        #reporterType="ngModel" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">{{'PERFOMANCEREPORTS.ReportType'|translate}}</label>
+                                <div class="input-icon">
+                                    <ng-select [items]="reportTypes" class="chosen-select"
+                                        placeholder="{{'PERFOMANCEREPORTS.ReportType'|translate}}" [clearable]='true'
+                                        [searchable]='false' [(ngModel)]="filterObj.reportType" bindLabel="desc"
+                                        bindValue="code" [dropdownPosition]="'auto'" (change)="selectReport($event)"
+                                        name="reportType" #reportType="ngModel">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="isIndividual">
+                                <label class="control-label">{{'PERFOMANCEREPORTS.Agent'|translate}}</label>
+                                <div class="input-icon">
+                                    <ng-select [items]="agentsList" class="chosen-select"
+                                        placeholder="{{'PERFOMANCEREPORTS.Agent'|translate}}" [clearable]='true'
+                                        [multiple]="true" [searchable]='false' [(ngModel)]="filterObj.agentList"
+                                        bindLabel="code" bindValue="code" [dropdownPosition]="'auto'" name="agentList"
+                                        #agentList="ngModel">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-4">
+                                <label class="control-label">{{'PERFOMANCEREPORTS.Period'|translate}}</label>
+                                <div class="input-icon">
+
+                                    <ng-select [items]="periodDetails" class="chosen-select"
+                                        placeholder="{{'PERFOMANCEREPORTS.Period'|translate}}" [clearable]='true'
+                                        [searchable]='false' [(ngModel)]="filterObj.period" bindLabel="desc"
+                                        bindValue="code" [dropdownPosition]="'auto'" (change)="selectPeriod($event)"
+                                        name="period" #period="ngModel">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4" *ngIf="isRange">
+                                <label class="control-label">{{'PERFOMANCEREPORTS.FromDate'|translate}}</label>
+                                <div class="input-icon">
+                                    <i class="fa fa-calendar"></i>
+
+                                    <input class='form-control text' autocomplete="off" type="text" name="startDate"
+                                        bsDatepicker [bsConfig]="datePickerConfig" [(ngModel)]="filterObj.startDate"
+                                        [max]="maxDate" placeholder="{{'PERFOMANCEREPORTS.FromDate'|translate}}"
+                                        id="startDate" required #startDate="ngModel" />
+                                </div>
+                            </div>
+                            <div class="col-md-4" *ngIf="isRange">
+                                <label class="control-label">{{'PERFOMANCEREPORTS.ToDate'|translate}}</label>
+                                <div class="input-icon">
+                                    <i class="fa fa-calendar"></i>
+                                    <input class='form-control text' autocomplete="off" type="text" name="endDate"
+                                        bsDatepicker [bsConfig]="datePickerConfig" [(ngModel)]="filterObj.endDate"
+                                        [max]="maxDate" placeholder="{{'PERFOMANCEREPORTS.ToDate'|translate}}"
+                                        id="endDate" required #endDate="ngModel" />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="btn blue btn-block margin-top-20">{{'PERFOMANCEREPORTS.Search'|translate}} <i
+                                class="m-icon-swapright m-icon-white"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="row" id="visaDetails">
+    <div class="col-md-6" [hidden]="!isReport">
+
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>{{'PERFOMANCEREPORTS.StatisticalReport'|translate}}</div>
+                <div class="tools">
+                </div>
+            </div>
+            <div id="container"></div>
+        </div>
+
+    </div>
+    <div class="col-md-6" *ngIf="isReport">
+
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>{{'PERFOMANCEREPORTS.StatisticalReport'|translate}}</div>
+                <div class="tools">
+
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>{{'PROCESSREPORTS.AgentName'|translate}}</th>
+                                <th>{{'PROCESSREPORTS.AppplicationsProcessed'|translate}}</th>
+                                <th>{{'PROCESSREPORTS.AvgTurnaround'|translate}}</th>
+                                <th> {{'PROCESSREPORTS.Action'|translate}} </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX" *ngFor="let data of perfomanceReports">
+                                <td>{{data?.username}}</td>
+                                <td>{{data?.totalAllocated}}</td>
+                                <td>{{data?.average}} hrs</td>
+
+                                <td>View</td>
+                            </tr>
+
+                            <tr class="odd" *ngIf="(!perfomanceReports.length) &&(!loading)">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty"><b>
+                                        {{'RECORDS.NoRecords'|translate}}</b></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row" *ngIf="totalElements>0">
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="btn-group">
+                            <ng-select (change)="rangeChanged(pagenumber)" [items]="rangelist" bindLabel="name"
+                                bindValue="id" placeholder="Select" [(ngModel)]="pagenumber"
+                                [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                [dropdownPosition]="'top'">
+                            </ng-select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-8 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                [itemsPerPage]='pagenumber' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                                [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

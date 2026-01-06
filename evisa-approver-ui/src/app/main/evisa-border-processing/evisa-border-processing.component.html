@@ -1,0 +1,637 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title" *ngIf="this.getToken('Role')==='DM'||this.getToken('Role')==='DMM'">
+            {{'EVISASEARCH.eVisa Approval Processing'|translate}}
+        </h3>
+        <h3 class="page-title" *ngIf="this.getToken('Role')==='BCO'||this.getToken('Role')==='SBCO'">
+            {{'EVISASEARCH.eVisa Arrival Processing'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+
+            <li class="pull-left">
+                <i class="fa fa-angle-left"></i>
+                <a [routerLink]="['/main/evisasearch']"> {{'COMMON.Back'|translate}}</a>
+            </li>
+            <li>
+                <i class="fa fa-home"></i>
+                <a *ngIf="this.getToken('Role')==='DMM'" [routerLink]="['/main/dashboardimo']">
+                    {{'COMMON.Home'|translate}}</a>
+                <a *ngIf="this.getToken('Role')!='DMM'" [routerLink]="['/main/dashboard']">
+                    {{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                {{'EVISAPROCESSING.eVisa'|translate}}
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'EVISAPROCESSING.Processing'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<!-- BEGIN PAGE CONTENT-->
+<div class="row"
+    *ngIf=" (this.getToken('Role')==='DM' && this.getToken('docStatus')==='PEN') ||(this.getToken('Role')==='DMM' && (this.getToken('docStatus')==='VAL')) || (this.getToken('Role')==='BCO') || (this.getToken('Role') === 'SBCO') ">
+    <div class="col-md-12">
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" (click)="processApplication('APR',template)"
+                        class="btn btn-success">{{'EVISAPROCESSING.Granted'|translate}}</button>
+                    &nbsp;
+                    <button type="button" (click)="processApplication('REJ',template)" class="btn btn-danger"
+                        *ngIf="this.getToken('Role')!='BCO'">{{'EVISAPROCESSING.Reject'|translate}}</button>
+                    &nbsp;
+                    <button
+                        *ngIf="this.getToken('Role')==='DM' || this.getToken('Role')==='BCO' && this.getToken('arrDepIndicator') != 'AV'"
+                        type="button" (click)="processApplication('VAL',template)"
+                        class="btn default">{{'EVISAPROCESSING.NeedValidation'|translate}}</button>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-download"></i>{{'EVISAPROCESSING.ApplicantInformation'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <div class="row profile-account">
+                    <div class="col-md-3">
+                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+                            <li>
+                                <!-- <img src="assets/img/profile/profile-img.png" class="img-responsive" alt="" /> -->
+                                <img alt='' style="width: 150px;" [src]="Photograph" />
+                            </li>
+                            &nbsp;
+                            <li>
+                                <div class="dashboard-stat green">
+                                    <div class="visual">
+                                        &nbsp;
+                                    </div>
+                                    <div class="details">
+                                        <div class="desc">
+                                            {{'EVISAPROCESSING.Intelligence'|translate}}
+                                        </div>
+                                    </div>
+                                    <a class="more" href="javascript:;">
+                                        {{'DASHBOARD.View more'|translate}}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.PersonalInformation'|translate}}:</h4>
+
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.Title'|translate}}:</strong>
+                                        {{personalPreview?.title}}
+                                    </li>
+                                    <li style="text-transform: uppercase;">
+                                        <strong>{{'EVISAPROCESSING.FullName'|translate}}:</strong>
+                                        {{personalPreview?.surname}} {{personalPreview?.middleName}}
+                                        {{personalPreview?.givenName}}
+                                    </li>
+                                    <li><strong>{{'EVISAPROCESSING.Gender'|translate}}:</strong>
+                                        {{personalPreview?.gender === 'M'? 'Male' : 'Female'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateofBirth'|translate}}:</strong>
+                                        {{personalPreview?.dateOfBirth | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.BirthPlace'|translate}}:</strong>
+                                        {{personalPreview?.birthPlace}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.BirthCountry'|translate}}:</strong>
+                                        {{personalPreview?.birthCountry}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Nationality'|translate}}:</strong>
+                                        {{personalPreview?.nationality}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CurrentNationality'|translate}}:</strong>
+                                        {{personalPreview?.currentNationality}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Email'|translate}}:</strong>
+                                        {{personalPreview?.emailAddress}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Profession'|translate}}:</strong>
+                                        {{personalPreview?.profession}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.PhoneNumber'|translate}}:</strong>
+                                        {{personalPreview?.phoneNumber}}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.Passport & TravelDetails'|translate}}:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.PassportNumber'|translate}}:</strong>
+                                        {{passportPreview?.passportNumber}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfIssue'|translate}}:</strong>
+                                        {{passportPreview?.issuedDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfExpiry'|translate}}:</strong>
+                                        {{passportPreview?.expiryDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CountryofIssue'|translate}}:</strong>
+                                        {{passportPreview?.issuedCountry}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.PurposeofTravel'|translate}}:</strong>
+                                        {{passportPreview?.travelPurpose}}</li>
+
+                                    <li><strong>{{'EVISAPROCESSING.DateOfArrivalinDjibouti'|translate}}:</strong>
+                                        {{passportPreview?.arrivalDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfDeparturefromDjibouti'|translate}}:</strong>
+                                        {{passportPreview?.departureDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.LastVistitedCountries'|translate}}:</strong>
+                                        {{passportPreview?.lastVisitedCountries === "null" ? "" :
+                                        passportPreview?.lastVisitedCountries }}</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.Addresses'|translate}}:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.ResidentialAddress'|translate}}: </strong>
+                                        {{personalPreview?.residentialAddress}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CityofResidence'|translate}}: </strong>
+                                        {{personalPreview?.residenceCity}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CountryOfResidence'|translate}}: </strong>
+                                        {{personalPreview?.residenceCountry}}</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.AddressInDjibouti'|translate}}:
+                                        </strong>{{personalPreview?.djiboutiAddress}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-md-9-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption"><i
+                                class="fa fa-download"></i>{{'EVISAPROCESSING.AttchmentsList'|translate}}</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+
+                            <p *ngIf="imageType ==='PP'"><strong>{{'EVISAPROCESSING.Passport'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='TK'"><strong>{{'EVISAPROCESSING.Ticket'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='HI'"><strong>{{'EVISAPROCESSING.Hotel Booking'|translate}}</strong></p>
+                            <p *ngIf="imageType ==='TS'"><strong>{{'EVISAPROCESSING.transit'|translate}}</strong>
+                            </p>
+                        </div>
+
+                        <table class="table table-striped table-hover" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:right;">
+                                        <a href="javascript:;"><img src="assets/img/leftarrow.png" alt=""
+                                                (click)="prev()" /> </a>
+                                    </th>
+
+                                    <th width="60%" height="100">
+                                        <a href="javascript:;">
+                                            <ngx-imageviewer #imageContainer (click)="openImage(template1)"
+                                                [src]="imageSrc" width="350" height="300" [@rotatedState]='state'
+                                                [@rotatedState1]='state1'>
+                                            </ngx-imageviewer>
+                                            
+                                            <!-- <ng-template #pdfTemplate>
+                                                    <iframe  [src]="imageSrc"  frameborder="0"></iframe>
+                                              </ng-template>
+                                              
+                                              <ng-template #imageTemplate>
+                                                <img [src]="imageSrc" width="350" height="300" />
+                                                
+                                              </ng-template>
+                                              
+                                              <div *ngIf="fileExtension === 'pdf'; else imageTemplate">
+                                                <ng-container *ngTemplateOutlet="pdfTemplate"></ng-container>
+                                              </div> -->
+                                              
+                                            
+                                        </a>
+
+                                        <a [href]="imageSrc" target="_blank" style="display: block; margin-top: 3rem; text-align: center; text-decoration: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentcolor" style="width: 13px; height: 13px; margin-right: 1rem;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                                            voir plus</a>
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-repeat" (click)="rotateLeft('LEFT')"
+                                            style="cursor: pointer;"></i>
+                                        <br>
+                                        <i class="fa fa-undo" (click)="rotateRight('RIGHT')"
+                                            style="cursor: pointer;"></i>
+                                        <br>
+
+                                        <a href="javascript:;"><img src="assets/img/rightarrow.png" alt=""
+                                                (click)="next()" /></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template1>
+    <div class="modal-dialog pull-left" style="width:500px; height: 630px;">
+        <pinch-zoom>
+            <div class="modal-content imageIcon">
+
+                <ngx-imageviewer [src]="imageSrc" width="700" height="660" [@rotatedState]='rotate'
+                    [@rotatedState1]='rotateright'>
+                </ngx-imageviewer>
+                <i class="fa fa-repeat" (click)="rotateLeft('L')" style="cursor: pointer;"></i>
+                <i class="fa fa-undo" (click)="rotateRight('R')" style="cursor: pointer;"></i>
+
+            </div>
+        </pinch-zoom>
+
+    </div>
+</ng-template>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue tabbable">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'EVISAPROCESSING.OtherInformations'|translate}}
+                </div>
+            </div>
+            <div class="portlet-body">
+                <tabset>
+                    <tab heading=" {{'EVISAPROCESSING.VisaApproval'|translate}}">
+                        &nbsp;&nbsp;
+                        <div class="tabbable portlet-tabs">
+                            &nbsp;&nbsp;
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{'EVISAPROCESSING.ActionRole'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionBy'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionDate'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Comments'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Action'|translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of approvalHistoryList">
+                                                    <td>{{data?.approverRole}}</td>
+                                                    <td>{{data?.approver}}</td>
+                                                    <td>{{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td>{{data?.remarks}}</td>
+                                                    <td>{{data?.status}}</td>
+                                                </tr>
+                                                <tr class="odd" *ngIf="(!approvalHistoryList?.length) && (!loading)">
+                                                    <td style="text-align: center" colspan="10"
+                                                        class="dataTables_empty"><b>
+                                                            {{'RECORDS.NoRecords'|translate}}</b>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+
+                    <tab heading="{{'EVISAPROCESSING.PreviousTravelhistory'|translate}}">
+                        <!-- (selectTab)="onSelect($event,'PH')" -->
+                        &nbsp;&nbsp;
+                        <div class="tabbable portlet-tabs">
+
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    &nbsp;&nbsp;
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{'EVISAPROCESSING.givenName'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.DateofBirth'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Gender'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.BirthCountry'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.PassportNumber'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.DateOfArrivalinDjibouti'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.DateOfDeparturefromDjibouti'|translate}}</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of previousHistoryList">
+                                                    <td>{{data?.givenName}}</td>
+                                                    <td>{{data?.dob|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td>{{data?.gender === 'M'?'Male':'Female'}}</td>
+                                                    <td>{{data?.birthCountry}}</td>
+                                                    <td>{{data?.passportNumber}}</td>
+                                                    <td>{{data?.arrivedDate |date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{data?.departedDate |date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                                <tr class="odd" *ngIf="(!previousHistoryList?.length) && (!loading)">
+                                                    <td style="text-align: center" colspan="10"
+                                                        class="dataTables_empty"><b>
+                                                            {{'RECORDS.NoRecords'|translate}}</b>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='DM'"
+                        heading="{{'EVISAPROCESSING.Arrival/DepartureInfo'|translate}}"
+                        (selectTab)="onSelect($event,'AD')">
+                        &nbsp;&nbsp;
+                        <div class="tabbable portlet-tabs">
+                            &nbsp;&nbsp;&nbsp;
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{'EVISAPROCESSING.Action'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionDate'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.status'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionBy'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Remark'|translate}}</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of arrivaldeparturehistory">
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='APR'">Arrivée</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='REJ'">Arrivée</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='APR'">
+                                                        {{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='REJ'">
+                                                        {{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='APR'">
+                                                        {{'VISAPENALITY.approver' | translate}}</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='REJ'">Rejeter</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='APR'">
+                                                        {{data?.approver}} </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='REJ'">
+                                                        {{data?.approver}} </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='APR'">
+                                                        {{data?.remarks}} </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='REJ'">
+                                                        {{data?.remarks}} </td>
+                                                    <td *ngIf="data?.oprType==='D' && data?.status==='APR'">Departed
+                                                    </td>
+                                                    <td *ngIf="data?.oprType==='D' && data?.status==='APR'">
+                                                        {{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td *ngIf="data?.oprType==='D' && data?.status==='APR'">
+                                                        {{'VISAPENALITY.approver' | translate}} </td>
+                                                    <td *ngIf="data?.oprType==='D' && data?.status==='APR'">
+                                                        {{data?.approver}} </td>
+                                                    <td *ngIf="data?.oprType==='D' && data?.status==='APR'">
+                                                        {{data?.remarks}}</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">Deleguer
+                                                    </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.status}} </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.approver}} </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.remarks}} </td>
+                                                </tr>
+                                                <tr class="odd" *ngIf="(!arrivalDepartureList?.length) && (!loading)">
+                                                    <td style="text-align: center" colspan="10"
+                                                        class="dataTables_empty"><b>
+                                                            {{'RECORDS.NoRecords'|translate}}</b>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+
+                    <tab *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'||this.getToken('Role')==='BCO'||this.getToken('Role')==='DM'"
+                        heading=" {{'EVISAPROCESSING.Intelligence/Risk Profile'|translate}}">
+                        &nbsp;&nbsp;
+                        <p> {{'RECORDS.NoRecords'|translate}}</p>
+                    </tab>
+                    <tab *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'||this.getToken('Role')==='BCO'"
+                        heading=" {{'EVISAPROCESSING.NeedValidation'|translate}}">
+                        &nbsp;&nbsp;
+                        <div class="tabbable portlet-tabs">
+                            &nbsp;&nbsp;&nbsp;
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{'EVISAPROCESSING.ActionRole'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionBy'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.ActionDate'|translate}}</th>
+                                                    <th>{{'EVISAPROCESSING.Remark'|translate}}</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of needValidationHistory">
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">Border
+                                                        Control Officer</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.approver}} </td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.actionDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                                    <td *ngIf="data?.oprType==='A' && data?.status==='VAL'">
+                                                        {{data?.remarks}} </td>
+                                                </tr>
+                                                <tr class="odd" *ngIf="(!arrivalDepartureList?.length) && (!loading)">
+                                                    <td style="text-align: center" colspan="10"
+                                                        class="dataTables_empty"><b>
+                                                            {{'RECORDS.NoRecords'|translate}}</b>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row"
+    *ngIf=" (this.getToken('Role')==='DM' && this.getToken('docStatus')==='PEN') ||(this.getToken('Role')==='DMM' && (this.getToken('docStatus')==='VAL')) || (this.getToken('Role')==='BCO') || (this.getToken('Role') === 'SBCO')">
+    <div class="col-md-12">
+        <div class="form-actions fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" (click)="processApplication('APR',template)"
+                        class="btn btn-success">{{'EVISAPROCESSING.Granted'|translate}}</button>
+                    &nbsp;
+                    <button type="button" (click)="processApplication('REJ',template)" class="btn btn-danger"
+                        *ngIf="this.getToken('Role')!='BCO'">{{'EVISAPROCESSING.Reject'|translate}}</button>
+                    &nbsp;
+                    <button
+                        *ngIf="this.getToken('Role')==='DM' ||  this.getToken('Role')==='BCO' && this.getToken('arrDepIndicator') != 'AV'"
+                        type="button" (click)="processApplication('VAL',template)"
+                        class="btn default">{{'EVISAPROCESSING.NeedValidation'|translate}}</button>
+                    &nbsp;
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header" style="background-color: #5c99fe;">
+        <h4 class="modal-title pull-left">{{'EVISAPROCESSING.Add Remarks'|translate}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form class="form-horizontal" #activateForm="ngForm" (ngSubmit)='submitRemarks(activateForm,processingInfo)'>
+            <div class="row" *ngIf="((this.getToken('Role') === 'BCO') || (this.getToken('Role') === 'SBCO'))">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">{{'EVISAPROCESSING.Location'|translate}}
+                            <span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <select class="form-control" id="arrivalLocation" name="arrivalLocation" required
+                                maxlength="25" [(ngModel)]="processingInfo.arrivalLocation" required
+                                #arrivalLocation="ngModel">
+                                <option value="" disabled selected>{{'EVISAPROCESSING.arrivalLocation' |
+                                    translate }}</option>
+                                <option *ngFor="let data of locationDetails" value="{{data?.code}}">
+                                    {{data?.code}}-{{data?.description}}</option>
+                            </select>
+                            <div class="error-block"
+                                *ngIf="((submitted || arrivalLocation.touched) && arrivalLocation.invalid)">
+                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row" *ngIf="((this.getToken('Role') === 'BCO') || (this.getToken('Role') === 'SBCO'))">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">{{'EVISAPROCESSING.Carrier Number'|translate}}
+                            <span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <input type="text" cols="10" rows="5" class="form-control" id="carrierNo" name="carrierNo"
+                                placeholder="{{'EVISAPROCESSING.Carrier Number'|translate}}"
+                                [(ngModel)]="processingInfo.carrierNo" #carrierNo="ngModel" required maxlength="255">
+                            <div class="error-block" *ngIf="((submitted || carrierNo.touched) && carrierNo.invalid)">
+                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="((this.getToken('Role') === 'BCO') || (this.getToken('Role') === 'SBCO'))">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">{{'COMMON.Status'|translate}}
+                        </label>
+                        <div class="col-md-8">
+                            <input type="text" cols="10" rows="5" class="form-control" id="status" name="status"
+                                placeholder="{{'COMMON.Status'|translate}}" [disabled]="true"
+                                [(ngModel)]="processingInfo.status" #remarks="ngModel" required maxlength="255">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" *ngIf="isStatus === 'REJ' || isStatus ==='VAL' ">
+                        <label class="control-label col-md-4">{{'SUSPENDAGENT.Remarks'|translate}}
+                            <span class="required">*</span></label>
+                        <div class="col-md-8">
+                            <textarea type="text" cols="10" rows="5" class="form-control" id="remarks" name="remarks"
+                                placeholder="{{'SUSPENDAGENT.Remarks'|translate}}" [(ngModel)]="processingInfo.remarks"
+                                #remarks="ngModel" required maxlength="255"></textarea>
+                            <div class="error-block" *ngIf="((submitted || remarks.touched) && remarks.invalid)">
+                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group" *ngIf="isStatus === 'APR'">
+                        <label class="control-label col-md-4">{{'SUSPENDAGENT.Remarks'|translate}}
+                        </label>
+                        <div class="col-md-8">
+                            <textarea type="text" cols="10" rows="5" class="form-control" id="remarks" name="remarks"
+                                placeholder="{{'SUSPENDAGENT.Remarks'|translate}}" [(ngModel)]="processingInfo.remarks"
+                                #remarks="ngModel" maxlength="255"></textarea>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+                <button type="button" class="btn default"
+                    (click)="modalRef.hide()">{{'COMMON.Close'|translate}}</button>
+                <button type="submit" class="btn blue">{{'COMMON.Submit'|translate}}</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

@@ -1,0 +1,155 @@
+<br>
+<!-- BEGIN LOGIN -->
+<div class="login-content" *ngIf="isLogin">
+	<!-- <label > Language:</label>
+	<select #langSelect (change)="translate.use(langSelect.value);translateLang(langSelect.value)">
+		<option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+		
+	</select>	   -->
+
+	<!-- BEGIN LOGO -->
+	<div class="logo">
+		<h5>{{'LOGIN.MINISTRY'|translate}}</h5>
+		<h5>{{'LOGIN.GENERAL'|translate}}</h5>
+		<a href="landing.html">
+			<img src="assets/img/Emblem_of_Djibouti.png" alt="" style="width: 100px;"></a>
+		<h5>{{'LOGIN.EVISA'|translate}}</h5>
+	</div>
+	<!-- END LOGO -->
+
+	<!-- BEGIN LOGIN FORM -->
+	<form #loginForm='ngForm' (ngSubmit)='userLogin(loginForm,loginDetails)'>
+		<h3 class="form-title">{{'LOGIN.Signin' | translate }}</h3>
+
+		<div class="form-group">
+			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+			<label class="control-label visible-ie8 visible-ie9">{{'LOGIN.Username' | translate }}</label>
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off"
+					placeholder="{{'LOGIN.Username' | translate }}" name="username" id="username" maxlength="25"
+					[(ngModel)]="loginDetails.username" required #username="ngModel"
+					[ngClass]="{ 'is-invalid': loginForm.submitted && username.invalid }" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label visible-ie8 visible-ie9">{{'LOGIN.Password' | translate }}</label>
+			<div class="input-icon">
+				<i class="fa fa-lock"></i>
+				<input class="form-control placeholder-no-fix" [type]="show?'text':'password'" autocomplete="off"
+					placeholder="{{'LOGIN.Password' | translate }}" name="secretKey" id="secretKey" maxlength="25"
+					[(ngModel)]="loginDetails.secretKey" required #secretKey="ngModel"
+					[ngClass]="{ 'is-invalid': loginForm.submitted && secretKey.invalid }" />
+
+				<span style="position:absolute; right:35px; top:-1px; cursor: pointer;" (click)="onClick('secret')">
+					<i class="fa fa-eye" style="color: black" *ngIf="!show"></i>
+					<i class="fa fa-eye-slash" style="color: black" aria-hidden="true" *ngIf="show"></i>
+				</span>
+			</div>
+		</div>
+
+		<div class="form-group" style="margin-left: 20px;">
+			<label class="checkbox">
+				<input type="checkbox" name="remember" value="1" /> {{'LOGIN.Remember' | translate }}
+			</label>
+		</div>
+
+		<div class="form-actions">
+			<button type="submit" class="btn blue">
+				{{'LOGIN.Login' | translate }} <i class="m-icon-swapright m-icon-white"></i>
+			</button>
+		</div>
+		<div class="forget-password">
+			<h4>{{'LOGIN.Forgot' | translate }} </h4>
+			<p>
+				{{'LOGIN.No worries'|translate}} <a href="javascript:;"
+					(click)="forgotPassword()">{{'LOGIN.here'|translate}}</a>
+				{{'LOGIN.to reset your password'|translate}}
+			</p>
+		</div>
+		<!-- <div class="create-account">
+			<p>
+				Don't have an account yet ?&nbsp;
+				<a href="javascript:;" id="register-btn" (click)="register()">Create an account</a>
+			</p>
+		</div> -->
+	</form>
+
+
+</div>
+
+
+
+
+
+<div class="forgot-content" *ngIf="isForgot">
+
+	<!-- BEGIN LOGO -->
+	<div class="logo">
+		<!-- <a href="landing.html"><img src="assets/img/logo1.png" width="250px" alt="" /> </a> -->
+		<h5>{{'LOGIN.MINISTRY'|translate}}</h5>
+		<h5>{{'LOGIN.GENERAL'|translate}}</h5>
+		<a href="landing.html">
+			<img src="assets/img/Emblem_of_Djibouti.png" alt="" style="width: 100px;"></a>
+		<h5>{{'LOGIN.EVISA'|translate}}</h5>
+	</div>
+	<!-- END LOGO -->
+
+	<!-- BEGIN FORGOT PASSWORD FORM -->
+	<form #forgotForm='ngForm' (ngSubmit)='userForgotPassword(forgotForm,passwordDetails)'>
+		<h3>{{'LOGIN.Forget Password'|translate}}</h3>
+		<p>{{'LOGIN.Enter your e-mail'|translate}}</p>
+		<div class="form-group">
+			<div class="input-icon">
+				<i class="fa fa-envelope"></i>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email"
+					id="emailid" name="emailid" maxlength="75" [(ngModel)]="passwordDetails.emailid" #emailid="ngModel"
+					required pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$" />
+				<div class="error-block" *ngIf="((submitted || emailid.touched) && emailid.invalid )">
+					{{'COMMON.ERRORMESSAGES.Required'|translate}}
+				</div>
+				<p *ngIf="emailid.errors?.pattern" style="color:#b94a48;">
+					{{'EMPLOYEE.ERRORMESSSAGE.EmailValidation'|translate}}
+				</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="form-group">
+				<div class="captcha-container {{ config.cssClass}}">
+					<canvas id="captcahCanvas" width="316" height="80"></canvas>
+
+					<div class="captcha-actions">
+						<input type="text" [(ngModel)]="passwordDetails.captch_input" id='captch_input'
+							name='captch_input' #captch_input="ngModel" required (keyup)="checkCaptcha()" />
+						<a href="javascript:void(0)" class="cpt-btn" (click)="playCaptcha()">🔈</a>
+						<a href="javascript:void(0)" class="cpt-btn reload" (click)="createCaptcha()">&#x21bb;</a>
+						<div class="error-block" *ngIf="((submitted || captch_input.touched) && captch_input.invalid )">
+							{{'COMMON.ERRORMESSAGES.Required' | translate }}
+						</div>
+						<div class="error-block"
+							*ngIf="((submitted || captch_input.touched || captch_input.dirty) && (captch_input.valid) && (!isValidCaptcha))">
+							{{'COMMON.ERRORMESSAGES.captchaValidation'|translate}}
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class=" form-actions">
+			<button (click)="backToLogin('F')" type="button" class="btn">
+				<i class="m-icon-swapleft"></i> {{'COMMON.Back'|translate}}
+			</button>
+			<button type="submit" class="btn green pull-right">
+				{{'COMMON.Submit'|translate}} <i class="m-icon-swapright m-icon-white"></i>
+			</button>
+		</div>
+	</form>
+	<!-- END FORGOT PASSWORD FORM -->
+
+
+</div>
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>

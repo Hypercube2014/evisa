@@ -1,0 +1,145 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}}<small> &nbsp;
+                {{'PRODUCTCONFIG.ProductConfiguration'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'COMMON.ManagementCentre'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li *ngIf="isNew">{{'PRODUCTCONFIG.AddProductConfig'|translate}}
+                </li>
+            <li *ngIf="!isNew">
+                    {{'PRODUCTCONFIG.EditProductConfig'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption" *ngIf="isNew"><i
+                        class="fa fa-reorder"></i>{{'PRODUCTCONFIG.AddProductConfig'|translate}}
+
+                </div>
+                <div class="caption" *ngIf="!isNew"><i
+                        class="fa fa-reorder"></i>{{'PRODUCTCONFIG.EditProductConfig'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" #productConfigForm="ngForm"
+                    (ngSubmit)='submitForm(productConfigForm,productConfigDetails)'>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'PRODUCTCONFIG.ConfigurationFor'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <input [disabled]="!isNew" class='form-control text' autocomplete="off" type="text"
+                                    name="configCode" [(ngModel)]="productConfigDetails.configCode"
+                                    placeholder="{{'PRODUCTCONFIG.ConfigurationFor'|translate}}" id="configCode" required
+                                    (keydown)="AllowCharAndUnderScore($event)" #configCode="ngModel" />
+                                <div class="error-block"
+                                    *ngIf="((submitted || configCode.touched) && configCode.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                                <div class="error-block" *ngIf="result">
+                                    {{'COMMON.ERRORMESSAGES.Constraint'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'PRODUCTCONFIG.ConfigurationValue'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <input class='form-control text' autocomplete="off" type="text" name="configValue"
+                                    [(ngModel)]="productConfigDetails.configValue"
+                                    placeholder="{{'PRODUCTCONFIG.ConfigurationValue'|translate}}" id="configValue"
+                                    required  #configValue="ngModel" />
+
+                                <div class="error-block"
+                                    *ngIf="((submitted || configValue.touched) && configValue.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label
+                                class="col-md-3 control-label">{{'PRODUCTCONFIG.ConfigurationDescription'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <textarea class='form-control ' autocomplete="off" name="configDesc"
+                                    [(ngModel)]="productConfigDetails.configDesc"
+                                    placeholder="{{'PRODUCTCONFIG.ConfigurationDescription'|translate}}"
+                                    id="configDesc" required #configDesc="ngModel" rows="3"
+                                    maxlength="100"></textarea>
+                                <div class="error-block"
+                                    *ngIf="((submitted || configDesc.touched) && configDesc.invalid)">
+
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> {{'PRODUCTCONFIG.System'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="systemDetails" class="chosen-select"
+                                    placeholder="{{'PRODUCTCONFIG.System'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="productConfigDetails.system" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="system" #system="ngModel"
+                                    required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || system.touched) && system.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> {{'COMMON.Status'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="statusDetails" class="chosen-select"
+                                    placeholder="{{'COMMON.Status'|translate}}" [clearable]='true' [searchable]='false'
+                                    [(ngModel)]="productConfigDetails.status" bindLabel="name" bindValue="code"
+                                    [dropdownPosition]="'auto'" name="status" #status="ngModel" required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || status.touched) && status.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" class="btn blue" *ngIf="isNew">{{'COMMON.Submit'|translate}}
+                                </button>
+                                <button type="submit" class="btn blue" *ngIf="!isNew">{{'COMMON.Update'|translate}}
+                                </button>
+                                &nbsp;
+                                &nbsp;
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/product-config']">{{'COMMON.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}} <small> &nbsp; {{'ASSIGNAGENT.AssignAgent'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li> {{'COMMON.ManagementCentre'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'ASSIGNAGENT.AssignAgent'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'ASSIGNAGENT.AssignAgent'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" #assignAgentForm="ngForm"
+                    (ngSubmit)='submitForm(assignAgentForm,agentDetails)'>
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> {{'ASSIGNAGENT.Agent'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="suspendAgent" class="chosen-select"
+                                    placeholder="{{'ASSIGNAGENT.AssignAgent'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="agentDetails.agent" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="agent" #agent="ngModel" required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || agent.touched) && agent.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group last">
+                            <label class="col-md-3 control-label">{{'ASSIGNAGENT.ToManager'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="suspendAgent" class="chosen-select"
+                                    placeholder="{{'ASSIGNAGENT.ToManager'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="agentDetails.manager" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="manager" #manager="ngModel"
+                                    required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || manager.touched) && manager.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" class="btn blue">{{'COMMON.Submit'|translate}} </button>&nbsp;
+                                &nbsp;
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/dashboard']">{{'COMMON.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

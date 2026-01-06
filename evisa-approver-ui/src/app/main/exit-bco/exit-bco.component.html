@@ -1,0 +1,261 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'EXITBCO.eVisa Exit Processing'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="javascript:;" [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'PERFOMANCEREPORTS.eVisa'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'EXITBCO.Exit Processing'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-7">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-download"></i>{{'EXITBCO.Applicant Information'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+
+
+                <div class="row profile-account">
+                    <div class="col-md-3">
+                        <ul class="ver-inline-menu tabbable margin-bottom-10">
+                            <li>
+                                <img alt='' style="width: 150px;" [src]="Photograph" />
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>{{'EVISAPROCESSING.PersonalInformation'|translate}}:</h4>
+
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.Title'|translate}}:&nbsp;</strong>{{personalPreview?.title}}
+                                    </li>
+                                    <li><strong>{{'EVISAPROCESSING.FullName'|translate}}:</strong>
+                                        {{personalPreview?.givenName}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Gender'|translate}}:</strong>
+                                        {{personalPreview?.gender === 'M'? 'Male' : 'Female'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateofBirth'|translate}}:</strong>
+                                        {{personalPreview?.dateOfBirth | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.BirthPlace'|translate}}:</strong>
+                                        {{personalPreview?.birthPlace}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.BirthCountry'|translate}}:</strong>
+                                        {{personalPreview?.birthCountry}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Nationality'|translate}}:</strong>
+                                        {{personalPreview?.nationality}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CurrentNationality'|translate}}:</strong>
+                                        {{personalPreview?.currentNationality}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.Email'|translate}}:</strong>
+                                        {{personalPreview?.emailAddress}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.PhoneNumber'|translate}}:&nbsp;</strong>{{personalPreview?.phoneNumber}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6">
+
+                                <h4>{{'EVISAPROCESSING.Passport & TravelDetails'|translate}}:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EVISAPROCESSING.PassportNumber'|translate}}:</strong>
+                                        {{passportPreview?.passportNumber}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfIssue'|translate}}:</strong>
+                                        {{passportPreview?.issuedDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfExpiry'|translate}}:</strong>
+                                        {{passportPreview?.expiryDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.CountryofIssue'|translate}}:</strong>
+                                        {{passportPreview?.issuedCountry}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.PurposeofTravel'|translate}}:</strong>
+                                        {{passportPreview?.travelPurpose}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfArrivalinDjibouti'|translate}}:</strong>
+                                        {{passportPreview?.arrivalDate | date:'dd-MM-yyyy'}}</li>
+                                    <li><strong>{{'EVISAPROCESSING.DateOfDeparturefromDjibouti'|translate}}:</strong>
+                                        {{passportPreview?.departureDate | date:'dd-MM-yyyy'}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+
+                                <h4>{{'EXITBCO.Visa Information'|translate}}:</h4>
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EXITBCO.Visa Number'|translate}}:</strong>
+                                        {{successData?.applicationNumber}}</li>
+                                    <li><strong>{{'EXITBCO.Visa Expiry Date'|translate}}:</strong>
+                                        {{successData?.visaExpiryDate|date:'dd/MM/yyyy HH:mm:ss'}}</li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6">
+
+                                <ul class="list-unstyled">
+                                    <li><strong>{{'EXITBCO.Overstay Fine'|translate}}:</strong>
+                                        {{successData?.penalityAmount}} USD</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-md-9-->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box blue">
+
+                    <div class="portlet-title">
+                        <div class="caption"><i class="fa fa-reorder"></i>{{'EXITBCO.Exit Details'|translate}}</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+
+                        </div>
+                    </div>
+
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form action="#" class="form-horizontal" #activateForm="ngForm"
+                            (ngSubmit)='submitExit(activateForm,processingInfo)'>
+                            <div class="form-body">
+
+
+
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'EXITBCO.Overstayed'|translate}}
+                                    </label>
+                                    <div class="col-md-6">
+                                        {{successData?.penality?'YES':'NO'}}
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'EXITBCO.Exit Date &
+                                        Time'|translate}}</label>
+                                    <div class="col-md-6">
+                                        <input type="text" cols="10" rows="5" class="form-control" id="exitDate"
+                                            name="exitDate" placeholder="Carrier Number"
+                                            [(ngModel)]="processingInfo.exitDate" [disabled]="true" #exitDate="ngModel"
+                                            required maxlength="255">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-5">{{'EXITBCO.Location'|translate}}
+                                        <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="arrivalLocation" name="arrivalLocation"
+                                            required maxlength="25" [(ngModel)]="processingInfo.arrivalLocation"
+                                            required #arrivalLocation="ngModel">
+                                            <option value="" disabled selected>{{'EVISAPROCESSING.departureLocation' |
+                                                translate }}</option>
+                                            <option *ngFor="let data of locationDetails" value="{{data?.code}}">
+                                                {{data?.code}}-{{data?.description}}</option>
+                                        </select>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || arrivalLocation.touched) && arrivalLocation.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group last">
+                                    <label class="col-md-5 control-label">{{'EXITBCO.Exit Carrier'|translate}}<span
+                                            class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6">
+
+                                        <input type="text" cols="10" rows="5" class="form-control" id="carrierNo"
+                                            name="carrierNo" placeholder="{{'EVISAPROCESSING.Carrier Number'|translate}}"
+                                            [(ngModel)]="processingInfo.carrierNo" #carrierNo="ngModel" required
+                                            maxlength="255">
+                                        <div class="error-block"
+                                            *ngIf="((submitted || carrierNo.touched) && carrierNo.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group last">
+                                    <label class="col-md-5 control-label">{{'EXITBCO.Remarks'|translate}} <span
+                                            class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <textarea type="text" cols="10" rows="5" class="form-control" id="remarks"
+                                            name="remarks" placeholder="{{'EXITBCO.Remarks'|translate}}" [(ngModel)]="processingInfo.remarks"
+                                            #remarks="ngModel" required maxlength="255"></textarea>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || remarks.touched) && remarks.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions fluid">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn blue" type="submit" *ngIf="successData?.penalityAmount === 0 || this.getToken('Role') === 'SBCO'"> {{'EXITBCO.Exit Update'|translate}}
+                                        </button> &nbsp;
+                                        <button type="button" class="btn default"
+                                            [routerLink]='["/main/search-departure"]'>{{'COMMON.Cancel'|translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="portlet box blue">
+
+    <div class="portlet-title">
+        <div class="caption"><i class="fa fa-reorder"></i>{{'EVISAPROCESSING.Arrival/DepartureInfo'|translate}}</div>
+    </div>
+
+    <div class="portlet-body">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>{{'EVISAPROCESSING.Arrived Date'|translate}}</th>
+                    <th>{{'EVISAPROCESSING.Departured Date'|translate}}</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of arrivalDepartureList">
+                    <td>{{data?.arrivedDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{data.departedDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                </tr>
+                <tr class="odd" *ngIf="(!arrivalDepartureList?.length) && (!loading)">
+                    <td style="text-align: center" colspan="10" class="dataTables_empty"><b>
+                            {{'RECORDS.NoRecords'|translate}}</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ngx-ui-loader hasProgressBar=false fgsType="three-strings"></ngx-ui-loader>
+<!-- END PAGE CONTENT-->

@@ -1,0 +1,142 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'MENU.Manage Menu'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home' | translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'MENU.Menu Management'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li *ngIf='isNew'>{{'COMMON.AddNew'|translate}}</li>
+            <li *ngIf='!isNew'>{{'MENU.Edit Menu'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption" *ngIf='isNew'><i class="fa fa-reorder"></i>{{'COMMON.AddNew'|translate}}</div>
+                <div class="caption" *ngIf='!isNew'><i class="fa fa-reorder"></i>{{'MENU.Edit Menu'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal" #menuDetailsForm="ngForm"
+                    (ngSubmit)='submitForm(menuDetailsForm, menuDetails)'>
+
+                    <div class="form-body">
+
+                        <!-- label for menu code -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MENU.Menu Code'|translate}}<span
+                                    class="required">*</span> </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="menuCode" id="menuCode"
+                                    [(ngModel)]="menuDetails.menuCode" #menuCode="ngModel"
+                                    placeholder="{{'MENU.Menu Code'|translate}}" required />
+                                <div class="error-block" *ngIf="((submitted || menuCode.touched) && menuCode.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for menu description -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MENU.Menu Description'|translate}}<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+                                <textarea type="text" class="form-control" name="menuName" rows="5"
+                                    [(ngModel)]="menuDetails.menuName" #menuName="ngModel" id="menuName"
+                                    placeholder="{{'MENU.Menu Description'|translate}}" required>
+                                </textarea>
+                                <div class="error-block" *ngIf="((submitted || menuName.touched) && menuName.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for menu description in french -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MENU.Menu Description Other'|translate}}<span
+                                    class="required">*</span> </label>
+                            <div class="col-md-4">
+                                <textarea type="text" class="form-control" name="menuNameOther" rows="5"
+                                    [(ngModel)]="menuDetails.menuNameOther" #menuNameOther="ngModel" id="menuNameOther"
+                                    placeholder="{{'MENU.Menu Description Other'|translate}}" required>
+                                </textarea>
+                                <div class="error-block"
+                                    *ngIf="((submitted || menuNameOther.touched) && menuNameOther.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for module code -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MENU.Module Name'|translate}}<span
+                                    class="required">*</span> </label>
+                            <div class="col-md-4">
+                                <ng-select [items]="moduleDetails.content" class="chosen-select" name="moduleCode"
+                                    #moduleCode="ngModel" placeholder="Select {{'MENU.Module Name' | translate}}"
+                                    [clearable]='true' [searchable]='false' [(ngModel)]="menuDetails.moduleCode"
+                                    bindLabel="moduleDesc" bindValue="moduleCode" [dropdownPosition]="'auto'" required>
+                                </ng-select>
+                                <div class="error-block"
+                                    *ngIf="((submitted || moduleCode.touched) && moduleCode.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- label for status -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> {{'COMMON.Status'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="statusDetails" class="chosen-select" name="status" #status="ngModel"
+                                    placeholder="Select {{'COMMON.Status' | translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="menuDetails.status" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || status.touched) && status.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" class="btn blue" *ngIf='isNew'>
+                                    {{'COMMON.Submit'|translate}}</button>
+                                <button type="submit" class="btn blue" *ngIf='!isNew'>
+                                    {{'COMMON.Update'|translate}}</button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button type="button" [routerLink]="['/main/menu/menu-list']" routerLinkActive="active"
+                                    class="btn default">{{'COMMON.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

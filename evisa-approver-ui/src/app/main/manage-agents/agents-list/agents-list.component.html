@@ -1,0 +1,138 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'MANAGEAGENT.User Management'|translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="index.html">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'MANAGEAGENT.User Management'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li><a href="#">{{'MANAGEAGENT.Manage Agents'|translate}}</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-edit"></i>{{'MANAGEAGENT.Manage Agents'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <a href="javascript:;" [routerLink]="['/main/manage/agent-detail','new']"><button
+                                class="btn green">
+                                {{'COMMON.AddNew'|translate}} <i class="fa fa-plus"></i>
+                            </button></a>
+                    </div>
+
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                    <thead>
+                        <tr>
+                            <th>{{'MANAGEAGENT.Agent Id'|translate}}</th>
+                            <th>{{'MANAGEAGENT.Agent Name'|translate}}</th>
+                            <th>{{'MANAGEAGENT.Email-Id'|translate}}</th>
+                            <th>{{'MANAGEAGENT.Role'|translate}}</th>
+                            <th>{{'COMMON.Action'|translate}}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>640</td>
+                            <td>Alex Nilson</td>
+                            <td>Alex@gmail.com</td>
+                            <td>DM</td>
+                            <!-- <td class="center">power user</td> -->
+                            <td><a data-toggle="modal" href="#basic">Reset Password</a>&nbsp;<a
+                                    href="editDM.html">Edit</a></td>
+
+                        </tr>
+                        <tr>
+                            <td>700</td>
+                            <td>Lisa Wong</td>
+                            <td>Lisa@gmail.com</td>
+                            <td>DM</td>
+                            <!-- <td class="center">new user</td> -->
+                            <td><a data-toggle="modal" href="#basic">Reset Password</a>&nbsp;<a
+                                    href="editDM.html">Edit</a></td>
+                            <!-- <td><a class="delete" href="javascript:;">Delete</a></td> -->
+                        </tr>
+
+                        <tr>
+                            <td>722</td>
+                            <td>Sergio Jackson</td>
+                            <td>Sergio@gmail.com</td>
+                            <td>DM</td>
+                            <!-- <td class="center">elite user</td> -->
+                            <!-- <td><a class="edit" href="javascript:;">Edit</a></td> -->
+                            <!-- <td><a class="delete" href="javascript:;">Delete</a></td> -->
+                            <td><a data-toggle="modal" href="#basic">Reset Password</a>&nbsp;<a
+                                    href="editDM.html">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>765</td>
+                            <td>Antonio Sanches</td>
+                            <td>Antonio@grr.la</td>
+                            <td>DM</td>
+                            <!-- <td class="center">new user</td> -->
+                            <!-- <td><a class="edit" href="javascript:;">Edit</a></td> -->
+                            <!-- <td><a class="delete" href="javascript:;">Delete</a></td> -->
+                            <td><a data-toggle="modal" href="#basic">Reset Password</a>&nbsp;<a
+                                    href="editDM.html">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>876</td>
+                            <td>Nick Roberts</td>
+                            <td>Nick@gmail.com</td>
+                            <td>DM</td>
+                            <!-- <td><a  href="employeeProfile.html">Reset Password</a></td> -->
+                            <td><a data-toggle="modal" href="#basic">Reset Password</a>&nbsp;<a
+                                    href="editDM.html">Edit</a></td>
+                            <!-- <td class="center">new user</td> -->
+                            <!-- <td><a class="edit" href="javascript:;">Edit</a></td> -->
+                            <!-- <td><a class="delete" href="javascript:;">Delete</a></td> -->
+                            <!-- <td><a class="btn default" data-toggle="modal" href="#basic">Reset Password</a></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Reset Password</h4>
+            </div>
+            <div class="modal-body">
+                Are You sure want to reset your password?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">NON</button>
+                <button type="button" class="btn blue" data-dismiss="modal">OUI</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

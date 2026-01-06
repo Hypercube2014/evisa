@@ -1,0 +1,383 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      {{ "EVISASEARCH.eVisa Departure Processing" | translate }}
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="javascript:;" [routerLink]="['/main/dashboard']">{{
+          "COMMON.Home" | translate
+        }}</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        {{ "EVISASEARCH.eVisa" | translate }}<i class="fa fa-angle-right"></i>
+      </li>
+      <li>{{ "EVISASEARCH.Processing" | translate }}</li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+
+<div class="row" id="visaDetails">
+  <div class="col-md-12">
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-cogs"></i>{{ "EVISASEARCH.Visa Details" | translate }}
+        </div>
+        <div class="tools"></div>
+      </div>
+      <div class="portlet-body">
+        <div class="booking-search">
+          <form
+            class="form-horizontal"
+            #visaDetailForm="ngForm"
+            (ngSubmit)="applyFilter()"
+          >
+            <div class="row form-group">
+              <div class="col-md-4">
+                <label class="control-label">{{
+                  "EVISASEARCH.Application Number" | translate
+                }}</label>
+                <div class="input-icon">
+                  <i class="fa fa-map-marker"></i>
+                  <input
+                    class="form-control text"
+                    autocomplete="off"
+                    type="text"
+                    name="applicationNumber"
+                    [(ngModel)]="filterObj.applicationNumber"
+                    placeholder="{{
+                      'EVISASEARCH.Application Number' | translate
+                    }}"
+                    id="applicationNumber"
+                    #applicationNumber="ngModel"
+                    (keyup)="spaceTrim($event)"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label class="control-label">{{
+                  "EVISASEARCH.Passport Number" | translate
+                }}</label>
+                <div class="input-icon">
+                  <i class="fa fa-map-marker"></i>
+                  <input
+                    class="form-control text"
+                    autocomplete="off"
+                    type="text"
+                    name="passportNo"
+                    [(ngModel)]="filterObj.passportNo"
+                    placeholder="{{
+                      'EVISASEARCH.Passport Number' | translate
+                    }}"
+                    id="passportNo"
+                    #passportNo="ngModel"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="control-label">{{
+                  "EVISASEARCH.File Number" | translate
+                }}</label>
+                <div class="input-icon">
+                  <i class="fa fa-map-marker"></i>
+                  <input
+                    class="form-control text"
+                    autocomplete="off"
+                    type="text"
+                    name="fileNumber"
+                    [(ngModel)]="filterObj.fileNumber"
+                    placeholder="{{ 'EVISASEARCH.File Number' | translate }}"
+                    id="fileNumber"
+                    #fileNumber="ngModel"
+                  />
+                </div>
+              </div>
+
+              <!-- <div class="col-md-4">
+                <label class="control-label">{{
+                  "EVISASEARCH.Name" | translate
+                }}</label>
+                <div class="input-icon">
+                  <i class="fa fa-user"></i>
+                  <input
+                    class="form-control text"
+                    autocomplete="off"
+                    type="text"
+                    name="username"
+                    [(ngModel)]="filterObj.username"
+                    placeholder="{{ 'EVISASEARCH.Username' | translate }}"
+                    id="username"
+                    #username="ngModel"
+                  />
+                </div>
+              </div> -->
+
+              <div class="col-md-4" [hidden]="this.getToken('Role') === 'SBCO'">
+                <label class="control-label">{{
+                  "EVISASEARCH.Is Express Visa" | translate
+                }}</label>
+                <div class="input-icon">
+                  <i class="fa fa-envelope"></i>
+                  <ng-select
+                    [items]="visaStatus"
+                    class="chosen-select"
+                    placeholder="{{
+                      'EVISASEARCH.Is Express Visa' | translate
+                    }}"
+                    [clearable]="true"
+                    [searchable]="false"
+                    [(ngModel)]="filterObj.expressVisa"
+                    bindLabel="name"
+                    bindValue="code"
+                    [dropdownPosition]="'auto'"
+                    name="expressVisa"
+                    #expressVisa="ngModel"
+                    required
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group"></div>
+            <div class="row form-group">
+              <div class="col-md-4">
+                <button
+                  type="button"
+                  *ngIf="isFilterApplied"
+                  class="btn pull-left"
+                  (click)="resetFilter()"
+                >
+                  {{ "COMMON.ResetFilter" | translate }}
+                </button>
+                &nbsp;&nbsp;
+                <button class="btn blue" type="submit">
+                  {{ "EVISASEARCH.SEARCH" | translate }}
+                  <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+                &nbsp; &nbsp;
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="table-scrollable" *ngIf="result">
+          <table
+            class="table table-striped table-bordered table-hover"
+            id="sample_editable_1"
+          >
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  [appSort]="Applications"
+                  data-order="desc"
+                  data-name="applicationNumber"
+                  style="cursor: pointer"
+                >
+                  {{ "EVISASEARCH.Application No" | translate }} &nbsp;<i
+                    class="fa fa-sort"
+                  ></i>
+                </th>
+                <th
+                  scope="col"
+                  [appSort]="Applications"
+                  data-order="desc"
+                  data-name="applicationNumber"
+                  style="cursor: pointer"
+                >
+                  {{ "EVISASEARCH.File Number" | translate }} &nbsp;<i
+                    class="fa fa-sort"
+                  ></i>
+                </th>
+                <th>{{ "EVISASEARCH.Name" | translate }} & {{ "MYPROFILE.FatherName" | translate }}</th>
+                <th>{{ "EVISASEARCH.Passport Number" | translate }}</th>
+                <th>{{ "EVISASEARCH.Is Express Visa" | translate }}</th>
+                <th
+                  scope="col"
+                  [appSort]="Applications"
+                  data-order="desc"
+                  data-name="applicationNumber"
+                  style="cursor: pointer"
+                >
+                  {{ "EVISASEARCH.Date & Time Submitted" | translate }} &nbsp;<i
+                    class="fa fa-sort"
+                  ></i>
+                </th>
+                <!-- <th
+                  scope="col"
+                  [appSort]="Applications"
+                  data-order="desc"
+                  data-name="applicationNumber"
+                  style="cursor: pointer"
+                >
+                  {{ "EVISASEARCH.Date & Time Closed" | translate }} &nbsp;<i
+                    class="fa fa-sort-up"
+                  ></i
+                  ><i class="fa fa-sort-down"></i>
+                </th> -->
+                <!-- <th>{{ "EVISASEARCH.Status" | translate }}</th> -->
+                <th>{{ "DASHBOARD.ApplicationOutcome" | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="odd gradeX" *ngFor="let data of Applications">
+                <td
+                  *ngIf="
+                    this.getToken('Role') === 'DMM' ||
+                    this.getToken('Role') === 'DM'
+                  "
+                >
+                  <a
+                    href="javascript:;"
+                    (click)="clickApp(data?.fileNumber, data?.documentStatus)"
+                    [routerLink]="[
+                      '/main/evisaborderprocess',
+                      data.applicationNumber
+                    ]"
+                    >{{ data?.applicationNumber }}</a
+                  >
+                </td>
+
+                <td
+                  *ngIf="
+                    this.getToken('Role') === 'SBCO' ||
+                    this.getToken('Role') === 'BCO'
+                  "
+                >
+                  <a
+                    href="javascript:;"
+                    (click)="
+                      clickApp(
+                        data?.fileNumber,
+                        data?.documentStatus,
+                        data?.arrDepId
+                      )
+                    "
+                    [routerLink]="['/main/exit-bco', data.applicationNumber]"
+                    >{{ data?.applicationNumber }}</a
+                  >
+                </td>
+                <td>{{ data?.fileNumber }}</td>
+                <td style="text-transform: uppercase;">{{ data?.surname }} {{ data?.middleName }} {{ data?.givenName }}</td>
+                <td>{{ data?.passportNumber }}</td>
+                <td>{{ data?.expressVisa ? "OUI" : "NON" }}</td>
+                <td>
+                  {{ data?.submittedDate | date : "dd-MM-yyyy HH:mm:ss" }}
+                </td>
+                <!-- <td>{{ data?.closedDate | date : "dd-MM-yyyy HH:mm:ss" }}</td> -->
+                <td *ngIf="data?.documentStatus === 'SUB'">
+                  <span class="label label-sm label-success"
+                    >Pending Allocation</span
+                  >
+                </td>
+                <!-- <td *ngIf="data?.documentStatus === 'PEN'">
+                  <span class="label label-sm label-info"
+                    >Pending Approval</span
+                  >
+                </td>
+                <td *ngIf="data?.documentStatus === 'CLS'">
+                  <span class="label label-sm label-info">{{
+                    "EVISAARRDP.Closed" | translate
+                  }}</span>
+                </td>
+                <td *ngIf="data?.documentStatus === 'VAL'">
+                  <span class="label label-sm label-default">{{
+                    "EVISAARRDP.PENDING" | translate
+                  }}</span>
+                </td>
+                <td *ngIf="data?.documentStatus === 'DRA'">
+                  <span class="label label-sm label-info">Draft</span>
+                </td> -->
+                <td *ngIf="data?.visaStatus === 'APR'">
+                  <span class="label label-sm label-success">{{
+                    "EVISAARRDP.APPROVED DEPARTURE" | translate
+                  }}</span>
+                </td>
+                <td *ngIf="data?.visaStatus === 'REJ'">
+                  <span class="label label-sm label-danger">{{
+                    "EVISAARRDP.Rejected" | translate
+                  }}</span>
+                </td>
+                <td *ngIf="data?.visaStatus === 'UP'">
+                  <span class="label label-sm label-default"
+                    >Under Processing</span
+                  >
+                </td>
+              </tr>
+              <tr class="odd" *ngIf="!Applications.length && !loading">
+                <td
+                  style="text-align: center"
+                  colspan="10"
+                  class="dataTables_empty"
+                >
+                  <b> {{ "RECORDS.NoRecords" | translate }}</b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row" *ngIf="totalElements > 0">
+          <div class="col-md-4 col-sm-12">
+            <div class="btn-group">
+              <ng-select
+                (change)="rangeChanged(pagesize)"
+                [items]="rangeList"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="Select"
+                [(ngModel)]="pagesize"
+                [ngModelOptions]="{ standalone: true }"
+                [clearable]="false"
+                [searchable]="false"
+                [dropdownPosition]="'top'"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="dataTables_info" id="sample_editable_1_info">
+              {{ "PAGINATION.Showing" | translate }} {{ number * size + 1 }}
+              {{ "PAGINATION.to" | translate }}
+              {{ number * size + noofelements }}
+              {{ "PAGINATION.of" | translate }} {{ totalElements }}
+              {{ "PAGINATION.entries" | translate }}
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="dataTables_paginate paging_bootstrap">
+              <pagination
+                class="page"
+                [boundaryLinks]="showBoundaryLinks"
+                [rotate]="'true'"
+                [itemsPerPage]="pagesize"
+                name="currentPage"
+                ngDefaultControl
+                [totalItems]="totalItem"
+                [maxSize]="5"
+                [(ngModel)]="currentPage"
+                [ngModelOptions]="{ standalone: true }"
+                (pageChanged)="pageChanged($event)"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;"
+              >
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-ui-loader hasProgressBar="false" fgsType="three-strings"></ngx-ui-loader>

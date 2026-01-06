@@ -1,0 +1,122 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}} <small> &nbsp; {{'SUSPENDAGENT.AgentSuspension'|translate}} </small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li> {{'COMMON.ManagementCentre'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li><a [routerLink]="['/main/suspend']">{{'SUSPENDAGENT.AgentSuspension'|translate}}</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'SUSPENDAGENT.AgentSuspension'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" #suspendAgentForm="ngForm"
+                    (ngSubmit)='submitForm(suspendAgentForm,suspenAgentDetails)'>
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> {{'SUSPENDAGENT.Agent'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="suspendAgent" class="chosen-select"
+                                    placeholder="{{'SUSPENDAGENT.Agent'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="suspenAgentDetails.agent" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="agent" #agent="ngModel" required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || agent.touched) && agent.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> {{'SUSPENDAGENT.SuspensionReason'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="suspendAgent" class="chosen-select"
+                                    placeholder="{{'SUSPENDAGENT.SuspensionReason'|translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="suspenAgentDetails.reason" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="reason" #reason="ngModel"
+                                    required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || reason.touched) && reason.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'SUSPENDAGENT.EffectiveDate'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <input class='form-control text' autocomplete="off" type="text" name="effectiveDate"
+                                    [(ngModel)]="suspenAgentDetails.effectiveDate"
+                                    placeholder="{{'SUSPENDAGENT.EffectiveDate'|translate}}" id="effectiveDate" required
+                                    #effectiveDate="ngModel" bsDatepicker [bsConfig]="datePickerConfig" />
+                                <div class="error-block"
+                                    *ngIf="((submitted || effectiveDate.touched) && effectiveDate.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'SUSPENDAGENT.TillDate'|translate}}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <input class='form-control text' autocomplete="off" type="text" name="tillDate"
+                                    [(ngModel)]="suspenAgentDetails.tillDate" bsDatepicker [bsConfig]="datePickerConfig"
+                                    placeholder="{{'SUSPENDAGENT.TillDate'|translate}}" id="tillDate" required
+                                    #tillDate="ngModel" />
+                                <div class="error-block" *ngIf="((submitted || tillDate.touched) && tillDate.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                                <div class="error-block"
+                                            *ngIf="((submitted || tillDate.touched) && tillDate.valid &&  (suspenAgentDetails.effectiveDate &gt; suspenAgentDetails.tillDate))">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.DateValidation'|translate}}
+                                        </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'SUSPENDAGENT.Remarks'|translate}}</label>
+                            <div class="col-md-4">
+                                <input class='form-control text' autocomplete="off" type="text" name="remarks"
+                                    [(ngModel)]="suspenAgentDetails.remarks"
+                                    placeholder="{{'SUSPENDAGENT.Remarks'|translate}}" id="remarks"
+                                    #remarks="ngModel" />
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn blue">{{'COMMON.Submit'|translate}} </button>&nbsp;
+                                &nbsp;
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/dashboard']">{{'COMMON.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

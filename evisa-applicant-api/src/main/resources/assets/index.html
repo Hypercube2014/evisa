@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your E-Visa Payment Receipt</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/main.css"
+    />
+  </head>
+  <body>
+
+    <div class="container-fluid invoice-container">
+
+      <header>
+        <div class="row align-items-center">
+          <div class="col-sm-7 text-center text-sm-start mb-3 mb-sm-0">
+            <h2 style="margin-bottom: 0; font-weight: bold">EVISA DJIBOUTI</h2>
+          </div>
+          <div class="col-sm-5 text-center text-sm-end">
+            <h4 class="text-7 mb-0">Invoice</h4>
+          </div>
+        </div>
+        <hr />
+      </header>
+
+      <main>
+        <div class="row">
+          <div class="col-sm-6"><strong>Date:</strong> [[${datePaid}]]</div>
+          <div class="col-sm-6 text-sm-end">
+            <strong>Invoice No:</strong> [[${receiptNumber}]]
+          </div>
+        </div>
+        <hr />
+
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead class="card-header">
+                  <tr>
+                    <td class="col-3"><strong>Summary</strong></td>
+                    <td class="col-1 text-center"><strong>QTY</strong></td>
+                    <td class="col-1 text-end"><strong>Amount</strong></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-3">E-Visa Payment</td>
+                    <td class="col-4 text-center">1</td>
+                    <td class="col-2 text-end">$[[${amount}]].00</td>
+                  </tr>
+                </tbody>
+                <tfoot class="card-footer">
+                  <tr>
+                    <td colspan="2" class="text-end">
+                      <strong>Sub Total:</strong>
+                    </td>
+                    <td class="text-end">$[[${amount}]].00</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="text-end border-bottom-0">
+                      <strong>Total:</strong>
+                    </td>
+                    <td class="text-end border-bottom-0">$[[${amount}]].00</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <footer class="text-center mt-4">
+        <p class="text-1">
+          <strong>NOTE :</strong> If you have any questions, contact us at
+          <a href="mailto:support@evisa.dj">support@evisa.dj</a>.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

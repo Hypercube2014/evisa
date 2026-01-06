@@ -1,0 +1,230 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        .column {
+            float: left;
+            width: 50%
+        }
+
+        .notes-column {
+            float: left;
+            width: 75%
+        }
+
+        .imagecolumn {
+            float: right;
+        }
+
+        .text {
+            text-align: center;
+            display: inline-block;
+        }
+
+        .avt {
+            float: right;
+
+        }
+
+        .details {
+            float: left;
+            width: 75%;
+            padding-right: 26px;
+        }
+
+        .border {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 5px;
+            height: 20px;
+            text-align: left;
+            padding-left: 8px;
+        }
+
+        h4 {
+            text-align: center;
+        }
+
+        img {
+            height: 90px;
+        }
+
+        span {
+            font-size: large;
+        }
+
+        .notes-border {
+            border-style: groove;
+            border-color: rgba(238, 226, 226, 0.8);
+            border-radius: 10px;
+            height: 150px;
+            width: 100%;
+            padding-left: 8px;
+        }
+
+        .colheading {
+            float: left;
+            width: 33%
+        }
+
+        .spanheading {
+            text-align: center;
+            display: inline-block;
+            width: 25%;
+            margin-top: 22px;
+        }
+
+        .barcodeimage {
+            float: right;
+            width: 38%;
+        }
+
+        body {
+            height: 600px;
+            width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .personal-row {
+            padding-top: 13px;
+        }
+        
+        p {
+            margin-top: -16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="colheading">
+                <img th:src="@{classpath:images/logo1.png}" style="width:100px"></img>
+                <img th:src="@{classpath:images/logo2.JPG}" style="width:100px; height:90px;"></img>
+            </div>
+            <div class="spanheading">
+                <strong>République de Djibouti</strong>
+                <p> Unité-Egalité-Paix </p>
+            </div>
+            <div class="barcodeimage">
+                <img th:src="@{classpath:images/background.jpeg}" />
+                <div id="barcode" class="media" data-src="barcode.png" style="width:160px; height:80px; float: right;">
+            	</div>
+            </div>
+            
+        </div>
+        <h4> Numéro E-visa / E-Visa Number: [[${applicationNumber}]]</h4>
+        <div class="row">
+            <div class="column">
+                <table style="width:97%">
+                    <tr>
+                        <th class="border">Visa valid From :</th>
+                        <td class="border">[[${visaValidFrom}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Type Visa :</th>
+                        <td class="border">[[${visaEntry}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Purpose of Entries :</th>
+                        <td class="border">[[${reasonsForTravel}]]</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="column">
+                <table style="width:97%">
+                    <tr>
+                        <th class="border">Visa valid Until :</th>
+                        <td class="border">[[${visaValidTo}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Number of Entries :</th>
+                        <td class="border">[[${entryType}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Duration of Stay :</th>
+                        <td class="border">[[${durationStay}]]</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="float: left; width: 100%; ">
+            <table style="width:100%">
+                <tr>
+                    <th class="border">Visa Issuing Authority :</th>
+                    <td class="border">Republic of Djibouti Ministry of Foreign Affairs</td>
+                </tr>
+            </table>
+        </div>
+        <br />
+
+
+        <h4>Information Personnel/Personal Information</h4>
+        <div class="row" style="margin-bottom: 25% !important">
+            <div class="details">
+                <table style="width:100%">
+                    <tr>
+                        <th class="border" style="width:40%">Surname :</th>
+                        <td class="border">[[${lastName}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Name :</th>
+                        <td class="border">[[${firstName}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Date Of Birth :</th>
+                        <td class="border">[[${dateOfBirth}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Nationality :</th>
+                        <td class="border">[[${nationality}]]</td>
+                    </tr>
+                    <tr>
+                        <th class="border">Sex :</th>
+                        <td class="border">[[${gender}]]</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="avatar" class="media" data-src="avatar.png" style="width:135px; height:130px; float: right;">
+            </div>
+        </div>
+
+        <h4>Informations sur les documents de voyage/Travel document information</h4>
+        <table  >
+            <tr>
+                <th class="border" style="width:40%">Type :</th>
+                <td class="border">PASSEPORT</td>
+            </tr>
+            <tr>
+                <th class="border">Number :</th>
+                <td class="border">[[${passportNo}]]</td>
+            </tr>
+            <tr>
+                <th class="border">Date Of Issue :</th>
+                <td class="border">[[${issueDate}]]</td>
+            </tr>
+            <tr>
+                <th class="border">Date Of Expiry :</th>
+                <td class="border">[[${expiryDate}]]</td>
+            </tr>
+        </table>
+        <h4>Notes</h4>
+        <div class="row">
+            <div class="notes-column">
+                <div class="notes-border">
+                    <p>Do not change the password you applied for with the visa.</p>
+                    <p>Do not forget to take visa, it is recommended.</p>
+                </div>
+            </div>
+            <div id="logo" class="media" data-src="QRCode.png" style="width:150px; height:150px; float: right;">
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

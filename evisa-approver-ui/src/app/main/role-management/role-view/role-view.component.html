@@ -1,0 +1,141 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}}<small> &nbsp; {{'ROLE.RoleManagement'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']" >{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'ROLE.RoleManagement'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'ROLE.ViewRoleDetails'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'ROLE.ViewRoleDetails'|translate}} </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"> {{'ROLE.Code'|translate}}
+                                        :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.roleCode}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'ROLE.RoleDesc'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.roleDesc}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'ROLE.RoleDescInFrench'|translate}}
+                                        :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.roleDescOther}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.createdBy'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.createdBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.createdDate'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.createdDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row" *ngIf="roleDetails?.updatedBy">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.updatedBy'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.updatedBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row" *ngIf="roleDetails?.updatedDate">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.updatedDate'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.updatedDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'COMMON.Status'|translate}} :</label>
+                                    <div class="col-md-4">
+                                        <p class="form-control-static">{{roleDetails?.status=='Y'?'Active':'InActive'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/role-mgnt']">{{'COMMON.Close'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

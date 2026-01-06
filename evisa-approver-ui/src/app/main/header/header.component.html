@@ -1,0 +1,47 @@
+<!-- BEGIN HEADER -->
+<div class='header navbar navbar-inverse navbar-fixed-top'>
+	<!-- BEGIN TOP NAVIGATION BAR -->
+	<div class='header-inner' style="display: flex; align-items: center; justify-content: space-between">
+		<!-- BEGIN LOGO -->
+		<span class='newrta'> <!-- <img src='assets/img/logov2.png' alt='' width='200' height='40' /> --> <!-- <img src="assets/img/faviconTypo.png" alt="" width='200'> --></span>
+
+		<!-- END LOGO -->
+		<div>
+			<h4 class="text-noir" style="text-align: center !important; text-transform: uppercase;">{{'SIDEBAR.Ministry'|translate}}
+			</h4>
+		</div>
+		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+		<a href='javascript:;' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+			<img src='assets/img/menu-toggler.png' alt='' />
+		</a>
+		<!-- END RESPONSIVE MENU TOGGLER -->
+		<!-- BEGIN TOP NAVIGATION MENU -->
+
+		<ul class='nav navbar-nav pull-right'>
+			<!-- BEGIN USER LOGIN DROPDOWN -->
+			<li class='dropdown user'>
+				<a href='#' class='dropdown-toggle' data-toggle='dropdown' data-hover='dropdown'
+					data-close-others='true'>
+					<img alt='' style="width: 30px;"
+						[src]="(this.getToken('profilePic')?this.base64Image+this.getToken('profilePic'):'assets/img/profile/header-profile.png')" />&nbsp;
+					<span class='username'>{{getToken('username')}}
+					</span>
+					<i class='fa fa-angle-down'></i>
+				</a>
+				<ul class='dropdown-menu'>
+					<li><a routerLink='/main/my-profile'><i class='fa fa-user'></i>{{'HEADER.myProfile'|translate}}</a>
+					</li>
+					<li><a routerLink='/main/change-password'><i class='fa fa-key'></i>
+							{{'HEADER.changePassword'|translate}}</a></li>
+					<li class='divider'></li>
+					<li><a href='javascript:;' (click)="logout()"><i class='fa fa-key'></i> {{'HEADER.Logout'|
+							translate}}</a></li>
+				</ul>
+			</li>
+			<!-- END USER LOGIN DROPDOWN -->
+		</ul>
+		<!-- END TOP NAVIGATION MENU -->
+	</div>
+	<!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->

@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.lo {
+    color: #557cc4;
+    font-size: 7.7rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    padding-left: 20vh;
+}
+
+.lo span {
+    color: #ff0157;
+    font-size: 14.5rem;
+    font-family: 'Homemade Apple', cursive;
+    text-transform: lowercase;
+}
+
+.ministre {
+    text-align: center;
+    font-size: 1.8em;
+    color: #08275f;
+    float: left;
+    padding-left: 15px;
+    width: 40%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+span#gou {
+    color: #2ecc71;
+    font-size: 15px;
+}
+
+a {
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+p {
+    line-height: 1.9;
+}
+
+.tm-logo {
+    margin-right: 20px;
+    width: 180px;
+}
+
+.tm-slogan {
+    font-size: 0.8rem;
+}
+
+/* Navigation */
+
+.navbar-toggler {
+    padding: 8px 15px;
+    border: 0;
+    border-radius: 0;
+    transform: skewX(-15deg);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.navbar-toggler i {
+    transform: skewX(15deg);
+}
+
+.navbar-expand-lg {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding: 0;
+}
+
+.navbar-expand-lg .navbar-nav .tm-nav-link {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: white;
+    padding-bottom: 30px;
+}
+
+.nav-item {
+    margin-right: 60px;
+}
+
+.nav-item:last-child {
+    margin-right: 0;
+}
+
+.nav-item.active .tm-nav-link, .nav-item:hover .tm-nav-link {
+    color: rgb(223, 85, 80);
+}
+
+/* Page Background */
+
+.tm-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: -1000;
+}
+
+.tm-bg-left, .tm-bg-right {
+    position: relative;
+    width: 50%;
+    height: 100%;
+}
+
+.tm-bg-right {
+    background-color: rgba(68, 87, 255, 0.5);
+}
+
+.tm-bg-left {
+    border-right: 230px solid rgba(68, 87, 255, 0.5);
+    border-top: 100vh solid transparent;
+}
+
+.tm-bg-controls-wrapper {
+    display: inline-block;
+    margin-left: -150px;
+}
+
+.tm-bg-control {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 6px;
+    cursor: pointer;
+}
+
+.tm-bg-control.active, .tm-bg-control:hover {
+    background-color: white;
+}
+
+.tm-container {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tm-row {
+    display: flex;
+}
+
+.tm-col-left {
+    width: 50%;
+    height: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.tm-col-right {
+    width: 50%;
+    height: 100%;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.tm-content {
+    max-width: 660px;
+    margin-top: 50px;
+    padding-right: 20px;
+}
+
+.tm-about {
+    max-width: 525px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, .8);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .8);
+}
+
+.tm-content-title {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+hr {
+    border-top: 1px solid rgb(184, 178, 178);
+    margin-top: 50px;
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 0;
+    font-size: 16px;
+}
+
+.btn-big {
+    padding: 9px 40px;
+    font-size: 1.2rem;
+    
+}
+
+.btn-primary {
+    background-color: white;
+    color: #212529;
+    border: 0;
+}
+
+.btn-primary:hover {
+    background-color: #9CC;
+    color: #212529;
+}
+
+.tm-site-footer {
+    padding: 40px 0 20px;
+    max-width: 660px;
+    font-size: 1.55rem;
+}
+
+.tm-col-footer {
+    padding-left: 0;
+}
+
+.tm-text-link {
+    color: white;
+}
+
+.tm-text-link:hover, .tm-text-link:focus {
+    color: #9CC;
+}
+
+/* Service */
+
+.tm-service-text {
+    max-width: 365px;
+}
+
+.tm-service-img {
+    margin-right: 25px;
+}
+
+.tm-service-img-r {
+    margin-left: 25px;
+}
+
+/* Contact */
+
+.form-control, textarea {
+    color: white;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: none;
+    border-bottom: 1px solid #999A9B;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 10px 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.form-control:focus {
+    color: white;
+    background-color: transparent;
+    box-shadow: none;
+    border-color: #9CC;
+    outline: none;
+}
+
+.mb-85 {
+    margin-bottom: 85px;
+}
+
+.tm-contact-main {
+    max-width: 690px;
+}
+
+.tm-contact {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: white;
+}
+
+/* Edge */
+
+.form-control:-ms-input-placeholder {
+    color: white;
+}
+
+/* Internet Explorer 10-11 */
+
+.form-control::placeholder {
+    color: white;
+}
+
+/* Vos styles CSS ici */
+
+/* Styles spécifiques pour les appareils mobiles */
+@media screen and (max-width: 768px) {
+    .tm-row {
+        flex-direction: column;
+    }
+    .tm-col-left, .tm-col-right {
+        width: 100%;
+    }
+    .tm-content {
+        text-align: center;
+    }
+    .tm-sitename {
+        text-align: center;
+    }
+    .logo img {
+        width: 10%;
+    }
+    .ministre {
+        width: 100%;
+        text-align: center;
+    }
+    .tm-bg-controls-wrapper {
+        margin-left: 0;
+    }
+    .tm-site-footer {
+        max-width: none;
+    }
+    
+    a.btn-primary{
+        background-color: #bbf0d1;
+    }
+    a.tm-text-link{
+        color: #ffffff;
+    }
+
+    .tm-col-right.tm-col-footer.tm-col-right{
+    background-color: rgba(68, 87, 255, 0.5);
+
+    }
+    .tm-col-left.text-center{
+    background-color: rgba(68, 87, 255, 0.5);
+
+    }
+  
+}

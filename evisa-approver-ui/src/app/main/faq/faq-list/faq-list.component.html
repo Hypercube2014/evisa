@@ -1,0 +1,195 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'MANAGEFAQ.FAQ' | translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home' | translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'MANAGEFAQ.System Management' | translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'MANAGEFAQ.Manage FAQ' | translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+
+
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-edit"></i>{{'MANAGEFAQ.Manage FAQ' | translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" style="position: relative; top: -5px; color: #e5e5e5;"
+                        (click)="refreshPage()" tooltip="Refresh"><i class="fa fa-refresh"></i>
+                    </a>
+
+
+                    <a style="color:white;" class="nav-link pull-right" tooltip="Filter" href="javascript:;"
+                        data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample"> <i class="fa fa-filter" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+
+                <div class="collapse" id="collapseExample">
+
+                    <div class="portlet-body form">
+                        <div id="filterBlock" class="filter-block animated fadeInDown">
+                            <form #filterForm="ngForm" (ngSubmit)="applyFilter()">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-4">
+                                            <label>{{'MANAGEFAQ.Question' | translate}}</label>
+                                            <input class='form-control text' type="text" name="question"
+                                                [(ngModel)]="filterObj.question"
+                                                placeholder="{{'MANAGEFAQ.Question' | translate}}" id="question" required
+                                                #question="ngModel" autocomplete="off" />
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>{{'MANAGEFAQ.Answer'| translate}}</label>
+                                            <input class='form-control text' type="text" name="answer"
+                                                [(ngModel)]="filterObj.answer"
+                                                placeholder=" {{'MANAGEFAQ.Answer'| translate}}" id="answer" required
+                                                #answer="ngModel" autocomplete="off" />
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>{{'COMMON.Status' | translate}}</label>
+                                            <ng-select [items]="statusDetails" class="chosen-select"
+                                                placeholder="Select {{'COMMON.Status' | translate}}" [clearable]='true'
+                                                [searchable]='false' [(ngModel)]="filterObj.status" bindLabel="name"
+                                                bindValue="code" [dropdownPosition]="'auto'" name="status"
+                                                #status="ngModel" required>
+                                            </ng-select>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="form-actions fluid">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <button type="submit"
+                                                    class="btn blue pull-right">{{'COMMON.ApplyFilter'|translate}}</button>
+
+                                                <button type="button" *ngIf="isFilterApplied" class="btn  pull-right"
+                                                    (click)="resetFilter()">{{'COMMON.ResetFilter'|translate}}</button>
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <a> <button class="btn green" [routerLink]="['/main/faq/faq-detail/', 'new']"
+                                routerLinkActive="active"> {{'MANAGEFAQ.Add New FAQ' | translate}} <i
+                                    class="fa fa-plus"></i>
+                            </button></a>
+                    </div>
+                </div>
+
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-striped table-condensed flip-content"
+                        id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>{{'MANAGEFAQ.Question Id' | translate}}</th>
+                                <th>{{'MANAGEFAQ.Question' | translate}}</th>
+                                <th>{{'MANAGEFAQ.Question in French' | translate}}</th>
+                                <th>{{'MANAGEFAQ.Answer'| translate}}</th>
+                                <th>{{'MANAGEFAQ.Answer in French' | translate}}</th>
+                                <th>{{'MANAGEFAQ.FAQ Type' | translate}}</th>
+                                <th>{{'COMMON.Status' | translate}}</th>
+                                <th>{{'COMMON.Action' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ngx-ui-loader hasProgressBar=true fgsType="three-strings" ></ngx-ui-loader>
+                            <tr class="odd gradeX" *ngFor="let data of faqdata">
+                                <td>{{data?.faqId}}</td>
+                                <td class="ellipsis">{{data?.faqQuestion}}</td>
+                                <td class="ellipsis">{{data?.faqQuestionOther}}</td>
+                                <td class="ellipsis">{{data?.faqAnswer}}</td>
+                                <td class="ellipsis">{{data?.faqAnswerOther}}</td>
+                                <td>{{data?.faqType}}</td>
+                                <td *ngIf="data?.status=='Y' "><span class="label label-sm label-success">Active</span>
+                                </td>
+                                <td *ngIf="data?.status=='N' "><span
+                                        class="label label-sm label-warning">Inactive</span>
+                                </td>
+                                <td>
+                                    <a href="javascript:;" [routerLink]="['/main/faq/faq-detail/',data?.faqId]"
+                                        routerLinkActive="active"><i class="fa fa-pen"></i></a>
+
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:;" [routerLink]="['/main/faq/faq-view/',data?.faqId]">
+                                        <i class="fa fa-eye red"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="odd" *ngIf="(!faqdata.length) &&(!loading)">
+                                <td style="text-align: center" colspan="10" class="dataTables_empty"><b>
+                                        {{'RECORDS.NoRecords'|translate}}</b>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" *ngIf="totalItem>0">
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="btn-group">
+                            <ng-select (change)="rangeChanged(pagesize)" [items]="rangeList" bindLabel="name"
+                                bindValue="id" placeholder="Select" [(ngModel)]="pagesize"
+                                [ngModelOptions]="{standalone: true}" [clearable]='false' [searchable]='false'
+                                [dropdownPosition]="'top'">
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_info" id="sample_editable_1_info">{{'PAGINATION.Showing'|translate}}
+                            {{(number*size) + 1}} {{'PAGINATION.to'|translate}}
+                            {{(number*size) + noofelements}} {{'PAGINATION.of'|translate}} {{totalElements}}
+                            {{'PAGINATION.entries'|translate}}
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <pagination class="page" [boundaryLinks]="showBoundaryLinks" [rotate]="'true'"
+                                [itemsPerPage]='pagesize' name="currentPage" ngDefaultControl [totalItems]="totalItem"
+                                [maxSize]="5" [(ngModel)]="currentPage" [ngModelOptions]="{standalone: true}"
+                                (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+                                firstText="&laquo;" lastText="&raquo;">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>

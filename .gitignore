@@ -1,0 +1,16 @@
+# IDE
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+
+# Java / Spring
+target/
+classes/
+*.log
+
+# Node / Angular
+node_modules/
+dist/
+

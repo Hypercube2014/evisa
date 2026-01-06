@@ -1,0 +1,233 @@
+<!-- BEGIN SIDEBAR -->
+
+<div class='page-sidebar navbar-collapse collapse' style="height: calc(100vh - 4.25rem) !important; padding-top: 5px;">
+	<div
+		style="display: flex; flex-direction: column; justify-content: space-between; position: relative; height: calc(100vh - 52px);">
+		<div style="display: flex; flex-direction: column;">
+			<div class='user-panel text-center' style="margin-bottom: 14px;">
+				<div id='paneled'>
+					<div class='image'>
+						<img alt='' style="width: 100px; max-width: none; max-height: none;"
+							[src]="'assets/img/logoheader2.png'" />&nbsp;
+					</div>
+
+					<div style='text-align: center;'>
+						<p class="text-noir" style="font-size: 20px; text-transform: capitalize;">
+							{{getToken('username').split('.')[0]+' '+getToken('username').split('.')[1]}}</p>
+						<p class="text-noir" style="font-size: 14px;">
+							{{roleDetails.roleDesc}}</p>
+					</div>
+				</div>
+			</div>
+			<!-- BEGIN SIDEBAR MENU -->
+			<ul class='page-sidebar-menu'>
+
+
+				<li class='menu' routerLinkActive="active"
+					*ngIf="this.getToken('Role')==='DM'||this.getToken('Role')==='BCO'||this.getToken('Role')==='SBCO' || this.getToken('Role')==='SECRE'">
+					<a href='javascript:;' routerLink='/main/dashboard'>
+						<i class='fa fa-book'></i>
+						<span class='title'>{{'SIDEBAR.Dashboard' | translate }}</span></a>
+				</li>
+
+				<li routerLinkActive="active" *ngIf="this.getToken('Role')==='DMM'">
+					<a href='javascript:;' routerLink='/main/dashboardimo'>
+						<i class='fa fa-book'></i>
+						<span class='title'>{{'SIDEBAR.Dashboard' | translate }}</span></a>
+				</li>
+				<li class=''
+					*ngIf="this.getToken('Role')==='DM'||this.getToken('Role')==='DMM'||this.getToken('Role')==='SECRE'">
+					<a href='javascript:;'>
+						<i class='fa fa-book'></i>
+						<span class='title'>{{'SIDEBAR.ApplicationManagement'|translate}}</span>
+						<span class='arrow '></span>
+					</a>
+					<ul class='sub-menu'>
+						<li class='' *ngIf="this.getToken('Role')==='DMM'|| this.getToken('Role')==='SECRE'">
+							<a href='javascript:;' routerLink='/main/evisasearch' routerLinkActive="active">
+								{{'SIDEBAR.SearchVisa'|translate}}</a>
+						</li>
+						<li class='' *ngIf="this.getToken('Role')==='DM' ">
+							<a href='javascript:;' routerLink='/main/searchApplication' routerLinkActive="active">
+								{{'SIDEBAR.SearchVisa'|translate}}</a>
+						</li>
+
+
+						<!-- <li class=''
+							*ngIf="this.getToken('Role')==='DM'||this.getToken('Role')==='DMM' || this.getToken('Role')==='SECRE'">
+							<a href='javascript:;' routerLink='/main/extensionevisasearch' routerLinkActive="active">
+								{{'SIDEBAR.SearchExtension'|translate}}</a>
+						</li> -->
+
+						<li class=''
+							*ngIf="this.getToken('Role')==='DM'">
+							<a href='javascript:;' routerLink='/main/evisasearchdm' routerLinkActive="active">
+								{{'SIDEBAR.Search'|translate}}</a>
+						</li>
+						<!-- Sidbar telecharger visa-->
+						<li class=''
+							*ngIf="this.getToken('Role')==='DM' || this.getToken('Role')==='SECRE'">
+							<a href='javascript:;' routerLink='/main/visa-download' routerLinkActive="active">
+								{{'SIDEBAR.DownloadVisa'|translate}}</a>
+						</li>
+
+						<li class='' *ngIf="this.getToken('Role')==='BCO'||this.getToken('Role')==='SBCO'">
+							<a href='javascript:;' routerLink='/main/evisasearch' routerLinkActive="active">
+								{{'SIDEBAR.SearchVisaArrival'|translate}}</a>
+						</li>
+						<li class='' *ngIf="this.getToken('Role')==='BCO'||this.getToken('Role')==='SBCO'">
+							<a href='javascript:;' routerLink='/main/search-departure' routerLinkActive="active">
+								{{'SIDEBAR.Departure'|translate}}</a>
+						</li>
+						<li *ngIf="this.getToken('Role')==='DMM'">
+							<a href='javascript:;' routerLink='/main/detach' routerLinkActive="active">
+								{{'SIDEBAR.DetachApplications'|translate}}</a>
+						</li>
+					</ul>
+				</li>
+
+
+				<li class='menu' routerLinkActive="active" *ngIf="this.getToken('Role')==='SECRE'">
+					<a href='javascript:;' routerLink='/main/overstayList'>
+						<i class='fa fa-book'></i>
+						<span class='title'>{{'SIDEBAR.managementPenality' | translate }}</span></a>
+				</li>
+
+				<li class=''
+					*ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'||this.getToken('Role')==='ADM'">
+					<a href='javascript:;' routerLinkActive="active">
+						<i class='fa fa-user'></i>
+						<span class='title'>{{'SIDEBAR.AgentsManagement'|translate}}</span>
+						<span class='arrow '></span>
+					</a>
+					<ul class='sub-menu'>
+						<li class='' *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'">
+							<a href='javascript:;' routerLink='/main/employee-mgnt/employee-list'
+								routerLinkActive="active">
+								{{'SIDEBAR.ManageAgent'|translate}}</a>
+						</li>
+						<li *ngIf="this.getToken('Role')==='ADM'||this.getToken('Role')==='DMM'">
+							<a href='javascript:;' routerLink='/main/transfer-agent' routerLinkActive="active">
+								{{'SIDEBAR.TransferAgent'|translate}}</a>
+						</li>
+						<li *ngIf="this.getToken('Role')==='ADM'">
+							<!-- <a href='javascript:;' routerLink='/main/assign-agent' routerLinkActive="active">
+								{{'SIDEBAR.AssignAgent'|translate}}</a> -->
+							<a href='javascript:;' routerLink='/main/employee-mgnt/employee-list'
+								routerLinkActive="active">
+								{{'SIDEBAR.EmployeeBrowse'|translate}}</a>
+						</li>
+
+						<li *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'">
+							<a href='javascript:;' routerLink='/main/agent-tracker' routerLinkActive="active">
+								{{'SIDEBAR.AgentsTracker'|translate}}</a>
+						</li>
+					</ul>
+				</li>
+				<li class='' *ngIf="this.getToken('Role')==='BCO'||this.getToken('Role')==='SBCO'">
+					<a href='javascript:;' routerLink='/main/evisasearch'>
+						<i class='fas fa-plane-arrival'></i>
+						<span class='title'>{{'SIDEBAR.ArrivalApplication'|translate}}</span>
+					</a>
+				</li>
+				<li class='' *ngIf="this.getToken('Role')==='BCO'||this.getToken('Role')==='SBCO'">
+					<a href='javascript:;' routerLink='/main/search-departure'>
+						<i class='fas fa-plane-departure'></i>
+						<span class='title'>{{'SIDEBAR.DepartureApplication'|translate}}</span>
+					</a>
+				</li>
+				<li class='' *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'">
+					<a href='javascript:;'>
+						<i class='fa fa-calendar'></i>
+						<span class='title'>{{'SIDEBAR.ReportsManagement'|translate}}</span>
+						<span class='arrow '></span>
+					</a>
+					<ul class='sub-menu'>
+						<li *ngIf="this.getToken('Role')==='DMM'||this.getToken('Role')==='SBCO'">
+							<a href='javascript:;' routerLink='/main/perfomance-reports' routerLinkActive="active">
+								{{'SIDEBAR.ProcessReport'|translate}}</a>
+						</li>
+						<li *ngIf="this.getToken('Role')==='DMM'">
+							<a href='javascript:;' routerLink='/main/process-reports' routerLinkActive="active">
+								{{'SIDEBAR.PerformanceReport'|translate}}</a>
+						</li>
+					</ul>
+				</li>
+				<!-- <li class='' *ngIf="this.getToken('Role')==='ADM'">
+					<a href='javascript:;'>
+						<i class='fa fa-user'></i>
+						<span class='title'>{{'SIDEBAR.EmployeeManagement'|translate}}</span>
+						<span class='arrow '></span>
+					</a>
+					<ul class='sub-menu'>
+						<li>
+							<a href='javascript:;' routerLink='/main/employee-mgnt/employee-list' routerLinkActive="active">
+								{{'SIDEBAR.EmployeeBrowse'|translate}}</a>
+						</li>
+					</ul>
+				</li> -->
+
+				<li class='' *ngIf="this.getToken('Role')==='ADM'">
+					<a href='javascript:;'>
+						<i class='fa fa-cogs'></i>
+						<span class='title'>{{'SIDEBAR.ManagementCentre'|translate}}</span>
+						<span class='arrow '></span>
+					</a>
+					<ul class='sub-menu'>
+						<li>
+							<a href='javascript:;' routerLink='/main/code-maintenance/codes-list'
+								routerLinkActive="active">
+								{{'SIDEBAR.CodeMaintenance'|translate}}</a>
+						</li>
+						<li>
+							<a href='javascript:;' routerLink='/main/product-config/product-list'
+								routerLinkActive="active">
+								{{'SIDEBAR.ViewProdConfig'|translate}}</a>
+						</li>
+						<li>
+							<a href='javascript:;' routerLink='/main/role-mgnt/role-list' routerLinkActive="active">
+								{{'SIDEBAR.RoleManagment'|translate}}</a>
+						</li>
+						<li>
+							<a href='javascript:;' routerLink='/main/visa/visa-list' routerLinkActive="active">
+								{{'SIDEBAR.ManageVisa'|translate}}</a>
+						</li>
+
+						<li>
+							<a href='javascript:;' routerLink='/main/menu/menu-list' routerLinkActive="active">
+								{{'SIDEBAR.ManageMenu'|translate}}</a>
+						</li>
+						<li>
+							<a href='javascript:;' routerLink='/main/module/module-list' routerLinkActive="active">
+								{{'SIDEBAR.ManageModule'|translate}}</a>
+						</li>
+						<li>
+							<a href='javascript:;' routerLink='/main/faq/faq-list' routerLinkActive="active">
+								{{'SIDEBAR.FAQ'|translate}}</a>
+						</li>
+
+					</ul>
+				</li>
+
+
+
+
+				<div>
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+					<div class='sidebar-toggler hidden-phone' id='click'
+						style="position: absolute; top: 0; right: 0; background-color: #eee !important;"><i
+							class="fa fa-arrow-left" id="arrow" style="font-size: 20px !important;"></i></div>
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+				</div>
+
+			</ul>
+			<!-- END SIDEBAR MENU -->
+		</div>
+		<div style="text-align: center; position: fixed; bottom: 0; left: 14px; z-index: 100;" aria-label="footer">
+			2024 &copy; HYPERCUBE SOLUTION
+		</div>
+	</div>
+
+
+</div>
+<!-- END SIDEBAR -->

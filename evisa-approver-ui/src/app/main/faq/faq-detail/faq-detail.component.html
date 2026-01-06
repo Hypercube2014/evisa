@@ -1,0 +1,160 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'MANAGEFAQ.FAQ' | translate}}
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']" >{{'COMMON.Home' | translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'MANAGEFAQ.System Management' | translate}}<i class="fa fa-angle-right"></i></li>
+            <li *ngIf='!isNew'>{{'MANAGEFAQ.Edit FAQ'|translate}}</li>
+            <li *ngIf='isNew'>{{'MANAGEFAQ.Add FAQ'|translate}}</li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption" *ngIf='isNew'><i class="fa fa-reorder"></i> {{'MANAGEFAQ.Add FAQ'|translate}}
+                </div>
+                <div class="caption" *ngIf='!isNew'><i class="fa fa-reorder"></i> {{'MANAGEFAQ.Edit FAQ'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form action="#" class="form-horizontal" #faqDetailsForm="ngForm"
+                    (ngSubmit)='submitForm(faqDetailsForm, faqDetails)'>
+                    <div class="form-body">
+
+                        <!-- label for question -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEFAQ.Question' | translate}}<span
+                                    class="required">*</span> </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="faqQuestion"
+                                    placeholder="{{'MANAGEFAQ.Question' | translate}}" id="faqQuestion"
+                                    [(ngModel)]="faqDetails.faqQuestion" #faqQuestion="ngModel" maxlength="150"
+                                    style="width:130%;" required>
+                                <div class="error-block"
+                                    *ngIf="((submitted || faqQuestion.touched) && faqQuestion.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for Other question -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEFAQ.Question in French' | translate}}<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="faqQuestionOther"
+                                    placeholder="{{'MANAGEFAQ.Question in French' | translate}}" id="faqQuestionOther"
+                                    [(ngModel)]="faqDetails.faqQuestionOther" #faqQuestionOther="ngModel"
+                                    maxlength="150" style="width:130%;" required>
+                                <div class="error-block"
+                                    *ngIf="((submitted || faqQuestionOther.touched) && faqQuestionOther.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for answer -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEFAQ.Answer' | translate}}<span
+                                    class="required">*</span> </label>
+                            <div class="col-md-4 ">
+                                <textarea type="text" class="form-control"
+                                    placeholder="{{'MANAGEFAQ.Answer' | translate}}" name="faqAnswer" id="faqAnswer"
+                                    [(ngModel)]="faqDetails.faqAnswer" #faqAnswer="ngModel" required rows=5
+                                    style="width:130%;" maxlength="1000"></textarea>
+                                <div class="error-block"
+                                    *ngIf="((submitted || faqAnswer.touched) && faqAnswer.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- label for answer -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEFAQ.Answer in French' | translate}}<span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-4">
+                                <textarea type="text" class="form-control"
+                                    placeholder="{{'MANAGEFAQ.Answer in French' | translate}}" name="faqAnswerOther"
+                                    id="faqAnswerOther" [(ngModel)]="faqDetails.faqAnswerOther"
+                                    #faqAnswerOther="ngModel" rows=5 style="width: 130%;" maxlength="1000"
+                                    required></textarea>
+                                <div class="error-block"
+                                    *ngIf="((submitted || faqAnswerOther.touched) && faqAnswerOther.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for FAQ Type -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{'MANAGEFAQ.FAQ Type' | translate}}<span
+                                    class="required">*</span> </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="faqType"
+                                    placeholder="{{'MANAGEFAQ.FAQ Type' | translate}}" id="faqType"
+                                    [(ngModel)]="faqDetails.faqType" #faqType="ngModel" maxlength="10" required>
+                                <div class="error-block" *ngIf="((submitted || faqType.touched) && faqType.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- label for status -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="form-field-1"> {{'COMMON.Status' | translate}}
+                                <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="statusDetails" class="chosen-select"
+                                    placeholder="Select {{'COMMON.Status' | translate}}" [clearable]='true'
+                                    [searchable]='false' [(ngModel)]="faqDetails.status" bindLabel="name"
+                                    bindValue="code" [dropdownPosition]="'auto'" name="status" #status="ngModel"
+                                    required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || status.touched) && status.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" class="btn blue" *ngIf='isNew'>
+                                    {{'COMMON.Submit'|translate}}</button>
+                                <button type="submit" class="btn blue" *ngIf='!isNew'>
+                                    {{'COMMON.Update'|translate}}</button>
+
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button [routerLink]="['/main/faq/faq-list']" routerLinkActive="active" type="button"
+                                    class="btn default">{{'COMMON.Cancel' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

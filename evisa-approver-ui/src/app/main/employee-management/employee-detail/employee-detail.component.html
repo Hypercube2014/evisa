@@ -1,0 +1,492 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'EMPLOYEE.EmployeeManagement'|translate}}<small> &nbsp;{{'EMPLOYEE.EmployeeBrowse'|translate}} </small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']"
+                *ngIf="this.getToken('Role')==='ADM'">{{'COMMON.Home'|translate}}</a>
+            <a href="javascript:;" *ngIf="this.getToken('Role')==='SBCO' "
+                [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+            <a href="javascript:;" *ngIf="this.getToken('Role')==='DMM'"
+                [routerLink]="['/main/dashboardimo']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>{{'EMPLOYEE.EmployeeManagement'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li *ngIf="isNew">{{'EMPLOYEE.Add'|translate}}</li>
+            <li *ngIf="!isNew">{{'EMPLOYEE.Edit'|translate}} </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption" *ngIf="isNew"><i class="fa fa-reorder"></i>{{'EMPLOYEE.Add'|translate}}
+                </div>
+                <div class="caption" *ngIf="!isNew"><i class="fa fa-reorder"></i>{{'EMPLOYEE.Edit'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" #employeeDetailForm="ngForm"
+                    (ngSubmit)='submitForm(employeeDetailForm, employeeDetails)'>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.FullName'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input [disabled]="!isNew" class='form-control text' autocomplete="off"
+                                            type="text" name="fullName" [(ngModel)]="employeeDetails.fullName"
+                                            placeholder="{{'MYPROFILE.FullName'|translate}}" id="fullName" required
+                                            #fullName="ngModel" [disabled]='!isNew' (keyup)="onKeyCreateUsernameFromFirstName($event)" (input)="validateInput($event, 'string')"/>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || fullName.touched) && fullName.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf="isNew">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.UserName'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input [disabled]="!isNew" class='form-control text' autocomplete="off"
+                                            type="text" name="userName" [(ngModel)]="employeeDetails.userName"
+                                            placeholder="{{'MYPROFILE.UserName'|translate}}" id="userName" disabled
+                                            #userName="ngModel" (keyup)="onKeySearchUser($event)"
+                                            (keypress)="keyPressAlphaNumeric($event)" [value]="this.username" (input)="validateInput($event, 'string')">
+                                        <div class="error-block"
+                                            *ngIf="((submitted || userName.touched) && userName.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                        <div class="error-block" *ngIf="!isUserExists">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.UsernameValidation'|translate}}
+                                        </div>
+                                        <div class="error-block" *ngIf="result">
+
+                                            {{'EMPLOYEE.ERRORMESSSAGE.UsernameConstraint'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf="!isNew">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.UserName'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input [disabled]="!isNew" class='form-control text' autocomplete="off"
+                                            type="text" name="userName" [(ngModel)]="id"
+                                            placeholder="{{'MYPROFILE.UserName'|translate}}" id="userName" required
+                                            #userName="ngModel" />
+                                        <div class="error-block"
+                                            *ngIf="((submitted || userName.touched) && userName.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.FatherName'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            name="fatherName" [(ngModel)]="employeeDetails.fatherName"
+                                            placeholder="{{'MYPROFILE.FatherName'|translate}}" id="fatherName" required
+                                            #fatherName="ngModel" (keyup)="onKeyCreateUsernameFromLastName($event)" (input)="validateInput($event, 'string')"/>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || fatherName.touched) && fatherName.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.DateOfBirth'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            name="dateOfBirth" bsDatepicker [bsConfig]="dateValidationConfig"
+                                            [(ngModel)]="employeeDetails.dateOfBirth"
+                                            placeholder="{{'MYPROFILE.DateOfBirth'|translate}}" id="dateOfBirth"
+                                            required #dateOfBirth="ngModel" (ngModelChange)="onSelectdob($event)" />
+                                        <div class="error-block"
+                                            *ngIf="((submitted || dateOfBirth.touched) && dateOfBirth.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || dateOfBirth.touched) && dateOfBirth.valid && !dobError)">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.DateValidation'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.Gender'|translate}} <span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <ng-select [items]="genderDetails" class="chosen-select"
+                                            placeholder="{{'MYPROFILE.Gender'|translate}}" [clearable]='true'
+                                            [searchable]='false' [(ngModel)]="employeeDetails.gender" bindLabel="name"
+                                            bindValue="code" [dropdownPosition]="'auto'" name="gender" #gender="ngModel"
+                                            required>
+                                        </ng-select>
+                                        <span class="error-block"
+                                            *ngIf="((submitted || gender.touched) && gender.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.PlaceOfBirth'|translate}}</label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            name="placeOfBirth" [(ngModel)]="employeeDetails.placeOfBirth"
+                                            placeholder="{{'MYPROFILE.PlaceOfBirth'|translate}}" id="placeOfBirth"
+                                            #placeOfBirth="ngModel" (input)="validateInput($event, 'string')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="col-md-3 control-label">{{'MYPROFILE.CountryOfBirth'|translate}}</label>
+                                    <div class="col-md-8">
+                                        <ng-select [items]="countryList" class="chosen-select"
+                                            placeholder="{{'MYPROFILE.CountryOfBirth'|translate}}" [clearable]='true'
+                                            [searchable]='true' [(ngModel)]="employeeDetails.countryOfBirth"
+                                            bindLabel="description" bindValue="code" [dropdownPosition]="'auto'"
+                                            name="countryOfBirth" #countryOfBirth="ngModel">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.Nationality'|translate}} <span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <ng-select [items]="nationalityList" class="chosen-select"
+                                            placeholder="{{'MYPROFILE.Nationality'|translate}}" [clearable]='true'
+                                            [searchable]='true' [(ngModel)]="employeeDetails.nationality"
+                                            bindLabel="description" bindValue="code" [dropdownPosition]="'auto'"
+                                            name="nationality" #nationality="ngModel" required>
+                                        </ng-select>
+                                        <span class="error-block"
+                                            *ngIf="((submitted || nationality.touched) && nationality.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.Email'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="email" name="email"
+                                            pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$"
+                                            [(ngModel)]="employeeDetails.email"
+                                            placeholder="{{'MYPROFILE.Email'|translate}}" id="email" required
+                                            #email="ngModel" appBlockCopyPaste />
+                                        <div class="error-block"
+                                            *ngIf="((submitted || email.touched) && email.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                        <div class="error-block" *ngIf="email.invalid && email.errors?.pattern">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.EmailValidation'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" *ngIf="isNew">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.ConfirmEmail'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="email"
+                                            name="confirmEmail" [(ngModel)]="employeeDetails.confirmEmail"
+                                            placeholder="{{'MYPROFILE.ConfirmEmail'|translate}}" id="confirmEmail"
+                                            pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$" required
+                                            #confirmEmail="ngModel" appBlockCopyPaste (keyup)="onValidation()" />
+                                        <div class="error-block"
+                                            *ngIf="((submitted || confirmEmail.touched) && confirmEmail.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                        <div class="error-block" *ngIf="email.invalid && confirmEmail.errors?.pattern">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.EmailValidation'|translate}}
+                                        </div>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || confirmEmail.touched) && confirmEmail.valid &&  (!cnfmMail))">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.EmailMismatch'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="col-md-3 control-label">{{'MYPROFILE.PhysicallyChallanged'|translate}}</label>
+                                    <div class="col-md-8">
+                                        <input type="checkbox" name="physicallyChallanged" id="physicallyChallanged"
+                                            [(ngModel)]="employeeDetails.physicallyChallanged"
+                                            #physicallyChallanged="ngModel" bindLabel="name" bindValue="code">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.MobileNumber'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            (keypress)="AllowNumbers($event)" name="mobileNo"
+                                            [(ngModel)]="employeeDetails.mobileNo" minlength="6" maxlength="15"
+                                            placeholder="{{'MYPROFILE.MobileNumber'|translate}}" id="mobileNo" required
+                                            #mobileNo="ngModel" />
+                                        <div class="error-block"
+                                            *ngIf="((submitted || mobileNo.touched) && mobileNo.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                        <div class="error-block" *ngIf="mobileNo.invalid && mobileNo.dirty">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.MobNoValidation'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="col-md-3 control-label">{{'MYPROFILE.PersonalEmail'|translate}}</label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="email"
+                                            name="personalEmail" [(ngModel)]="employeeDetails.personalEmail"
+                                            pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$"
+                                            placeholder="{{'MYPROFILE.PersonalEmail'|translate}}" id="personalEmail"
+                                            #personalEmail="ngModel" (keyup)="onValidation()" />
+                                        <div class="error-block"
+                                            *ngIf="personalEmail.invalid && personalEmail.errors?.pattern">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.EmailValidation'|translate}}
+                                        </div>
+                                        <div class="error-block"
+                                            *ngIf="((personalEmail.touched && (personalEmail.valid)) && (!pmail))">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.EmailMatch'|translate}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.DateOfJoining'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text" bsDatepicker
+                                            [bsConfig]="datePickerConfig" name="dateOfJoining"
+                                            [(ngModel)]="employeeDetails.dateOfJoining"
+                                            (ngModelChange)="onSelectDate($event)"
+                                            placeholder="{{'MYPROFILE.DateOfJoining'|translate}}" id="dateOfJoining"
+                                            required #dateOfJoining="ngModel" [value]="employeeDateOfJoining" disabled/>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || dateOfJoining.touched) && dateOfJoining.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </div>
+                                        <div class="error-block"
+                                            *ngIf="((submitted || dateOfJoining.touched) && dateOfJoining.valid && !dateError)">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.DateValidation'|translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.EmergencyContactName'|translate}}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            name="emergencyContactName"
+                                            [(ngModel)]="employeeDetails.emergencyContactName"
+                                            placeholder="{{'MYPROFILE.EmergencyContactName'|translate}}"
+                                            id="emergencyContactName" #emergencyContactName="ngModel" (input)="validateInput($event, 'string')"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="col-md-3 control-label">{{'MYPROFILE.EmergencyContactNumber'|translate}}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input class='form-control text' autocomplete="off" type="text"
+                                            name="emergencyContactNumber" (keypress)="AllowNumbers($event)"
+                                            minlength="6" maxlength="15"
+                                            [(ngModel)]="employeeDetails.emergencyContactNumber"
+                                            placeholder="{{'MYPROFILE.EmergencyContactNumber'|translate}}"
+                                            id="emergencyContactNumber" #emergencyContactNumber="ngModel" />
+                                        <div class="error-block"
+                                            *ngIf="emergencyContactNumber.invalid && emergencyContactNumber.dirty">
+                                            {{'EMPLOYEE.ERRORMESSSAGE.MobNoValidation'|translate}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.BloodGroup'|translate}}</label>
+                                    <div class="col-md-8">
+                                        <ng-select [items]="bloodGroupDetails" class="chosen-select"
+                                            placeholder="{{'MYPROFILE.BloodGroup'|translate}}" [clearable]='true'
+                                            [searchable]='false' [(ngModel)]="employeeDetails.bloodGroup"
+                                            bindLabel="code" bindValue="code" [dropdownPosition]="'auto'"
+                                            name="bloodGroup" #bloodGroup="ngModel">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" *ngIf="this.getToken('Role')==='ADM'">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.Role-s'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <ng-select [items]="rolesList" class="chosen-select"
+                                            placeholder="{{'MYPROFILE.Role-s'|translate}}" [clearable]='true'
+                                            [searchable]='false' [(ngModel)]="employeeDetails.role" bindLabel="roleDesc"
+                                            bindValue="roleCode" [dropdownPosition]="'auto'" name="role" #role="ngModel"
+                                            required (change)="onSelect()">
+                                        </ng-select>
+                                        <span class="error-block" *ngIf="((submitted || role.touched) && role.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6" *ngIf="this.getToken('Role')==='SBCO'">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.Role-s'|translate}}<span
+                                            class="required">*</span></label>
+
+                                    <div class="col-md-8">
+                                        <ng-select [items]="rolessbco" class="chosen-select"
+                                                   placeholder="{{'MYPROFILE.Role-s'|translate}}" [clearable]='true'
+                                                   [searchable]='false' [(ngModel)]="employeeDetails.role" name="role"
+                                                   #role="ngModel" bindLabel="name" bindValue="code" required>
+                                        </ng-select>
+                                        <span class="error-block" *ngIf="((submitted || role.touched) && role.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </span>
+                                    </div>
+                                    <!--<div class="col-md-8">
+                                        <ng-select [items]="roles" class="chosen-select"
+                                                   placeholder="{{'MYPROFILE.Role-s'|translate}}" [clearable]='true' [searchable]='false'
+                                            [(ngModel)]="employeeDetails.role" name="role" #role="ngModel" bindValue="code"
+                                            bindLabel="roleDesc" bindValue="roleCode" required>
+                                        </ng-select>
+                                        <span class="error-block" *ngIf="((submitted || role.touched) && role.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </span>
+                                    </div>-->
+                                </div>
+
+                            </div>
+                            <div class="col-md-6" *ngIf="this.getToken('Role')==='DMM'">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">{{'MYPROFILE.Role-s'|translate}}<span
+                                            class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <ng-select [items]="roles" class="chosen-select"
+                                            placeholder="{{'MYPROFILE.Role-s'|translate}}" [clearable]='true'
+                                            [searchable]='false' [(ngModel)]="employeeDetails.role" name="role"
+                                            #role="ngModel" bindLabel="name" bindValue="code" required>
+                                        </ng-select>
+                                        <span class="error-block" *ngIf="((submitted || role.touched) && role.invalid)">
+                                            {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div *ngIf="this.getToken('Role')=='ADM'">
+                            <div class="row"
+                                *ngIf="employeeDetails.role === 'DM' || this.employeeDetails.role === 'BCO' ||  this.employeeDetails.role === 'SBCO' || this.employeeDetails.role === 'SECRE'">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">{{'MYPROFILE.ReportTo'|translate}}<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-8">
+                                            <ng-select [items]="value" class="chosen-select"
+                                                placeholder="{{'MYPROFILE.ReportTo'|translate}}" [clearable]='true'
+                                                [searchable]='false' [(ngModel)]="employeeDetails.reportingTo"
+                                                bindLabel="fullName" bindValue="username" [dropdownPosition]="'auto'"
+                                                name="reportingTo" #reportingTo="ngModel" required>
+                                            </ng-select>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" class="btn blue" *ngIf="isNew">{{'COMMON.Submit'|translate}}
+                                </button>
+                                <button type="submit" class="btn blue" *ngIf="!isNew">{{'COMMON.Update'|translate}}
+                                </button>
+                                &nbsp;
+                                &nbsp;
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/employee-mgnt']">{{'COMMON.Cancel'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

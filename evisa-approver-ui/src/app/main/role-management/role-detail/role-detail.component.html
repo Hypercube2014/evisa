@@ -1,0 +1,141 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}}<small> &nbsp; {{'ROLE.RoleManagement'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                {{'ROLE.RoleManagement'|translate}}
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li *ngIf="isNew">{{'ROLE.AddRole'|translate}}</li>
+            <li *ngIf="!isNew">{{'ROLE.UpdateRole'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row profile">
+    <div class="col-md-12">
+        <!--BEGIN TABS-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption" *ngIf="isNew"><i class="fa fa-reorder"></i>{{'ROLE.AddRole'|translate}}</div>
+                <div class="caption" *ngIf="!isNew"><i class="fa fa-reorder"></i>{{'ROLE.UpdateRole'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <tabset>
+                    <!-- Role Details Tab -->
+                    <tab heading="{{'ROLE.RoleDetail'|translate}}">
+                        <div class="tab-pane fade active in">
+                            <form class="form-horizontal" #roleDetailsForm="ngForm"
+                                (ngSubmit)='submitForm(roleDetailsForm,roleDetails)'>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <!-- Label for Code-->
+                                        <label class="col-md-3 control-label">{{'ROLE.Code'|translate}}<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-4">
+                                            <input [disabled]="!isNew" class='form-control text' autocomplete="off" type="text"
+                                                name="roleCode" [(ngModel)]="roleDetails.roleCode"
+                                                placeholder="{{'ROLE.Code'|translate}}" id="roleCode" required
+                                                #roleCode="ngModel" (keydown)="AllowCharAndUnderScore($event)" />
+                                            <div class="error-block"
+                                                *ngIf="((submitted || roleCode.touched) && roleCode.invalid)">
+                                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                            </div>
+                                            <div class="error-block" *ngIf="result">
+                                                {{'COMMON.ERRORMESSAGES.Constraint'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- Label for Description-->
+                                        <label class="col-md-3 control-label">{{'ROLE.RoleDesc'|translate}}<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-4">
+                                            <textarea class='form-control ' autocomplete="off" name="roleDesc"
+                                                [(ngModel)]="roleDetails.roleDesc"
+                                                placeholder="{{'ROLE.RoleDesc'|translate}}" id="roleDesc" required
+                                                #roleDesc="ngModel" rows="3" maxlength="100"></textarea>
+                                            <div class="error-block"
+                                                *ngIf="((submitted || roleDesc.touched) && roleDesc.invalid)">
+                                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- Label for Description In French-->
+                                        <label class="col-md-3 control-label">{{'ROLE.RoleDescInFrench'|translate}}<span
+                                                class="required">*</span></label>
+                                        <div class="col-md-4">
+                                            <textarea class='form-control ' autocomplete="off" name="roleDescOther"
+                                                [(ngModel)]="roleDetails.roleDescOther"
+                                                placeholder="{{'ROLE.RoleDescInFrench'|translate}}" id="roleDescOther"
+                                                required #roleDescOther="ngModel" rows="3" maxlength="100"></textarea>
+                                            <div class="error-block"
+                                                *ngIf="((submitted || roleDescOther.touched) && roleDescOther.invalid)">
+                                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- Label for Status-->
+                                        <label class="col-md-3 control-label"> {{'COMMON.Status'|translate}} <span
+                                                class="required">*</span></label>
+                                        <div class="col-md-4">
+                                            <ng-select [items]="statusDetails" class="chosen-select"
+                                                placeholder="  {{'COMMON.Status'|translate}}" [clearable]='true'
+                                                [searchable]='false' [(ngModel)]="roleDetails.status" bindLabel="name"
+                                                bindValue="code" [dropdownPosition]="'auto'" name="status"
+                                                #status="ngModel" required>
+                                            </ng-select>
+                                            <span class="error-block"
+                                                *ngIf="((submitted || status.touched) && status.invalid)">
+                                                {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-actions fluid">
+                                    <div class="text-center">
+                                        <button type="submit" class="btn blue"
+                                            *ngIf="isNew">{{'COMMON.Submit'|translate}}
+                                        </button>
+                                        <button type="submit" class="btn blue"
+                                            *ngIf="!isNew">{{'COMMON.Update'|translate}}
+                                        </button>
+                                        &nbsp;
+                                        &nbsp;
+                                        <button type="button" class="btn default"
+                                            [routerLink]="['/main/role-mgnt']">{{'COMMON.Cancel'|translate}}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                    <!-- Role Privileges Tab -->
+                    <tab heading="{{'ROLE.RolePrevilages'|translate}}">
+                        <p>Role previlages</p>
+                    </tab>
+                </tabset>
+                <div class="tab-content">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

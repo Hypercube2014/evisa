@@ -1,0 +1,123 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            {{'COMMON.ManagementCentre'|translate}}<small> {{'TRANSFERAGENT.TransferAgent'|translate}}</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li> {{'COMMON.ManagementCentre'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li> {{'TRANSFERAGENT.TransferAgent'|translate}}</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i> {{'TRANSFERAGENT.TransferAgent'|translate}}</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" #transferAgentForm="ngForm"
+                    (ngSubmit)='submitForm(transferAgentForm,transferAgentDetails)'>
+                    <div class="form-body">
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" *ngIf="this.getToken('Role')=='ADM'">
+                                {{'TRANSFERAGENT.FromManager'|translate}} <span class="required">*</span></label>
+                            <label class="col-md-3 control-label" *ngIf="this.getToken('Role')=='DMM'">From Senior
+                                Border Control <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [disabled]="selectedAgents.length" [items]="managersList"
+                                    class="chosen-select" placeholder="{{'TRANSFERAGENT.FromManager'|translate}} "
+                                    [clearable]='false' [searchable]='false'
+                                    [(ngModel)]="transferAgentDetails.fromManger" bindLabel="fullName"
+                                    bindValue="username" (change)="fromManager($event)"  [dropdownPosition]="'auto'"
+                                    name="fromManger" #fromManger="ngModel" required>
+                                </ng-select>
+                                <span class="error-block"
+                                    *ngIf="((submitted || fromManger.touched) && fromManger.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group" *ngIf="this.getToken('Role')=='ADM'">
+                            <label class="col-md-3 control-label"> Role <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="roleTypes" class="chosen-select" [disabled]="selectedAgents.length"
+                                    placeholder="{{'TRANSFERAGENT.FromManager'|translate}} " [clearable]='false'
+                                    [searchable]='false' [(ngModel)]="transferAgentDetails.role" bindLabel="name"
+                                    bindValue="code" (change)="fromRole($event)" [dropdownPosition]="'auto'" name="role"
+                                    #role="ngModel" required>
+                                </ng-select>
+                                <span class="error-block" *ngIf="((submitted || role.touched) && role.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group" *ngIf="isagentList">
+                            <label class="col-md-3 control-label">{{'TRANSFERAGENT.Agent'|translate}} <span
+                                    class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ngx-dual-listbox [items]="agentsList" [(selectedItems)]="selectedAgents">
+                                </ngx-dual-listbox>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-md-3 control-label" *ngIf="this.getToken('Role')=='ADM'">
+                                {{'TRANSFERAGENT.ToManager'|translate}} <span class="required">*</span></label>
+                            <label class="col-md-3 control-label" *ngIf="this.getToken('Role')=='DMM'">To Senior
+                                Border Control <span class="required">*</span></label>
+                            <div class="col-md-4">
+                                <ng-select [items]="tomanagersList" class="chosen-select"
+                                    placeholder="{{'TRANSFERAGENT.ToManager'|translate}}" [clearable]='false'
+                                    [searchable]='false' [(ngModel)]="transferAgentDetails.toManager"
+                                    bindLabel="fullName" bindValue="username" (click)="getManagers('T')"
+                                    [dropdownPosition]="'auto'" name="toManager" #toManager="ngModel" required>
+                                </ng-select>
+                                <span class="error-block"
+                                    *ngIf="((submitted || toManager.touched) && toManager.invalid)">
+                                    {{'COMMON.ERRORMESSAGES.Required'|translate}}
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="submit" [disabled]="!agentsList.length"
+                                    class="btn blue">{{'COMMON.Submit'|translate}} </button>&nbsp;
+                                &nbsp;
+                                <button type="button" class="btn default"
+                                    (click)="clearFields(transferAgentForm)">{{'COMMON.Clear'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>

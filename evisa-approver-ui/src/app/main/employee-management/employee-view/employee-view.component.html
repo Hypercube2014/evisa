@@ -1,0 +1,297 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h5 class="page-title">
+            {{'EMPLOYEE.EmployeeManagement'|translate}}<small> &nbsp;{{'EMPLOYEE.EmployeeBrowse'|translate}} </small>
+        </h5>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a [routerLink]="['/main/code-maintenance']"
+                *ngIf="this.getToken('Role')==='ADM'">{{'COMMON.Home'|translate}}</a>
+            <a href="javascript:;" *ngIf="this.getToken('Role')==='SBCO' "
+                [routerLink]="['/main/dashboard']">{{'COMMON.Home'|translate}}</a>
+            <a href="javascript:;" *ngIf="this.getToken('Role')==='DMM'"
+                [routerLink]="['/main/dashboardimo']">{{'COMMON.Home'|translate}}</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li> {{'EMPLOYEE.EmployeeManagement'|translate}}<i class="fa fa-angle-right"></i></li>
+            <li>{{'EMPLOYEE.ViewEmployeeDetails'|translate}}
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box blue">
+
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-reorder"></i>{{'EMPLOYEE.ViewEmployeeDetails'|translate}}
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal" role="form">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.FullName'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.fullName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.UserName'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{id}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.FatherName'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.fatherName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.DateOfBirth'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{employeeDetails?.dateOfBirth|date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.Gender'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static" *ngIf="employeeDetails?.gender==='M'">Male</p>
+                                        <p class="form-control-static" *ngIf="employeeDetails?.gender==='F'">Female</p>
+                                        <p class="form-control-static" *ngIf="employeeDetails?.gender==='O'">Others</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.PlaceOfBirth'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.placeOfBirth}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.CountryOfBirth'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.countryOfBirth}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.Nationality'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.nationality}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.Email'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.email}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.PhysicallyChallanged'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{employeeDetails?.physicallyChallanged===true?'OUI':'NON'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.MobileNumber'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.mobileNo}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.PersonalEmail'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.personalEmail}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.DateOfJoining'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{employeeDetails?.dateOfJoining|date:'dd/MM/yyyy'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.EmergencyContactName'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.emergencyContactName}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="col-md-5 control-label">{{'MYPROFILE.EmergencyContactNumber'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{employeeDetails?.emergencyContactNumber}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.BloodGroup'|translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.bloodGroup}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.Role-s'|translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.role}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf="employeeDetails?.reportingTo">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'MYPROFILE.ReportTo'|translate}} :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{roleCodeDetails?.fullName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'COMMON.createdBy'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.createdBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'COMMON.createdDate'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{employeeDetails?.createdDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6" *ngIf="employeeDetails?.updatedBy">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'COMMON.updatedBy'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">{{employeeDetails?.updatedBy}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6" *ngIf="employeeDetails?.updatedDate">
+                                <div class="form-group">
+                                    <label class="col-md-5 control-label">{{'COMMON.updatedDate'|translate}}
+                                        :</label>
+                                    <div class="col-md-6">
+                                        <p class="form-control-static">
+                                            {{employeeDetails?.updatedDate|date:'dd/MM/yyyy
+                                            HH:mm:ss'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions fluid">
+                            <div class="text-center">
+                                <button type="button" class="btn default"
+                                    [routerLink]="['/main/employee-mgnt']">{{'COMMON.Close'|translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
+    </div>
+</div>
